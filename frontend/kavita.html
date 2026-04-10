@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Kavita - Hindi Poems on Niharika</title>
+  <meta name="description" content="Explore thousands of Hindi kavita, doha, nazm, bhajan and more on Niharika - India's finest poetry platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .kavita-page-grid{display:grid;grid-template-columns:1fr 340px;gap:32px}
+    .kavita-list-wrap{display:flex;flex-direction:column;gap:18px}
+    @media(max-width:900px){.kavita-page-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-scroll"></i> Niharika - 45,000+ Kavita</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="kavita.html" class="nav-link active"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> BLOG</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+    </ul></nav>
+  </div>
+</header>
+<section style="background:linear-gradient(135deg,var(--espresso) 0%, var(--crimson-deep) 100%);padding:60px 0;text-align:center">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center">KAVITA SANGRAH</div>
+    <h1 style="font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px">Kavita</h1>
+    <p style="color:rgba(255,255,255,0.65);font-size:17px;max-width:500px;margin:0 auto">From timeless dohas to modern aphorisms - the complete poetry collection on Niharika</p>
+  </div>
+</section>
+<section class="section section-alt">
+  <div class="container">
+    <div style="display:flex;gap:8px;margin-bottom:28px;border-bottom:2px solid var(--border-2);padding-bottom:0;flex-wrap:wrap">
+      <button class="tab-pill active" data-form="all">All</button>
+      <button class="tab-pill" data-form="Doha">Doha</button>
+      <button class="tab-pill" data-form="Kavita">Kavita</button>
+      <button class="tab-pill" data-form="Nazm">Nazm</button>
+      <button class="tab-pill" data-form="Bhajan">Bhajan</button>
+      <button class="tab-pill" data-form="Aphorism">Aphorism</button>
+    </div>
+    <div class="kavita-page-grid">
+      <div>
+        <div class="kavita-list-wrap" id="kavitaList">
+          <div style="text-align:center;padding:80px;color:var(--muted)"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+        </div>
+      </div>
+      <aside>
+        <div class="widget">
+          <div class="widget-header"><span class="widget-title"><i class="fas fa-quote-left"></i> Rajan Rai's Thought</span></div>
+          <p class="quote-text-display" id="sideQuote">"A man can do anything, when he realises he is a man."</p>
+          <p class="quote-author-display">- Rajan Rai, Founder of Niharika</p>
+        </div>
+        <div class="widget wod-widget">
+          <div class="widget-header"><span class="widget-title"><i class="fas fa-star"></i> Word of the Day</span></div>
+          <div class="wod-hindi hindi">कविता</div>
+          <div class="wod-roman">KAVITA</div>
+          <div class="wod-meaning">Poetry; a literary form expressing emotions and ideas through rhythm and language.</div>
+        </div>
+        <div class="widget">
+          <div style="font-size:13px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:14px">QUICK LINKS</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="poets.html" class="btn btn-crimson"><i class="fas fa-feather-alt"></i> Explore Poets</a>
+            <a href="dictionary.html" class="btn btn-gold"><i class="fas fa-book"></i> Niharika Dictionary</a>
+            <a href="chatbot.html" class="btn" style="background:var(--espresso);color:white;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;justify-content:center"><i class="fas fa-robot"></i> Ask Sakhi</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="chatbot.html">Sakhi</a><a href="dictionary.html">Dictionary</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+let allPoems = [];
+async function loadPoems() {
+  const r = await NiharikaAPI.getPoems();
+  allPoems = r?.data?.length ? r.data : FB_POEMS;
+  renderPoems(allPoems);
+}
+function renderPoems(poems) {
+  document.getElementById('kavitaList').innerHTML = poems.length ? poems.map((p, i) => `
+    <article class="poem-card reveal">
+      <span class="poem-number">${i + 1}</span>
+      <div class="poem-form-tag">${p.form}</div>
+      <div class="poem-text ${/[\u0900-\u097F]/.test(p.text) ? 'hindi' : ''}">${p.text.replace(/\n/g,'<br>')}</div>
+      ${p.hindi && p.hindi !== p.text ? `<div class="poem-translation hindi">${p.hindi.replace(/\n/g,'<br>')}</div>` : ''}
+      <div class="poem-footer">
+        <a href="poet-profile.html?id=${p.poetId}" class="poem-poet-name">${p.poet}</a>
+        <div class="poem-actions">
+          <button class="btn-icon" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g,"\\'")} - ${p.poet}').then(()=>showToast('Copied!'))"><i class="fas fa-copy"></i></button>
+          <button class="btn-icon" onclick="showToast('Saved!')"><i class="fas fa-bookmark"></i></button>
+        </div>
+      </div>
+      <div class="poem-likes"><i class="fas fa-heart"></i> ${fmt(p.likes)} likes</div>
+    </article>
+  `).join('') : '<div style="text-align:center;padding:60px;color:var(--muted)">No poems found in this category.</div>';
+  initReveal && initReveal();
+}
+document.querySelectorAll('.tab-pill[data-form]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-pill[data-form]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const form = btn.dataset.form;
+    renderPoems(form === 'all' ? allPoems : allPoems.filter(p => p.form === form));
+  });
+});
+document.addEventListener('DOMContentLoaded', loadPoems);
+</script>
+</body>
+</html>

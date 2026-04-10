@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Niharika Quiz - Test Your Hindi Poetry Knowledge</title>
+  <meta name="description" content="Test your Hindi poetry knowledge with 500+ questions on Niharika. Challenge yourself on Kabir, Mirabai, Rajan Rai, Chhayawad and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .quiz-page-hero{background:linear-gradient(135deg,var(--espresso),var(--crimson-deep));padding:64px 0;text-align:center}
+    .quiz-page-hero h1{font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px}
+    .quiz-page-hero p{color:rgba(255,255,255,0.65);font-size:17px;max-width:500px;margin:0 auto 32px}
+    .quiz-full-wrap{max-width:720px;margin:60px auto;background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:40px}
+    .quiz-progress{height:6px;background:var(--border-2);border-radius:3px;margin-bottom:18px;overflow:hidden}
+    .quiz-progress-bar{height:100%;background:linear-gradient(90deg,var(--crimson),var(--gold));border-radius:3px;transition:width 0.5s ease}
+    .quiz-meta{font-size:12.5px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:22px}
+    .quiz-question{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:28px}
+    .quiz-options{display:flex;flex-direction:column;gap:12px}
+    .quiz-option{padding:14px 20px;border:2px solid var(--border-2);border-radius:12px;font-size:15px;text-align:left;transition:var(--t2);display:flex;align-items:center;gap:14px;cursor:pointer;background:white}
+    .quiz-option:hover:not(:disabled){border-color:var(--crimson);background:var(--crimson-light)}
+    .quiz-option.correct{border-color:#22c55e;background:#f0fdf4;color:#166534}
+    .quiz-option.wrong{border-color:#ef4444;background:#fef2f2;color:#991b1b}
+    .quiz-option-letter{width:32px;height:32px;border-radius:50%;background:var(--surface);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+    .quiz-start-screen{text-align:center;padding:40px 20px}
+    .quiz-result-screen{text-align:center;padding:20px}
+    .result-emoji{font-size:64px;margin-bottom:16px}
+    .result-score-big{font-family:var(--font-display);font-size:60px;font-weight:700;color:var(--crimson);line-height:1}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-trophy"></i> Niharika Quiz - 500+ Questions</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="quiz.html" class="nav-link active"><i class="fas fa-question-circle"></i> QUIZ</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<section class="quiz-page-hero">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center"><i class="fas fa-trophy"></i> NIHARIKA QUIZ</div>
+    <h1>Test Your Knowledge</h1>
+    <p>From Kabir's dohas to Rajan Rai's philosophy - challenge yourself on Hindi literature</p>
+    <div style="display:flex;gap:28px;justify-content:center;flex-wrap:wrap">
+      <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:white">50K+</div><div style="font-size:13px;color:rgba(255,255,255,0.5)">Players</div></div>
+      <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:var(--gold)">500+</div><div style="font-size:13px;color:rgba(255,255,255,0.5)">Questions</div></div>
+      <div style="text-align:center"><div style="font-size:32px;font-weight:800;color:white">10</div><div style="font-size:13px;color:rgba(255,255,255,0.5)">Categories</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="quiz-full-wrap">
+    <div id="quizArea"></div>
+  </div>
+</div>
+
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="poets.html">Poets</a><a href="chatbot.html">Sakhi</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+let quizQs = [], qIdx = 0, qScore = 0;
+
+async function initQuiz() {
+  const r = await NiharikaAPI.getQuiz();
+  quizQs = r?.data?.length ? [...r.data] : [...FB_QUIZ];
+  quizQs.sort(() => Math.random() - 0.5);
+  showStart();
+}
+
+function showStart() {
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-start-screen">
+      <div style="font-size:64px;margin-bottom:20px">🏆</div>
+      <h2 style="font-family:var(--font-display);font-size:32px;margin-bottom:12px">Niharika Poetry Quiz</h2>
+      <p style="color:var(--muted);margin-bottom:32px;line-height:1.7">Test your knowledge of Hindi poetry, poets, literary terms, and Rajan Rai's philosophy.<br><strong>${quizQs.length} questions</strong> - take your time!</p>
+      <button class="btn btn-crimson" style="padding:16px 40px;font-size:16px;border-radius:30px" onclick="startQuiz()">
+        <i class="fas fa-play"></i> Start Quiz
+      </button>
+    </div>
+  `;
+}
+
+function startQuiz() { qIdx = 0; qScore = 0; renderQ(); }
+
+function renderQ() {
+  const area = document.getElementById('quizArea');
+  if (qIdx >= quizQs.length) { showResult(); return; }
+  const q = quizQs[qIdx];
+  const pct = Math.round((qIdx / quizQs.length) * 100);
+  area.innerHTML = `
+    <div class="quiz-progress"><div class="quiz-progress-bar" style="width:${pct}%"></div></div>
+    <div class="quiz-meta">QUESTION ${qIdx + 1} OF ${quizQs.length} &nbsp;|&nbsp; SCORE: ${qScore}</div>
+    <div class="quiz-question">${q.question}</div>
+    <div class="quiz-options">
+      ${q.options.map((o, i) => `
+        <button class="quiz-option" onclick="answerQ(this,${i},${q.answer})">
+          <span class="quiz-option-letter">${String.fromCharCode(65 + i)}</span>${o}
+        </button>
+      `).join('')}
+    </div>
+    <div id="qFeedback" style="margin-top:16px;min-height:22px;font-size:14px;font-weight:600;color:var(--muted)"></div>
+  `;
+}
+
+function answerQ(btn, sel, correct) {
+  document.querySelectorAll('.quiz-option').forEach(o => o.disabled = true);
+  document.querySelectorAll('.quiz-option')[correct].classList.add('correct');
+  if (sel !== correct) {
+    btn.classList.add('wrong');
+    document.getElementById('qFeedback').innerHTML = '<span style="color:#ef4444">Wrong! See the correct answer highlighted.</span>';
+  } else {
+    qScore++;
+    document.getElementById('qFeedback').innerHTML = '<span style="color:#22c55e">Correct! Well done.</span>';
+  }
+  setTimeout(() => { qIdx++; renderQ(); }, 1700);
+}
+
+function showResult() {
+  const pct = Math.round((qScore / quizQs.length) * 100);
+  const emoji = pct >= 80 ? '🏆' : pct >= 50 ? '📚' : '🌱';
+  const msg = pct >= 80 ? 'Outstanding! You are a true poetry scholar.' : pct >= 50 ? 'Good effort! Keep reading Niharika.' : 'Keep exploring - poetry is a lifelong journey.';
+  document.getElementById('quizArea').innerHTML = `
+    <div class="quiz-result-screen">
+      <div class="result-emoji">${emoji}</div>
+      <h2 style="font-family:var(--font-display);font-size:30px;margin-bottom:8px">Quiz Complete!</h2>
+      <div class="result-score-big">${qScore} / ${quizQs.length}</div>
+      <p style="color:var(--muted);margin:16px 0 8px">${pct}% correct</p>
+      <p style="font-size:15px;color:var(--text);margin-bottom:32px">${msg}</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-crimson" style="padding:14px 32px" onclick="startQuiz()"><i class="fas fa-redo"></i> Play Again</button>
+        <a href="poets.html" class="btn btn-gold" style="padding:14px 32px"><i class="fas fa-feather-alt"></i> Explore Poets</a>
+      </div>
+    </div>
+  `;
+}
+
+document.addEventListener('DOMContentLoaded', initQuiz);
+</script>
+</body>
+</html>

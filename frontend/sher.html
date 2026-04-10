@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Sher - Hindi Couplets on Niharika</title>
+  <meta name="description" content="Explore the best sher and couplets in Hindi and English poetry on Niharika." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-scroll"></i> Niharika - Sher and Couplets</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+    </ul></nav>
+  </div>
+</header>
+<section style="background:linear-gradient(135deg,var(--espresso),var(--crimson-deep));padding:64px 0;text-align:center">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center">HINDI COUPLETS</div>
+    <h1 style="font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px">Sher</h1>
+    <p style="color:rgba(255,255,255,0.65);font-size:17px">The finest couplets from Hindi and classical poetry traditions</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container" style="max-width:800px">
+    <div style="display:flex;flex-direction:column;gap:20px" id="sherList">
+      <div style="text-align:center;padding:80px;color:var(--muted)"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="poets.html">Poets</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+async function loadSher() {
+  const r = await NiharikaAPI.getPoems();
+  const poems = r?.data?.length ? r.data : FB_POEMS;
+  const filtered = poems.filter(p => p.form === 'Doha' || p.form === 'Aphorism');
+  document.getElementById('sherList').innerHTML = filtered.map(p => `
+    <div class="poem-card reveal">
+      <div class="poem-form-tag">${p.form}</div>
+      <div class="poem-text hindi">${p.text.replace(/\n/g,'<br>')}</div>
+      <div class="poem-footer">
+        <div class="poem-poet-name">${p.poet}</div>
+        <div class="poem-actions">
+          <button class="btn-icon" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g,"\\'")} - ${p.poet}').then(()=>showToast('Copied!'))"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  initReveal && initReveal();
+}
+document.addEventListener('DOMContentLoaded', loadSher);
+</script>
+</body>
+</html>

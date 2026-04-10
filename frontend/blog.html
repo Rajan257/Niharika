@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Niharika Blog - Hindi Poetry Articles and Literary Insights</title>
+  <meta name="description" content="Read literary articles, poet biographies, poetry tutorials and Rajan Rai's founder notes on the Niharika Blog." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .page-hero{background:linear-gradient(135deg,#1C1410 0%,#2C1810 50%,#4A0E0E 100%);padding:64px 0;text-align:center}
+    .page-hero h1{font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px}
+    .page-hero p{color:rgba(255,255,255,0.65);font-size:17px;max-width:560px;margin:0 auto}
+    .blog-page-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+    @media(max-width:900px){.blog-page-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:580px){.blog-page-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-newspaper"></i> Niharika Blog - Literary Insights</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="blog.html" class="nav-link active"><i class="fas fa-newspaper"></i> BLOG</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center">LITERARY INSIGHTS</div>
+    <h1>Niharika Blog</h1>
+    <p>Deep dives into Hindi poetry, poet biographies, literary history, and philosophical perspectives by Rajan Rai</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="blog-page-grid" id="blogPageGrid">
+      <div style="text-align:center;padding:80px;color:var(--muted);grid-column:1/-1"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="poets.html">Poets</a><a href="chatbot.html">Sakhi</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+async function loadBlog() {
+  const r = await NiharikaAPI.getBlog();
+  const posts = r?.data || FB_BLOG;
+  const grid = document.getElementById('blogPageGrid');
+  grid.innerHTML = posts.map(b => `
+    <article class="blog-card reveal" onclick="showToast('Reading: ${b.title.slice(0,30)}...')">
+      <div class="blog-thumb" style="background:${b.bg}">
+        <span>${b.emoji}</span>
+        <span class="blog-label">${b.category}</span>
+      </div>
+      <div class="blog-body">
+        <h3 class="blog-title">${b.title}</h3>
+        <p class="blog-excerpt">${b.excerpt}</p>
+        <div class="blog-meta">
+          <span>${b.date}</span>
+          <span class="blog-author"><i class="fas fa-feather-alt"></i> ${b.author}</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  initReveal && initReveal();
+}
+document.addEventListener('DOMContentLoaded', loadBlog);
+</script>
+</body>
+</html>

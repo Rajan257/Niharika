@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niharika - The Home of Hindi and English Poetry</title>
+  <meta name="description" content="Niharika - India's finest platform for Hindi kavita, doha, nazm, bhajan. Discover poets, explore Niharika Dictionary, and chat with Sakhi, your poetry companion. Founded by Rajan Rai." />
+  <meta name="keywords" content="Hindi poetry, kavita, doha, nazm, bhajan, Kabir Das, Mirabai, Rajan Rai, Niharika, Hindi literature" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .home-content-grid { display: grid; grid-template-columns: 1fr 370px; gap: 28px; }
+    .poets-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    .kavita-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .categories-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .videos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    @media(max-width:1100px){.poets-grid{grid-template-columns:repeat(4,1fr)}.categories-grid{grid-template-columns:repeat(3,1fr)}.videos-grid{grid-template-columns:repeat(3,1fr)}.kavita-grid{grid-template-columns:repeat(2,1fr)}.blog-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){.home-content-grid{grid-template-columns:1fr}.poets-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.poets-grid{grid-template-columns:repeat(2,1fr)}.videos-grid{grid-template-columns:repeat(2,1fr)}.kavita-grid{grid-template-columns:1fr}.blog-grid{grid-template-columns:1fr}.categories-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="container">
+    <div class="announcement-left">
+      <span><i class="fas fa-star"></i> Niharika - Founded by Rajan Rai</span>
+      <span><i class="fas fa-book-open"></i> 45,000+ Poems - 2,500+ Poets</span>
+    </div>
+    <div class="announcement-right">
+      <a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a>
+      <a href="dictionary.html"><i class="fas fa-book"></i> Dictionary</a>
+      <a href="#subscribe" class="btn-support">Support Us</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo">
+        <span class="logo-wordmark">Niharika</span>
+        <span class="logo-tagline">निहारिका · Poetry</span>
+      </a>
+      <div class="header-search">
+        <div class="search-wrap">
+          <button class="search-icon-btn"><i class="fas fa-search"></i></button>
+          <input type="text" id="globalSearch" class="search-field" placeholder="Search poets, kavita, doha..." autocomplete="off" />
+          <button class="search-mic-btn" id="micBtn" title="Voice Search"><i class="fas fa-microphone"></i></button>
+          <div class="search-kbd"><kbd>Ctrl</kbd><kbd>K</kbd></div>
+        </div>
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <div class="header-actions">
+        <div class="lang-switch">
+          <button class="lang-opt on" data-lang="en">EN</button>
+          <button class="lang-opt" data-lang="hi">हि</button>
+        </div>
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+        <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav">
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> HOME</a></li>
+        <li class="nav-item"><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+        <li class="nav-item"><a href="kavita.html" class="nav-link"><i class="fas fa-scroll"></i> KAVITA</a></li>
+        <li class="nav-item"><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+        <li class="nav-item"><a href="videos.html" class="nav-link"><i class="fas fa-video"></i> VIDEOS</a></li>
+        <li class="nav-item"><a href="library.html" class="nav-link"><i class="fas fa-book-open"></i> LIBRARY</a></li>
+        <li class="nav-item"><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> BLOG</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link"><i class="fas fa-ellipsis-h"></i> MORE</a>
+          <div class="nav-dropdown">
+            <a href="quiz.html" class="nav-dropdown-link"><i class="fas fa-question-circle"></i> Niharika Quiz</a>
+            <a href="chatbot.html" class="nav-dropdown-link"><i class="fas fa-robot"></i> Sakhi Chatbot</a>
+            <a href="#" class="nav-dropdown-link"><i class="fas fa-music"></i> Bhajan</a>
+            <a href="poet-profile.html?id=1" class="nav-dropdown-link"><i class="fas fa-crown"></i> About Rajan Rai</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-slider" id="heroSlider">
+    <!-- Slide 1: Rajan Rai -->
+    <div class="hero-slide active" style="background:linear-gradient(135deg,#1C1410 0%,#2C1810 50%,#4A0E0E 100%)">
+      <div class="container" style="display:flex;align-items:center;width:100%;height:100%;position:relative">
+        <div class="hero-content">
+          <div class="hero-badge"><i class="fas fa-star"></i> FOUNDER AND PHILOSOPHER-POET</div>
+          <h1 class="hero-name">Rajan Rai</h1>
+          <div class="hero-name-hindi hindi">राजन राय</div>
+          <p class="hero-quote">"A man can do anything,<br>when he realises he is a man."</p>
+          <p class="hero-quote-hindi hindi">"एक इंसान सब कुछ कर सकता है,<br>जब वो जान ले कि वो इंसान है।"</p>
+          <div class="hero-actions">
+            <a href="poet-profile.html?id=1" class="btn-hero-primary"><i class="fas fa-feather-alt"></i> Explore His Works</a>
+            <a href="chatbot.html" class="btn-hero-ghost"><i class="fas fa-robot"></i> Talk to Sakhi</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="poet-orb" style="background:linear-gradient(135deg,#8B1A1A,#4A0E0E)">
+            रा
+            <span class="founder-ribbon">FOUNDER</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2: Kabir Das -->
+    <div class="hero-slide" style="background:linear-gradient(135deg,#1a1200 0%,#3d2800 50%,#6b4a00 100%)">
+      <div class="container" style="display:flex;align-items:center;width:100%;height:100%;position:relative">
+        <div class="hero-content">
+          <div class="hero-badge"><i class="fas fa-om"></i> BHAKTI MASTER - 1440 to 1518</div>
+          <h1 class="hero-name">Kabir Das</h1>
+          <div class="hero-name-hindi hindi">कबीर दास</div>
+          <p class="hero-quote hindi">"मन चंगा तो कठौती में गंगा।"</p>
+          <p class="hero-quote" style="font-size:18px;opacity:0.75">"If your mind is pure, the divine is everywhere."</p>
+          <div class="hero-actions">
+            <a href="poet-profile.html?id=2" class="btn-hero-primary"><i class="fas fa-scroll"></i> Read Kabir's Dohe</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="poet-orb" style="background:linear-gradient(135deg,#C9982A,#8B6B00)">क</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3: Harivansh Rai Bachchan -->
+    <div class="hero-slide" style="background:linear-gradient(135deg,#001a00 0%,#0d3d00 50%,#1a6600 100%)">
+      <div class="container" style="display:flex;align-items:center;width:100%;height:100%;position:relative">
+        <div class="hero-content">
+          <div class="hero-badge"><i class="fas fa-wine-glass"></i> MADHUSHALA - MODERN CLASSIC</div>
+          <h1 class="hero-name">H.R. Bachchan</h1>
+          <div class="hero-name-hindi hindi">हरिवंश राय बच्चन</div>
+          <p class="hero-quote hindi">"जो है भार वही है उठाना, जब तक जियो तब तक यही काम।"</p>
+          <div class="hero-actions">
+            <a href="poet-profile.html?id=3" class="btn-hero-primary"><i class="fas fa-book-open"></i> Read Madhushala</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="poet-orb" style="background:linear-gradient(135deg,#2e7d32,#1b4000)">ह</div>
+        </div>
+      </div>
+    </div>
+    <button class="hero-prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+    <button class="hero-next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+    <div class="hero-dots" id="heroDots">
+      <span class="hero-dot on"></span><span class="hero-dot"></span><span class="hero-dot"></span>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER SPOTLIGHT -->
+<section class="founder-spotlight" id="founderSpotlight">
+  <div class="container">
+    <div class="founder-grid">
+      <div class="founder-orb-wrap">
+        <div class="founder-orb">रा</div>
+        <div class="founder-orb-badge"><i class="fas fa-crown"></i> Founder</div>
+      </div>
+      <div class="founder-content">
+        <div class="founder-tag"><i class="fas fa-star"></i> MEET THE FOUNDER</div>
+        <div class="founder-name">Rajan Rai</div>
+        <div class="founder-name-hi hindi">राजन राय - कवि, दार्शनिक व संस्थापक</div>
+        <p class="founder-bio" id="founderBio">
+          Rajan Rai is a philosopher-poet and the visionary founder of Niharika. Born on 16 August 2005, with a profound love for Hindi literature and an unwavering spirit of inquiry, he built this platform so that great poetry remains free, accessible, and celebrated by every soul that loves words.
+        </p>
+        <div class="founder-philosophy" id="founderPhilosophy"></div>
+        <div class="founder-cta">
+          <a href="poet-profile.html?id=1" class="btn btn-gold"><i class="fas fa-feather-alt"></i> Read His Poetry</a>
+          <a href="chatbot.html" class="btn btn-outline-crimson" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.7)"><i class="fas fa-robot"></i> Talk to Sakhi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main>
+  <!-- Top Poems + Sidebar -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="home-content-grid">
+        <div>
+          <div class="section-header">
+            <div><div class="section-label">TODAY'S PICKS</div><h2 class="section-title">Top 5 Poems</h2></div>
+            <a href="kavita.html" class="view-more">View All <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div id="topPoemsList"><div style="text-align:center;padding:48px;color:var(--muted)"><i class="fas fa-spinner fa-spin fa-2x"></i></div></div>
+        </div>
+        <aside>
+          <!-- Word of the Day -->
+          <div class="widget wod-widget">
+            <div class="widget-header">
+              <span class="widget-title"><i class="fas fa-star"></i> Word of the Day</span>
+              <button class="wod-speak-btn" id="wodSpeak" title="Pronounce"><i class="fas fa-volume-up"></i></button>
+            </div>
+            <div class="wod-hindi hindi" id="wodHindi">कविता</div>
+            <div class="wod-roman" id="wodRoman">KAVITA</div>
+            <div class="wod-pos" id="wodPos">Noun (Feminine)</div>
+            <div class="wod-meaning" id="wodMeaning">Poetry; a literary form expressing emotions and ideas through rhythm and language.</div>
+            <div class="wod-example" id="wodExample">"उसकी कविता मन को छू लेती है।"</div>
+            <div class="wod-actions">
+              <button class="btn btn-white btn-sm btn-full" id="nextWodBtn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.25)">Next Word <i class="fas fa-forward"></i></button>
+            </div>
+          </div>
+          <!-- Dictionary Search -->
+          <div class="widget">
+            <div class="widget-header">
+              <span class="widget-title"><i class="fas fa-book"></i> Niharika Dictionary</span>
+              <a href="dictionary.html" style="font-size:11px;color:var(--crimson);font-weight:600">Full View</a>
+            </div>
+            <div class="dict-widget-input">
+              <input type="text" id="dictInput" class="dict-input" placeholder="Search: doha, prem, ras..." />
+              <button class="btn btn-crimson btn-sm" id="dictSearchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="dict-result-area" id="dictResult"></div>
+          </div>
+          <!-- Rajan Rai Daily Quote -->
+          <div class="widget">
+            <div class="widget-header"><span class="widget-title"><i class="fas fa-quote-left"></i> Rajan Rai's Thought</span></div>
+            <p class="quote-text-display" id="quoteText">"A man can do anything, when he realises he is a man."</p>
+            <p class="quote-hindi-display" id="quoteHindi">"एक इंसान सब कुछ कर सकता है।"</p>
+            <p class="quote-author-display" id="quoteAuthor">- Rajan Rai, Founder of Niharika</p>
+            <div class="quote-controls">
+              <button class="btn-icon" id="copyQuoteBtn" title="Copy"><i class="fas fa-copy"></i></button>
+              <button class="btn-icon" id="shareQuoteBtn" title="Share"><i class="fas fa-share-alt"></i></button>
+              <button class="btn-icon" id="likeQuoteBtn" title="Like"><i class="far fa-heart"></i></button>
+              <button class="btn-icon" id="nextQuoteBtn" title="Next Quote"><i class="fas fa-forward"></i></button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Poets Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div><div class="section-label">LITERARY MASTERS</div><h2 class="section-title">Explore Poets</h2></div>
+        <a href="poets.html" class="view-more">All Poets <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:28px;border-bottom:2px solid var(--border-2);padding-bottom:0">
+        <button class="tab-pill active" data-tab="all">All</button>
+        <button class="tab-pill" data-tab="classical">Classical</button>
+        <button class="tab-pill" data-tab="modern">Modern</button>
+        <button class="tab-pill" data-tab="contemporary">Contemporary</button>
+      </div>
+      <div class="poets-grid" id="poetsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Featured Kavita -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div><div class="section-label">FEATURED POEMS</div><h2 class="section-title">Kavita Sangrah</h2></div>
+        <a href="kavita.html" class="view-more">All Kavita <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="kavita-grid" id="kavitaGrid"></div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header" style="margin-bottom:32px">
+        <div><div class="section-label" style="color:var(--gold)">BROWSE</div><h2 class="section-title light">Explore by Form</h2></div>
+      </div>
+      <div class="categories-grid" id="categoriesGrid"></div>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div><div class="section-label">WATCH AND LISTEN</div><h2 class="section-title">Poetry Videos</h2></div>
+        <a href="videos.html" class="view-more">All Videos <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="videos-grid" id="videosGrid"></div>
+    </div>
+  </section>
+
+  <!-- Quiz Banner -->
+  <section class="section section-tinted">
+    <div class="container">
+      <div class="quiz-banner">
+        <div>
+          <div class="quiz-banner-label"><i class="fas fa-trophy"></i> NIHARIKA QUIZ</div>
+          <h2>Test Your Poetry Knowledge</h2>
+          <p>From Kabir's dohas to Rajan Rai's philosophy - challenge yourself with 500+ questions on Hindi literature and culture.</p>
+          <button class="btn btn-gold" id="startQuizBtn" style="padding:14px 32px;font-size:15px"><i class="fas fa-play"></i> Start Quiz</button>
+        </div>
+        <div class="quiz-stats">
+          <div class="quiz-stat"><span class="quiz-stat-n">50K+</span><div class="quiz-stat-l">Players</div></div>
+          <div class="quiz-stat"><span class="quiz-stat-n">500+</span><div class="quiz-stat-l">Questions</div></div>
+          <div class="quiz-stat"><span class="quiz-stat-n">10</span><div class="quiz-stat-l">Categories</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <div><div class="section-label">LITERARY INSIGHTS</div><h2 class="section-title">Niharika Blog</h2></div>
+        <a href="blog.html" class="view-more">All Articles <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="blog-grid" id="blogGrid"></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter-section" id="subscribe">
+    <div class="container">
+      <div class="newsletter-inner">
+        <h2>Subscribe to Niharika</h2>
+        <p>Get daily kavita, word of the day, and Rajan Rai's philosophical thoughts delivered to your inbox every morning.</p>
+        <div class="newsletter-form">
+          <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your email..." />
+          <button class="btn btn-white" id="subscribeBtn" style="padding:14px 28px;font-size:15px;flex-shrink:0"><i class="fas fa-paper-plane"></i> Subscribe</button>
+        </div>
+        <p style="color:rgba(255,255,255,0.4);font-size:12px;margin-top:10px">No spam, unsubscribe anytime. 2,40,000+ readers.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-word">Niharika</div>
+        <div class="footer-logo-sub">निहारिका - हिंदी कविता का घर</div>
+        <p class="footer-desc">Founded by Rajan Rai - Niharika is dedicated to preserving and celebrating the rich tradition of Hindi and English poetry for every soul that loves words.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">Explore</h4>
+        <div class="footer-links">
+          <a href="poets.html" class="footer-link"><i class="fas fa-chevron-right"></i> Poets</a>
+          <a href="kavita.html" class="footer-link"><i class="fas fa-chevron-right"></i> Kavita</a>
+          <a href="dictionary.html" class="footer-link"><i class="fas fa-chevron-right"></i> Dictionary</a>
+          <a href="videos.html" class="footer-link"><i class="fas fa-chevron-right"></i> Videos</a>
+          <a href="ebooks.html" class="footer-link"><i class="fas fa-chevron-right"></i> E-Books</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">Features</h4>
+        <div class="footer-links">
+          <a href="chatbot.html" class="footer-link"><i class="fas fa-chevron-right"></i> Sakhi Chatbot</a>
+          <a href="quiz.html" class="footer-link"><i class="fas fa-chevron-right"></i> Poetry Quiz</a>
+          <a href="blog.html" class="footer-link"><i class="fas fa-chevron-right"></i> Blog</a>
+          <a href="poet-profile.html?id=1" class="footer-link"><i class="fas fa-chevron-right"></i> Rajan Rai</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> About Niharika</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="footer-heading">Founder</h4>
+        <div style="background:rgba(201,152,42,0.08);border:1px solid rgba(201,152,42,0.2);border-radius:12px;padding:18px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:8px">NIHARIKA FOUNDER</div>
+          <div style="font-size:20px;font-weight:700;color:white;font-family:var(--font-display)">Rajan Rai</div>
+          <div style="font-family:var(--font-hindi);font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:12px">राजन राय</div>
+          <div style="font-size:13px;font-style:italic;color:rgba(255,255,255,0.55);line-height:1.7">"A man can do anything, when he realises he is a man."</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Niharika Platform - Founded by Rajan Rai - All Rights Reserved</p>
+      <div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- QUIZ MODAL -->
+<div class="modal-overlay" id="quizModal">
+  <div class="modal">
+    <button class="modal-close" id="closeQuizModal"><i class="fas fa-times"></i></button>
+    <div class="modal-title"><i class="fas fa-trophy" style="color:var(--gold)"></i> Niharika Poetry Quiz</div>
+    <p class="modal-sub">Test your knowledge of Hindi literature and poetry</p>
+    <div id="quizContent"></div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="shareModal">
+  <div class="modal modal-sm">
+    <button class="modal-close" id="closeShareModal"><i class="fas fa-times"></i></button>
+    <h3 style="font-family:var(--font-display);font-size:22px;margin-bottom:6px">Share This Poem</h3>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:0">Spread the love of Hindi poetry</p>
+    <div class="share-grid">
+      <button class="share-item share-wa"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+      <button class="share-item share-tw"><i class="fab fa-twitter"></i> Twitter</button>
+      <button class="share-item share-fb"><i class="fab fa-facebook-f"></i> Facebook</button>
+      <button class="share-item share-cp"><i class="fas fa-link"></i> Copy Link</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<button class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></button>
+
+<div class="fav-panel" id="favPanel">
+  <div class="fav-panel-header">
+    <div class="fav-panel-title"><i class="fas fa-heart"></i> My Favorites</div>
+    <button class="modal-close" id="closeFavPanel" style="position:static"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="fav-panel-body" id="favPanelBody"></div>
+</div>
+<button class="fav-fab" id="favFab">
+  <i class="fas fa-heart"></i>
+  <span class="fav-count-badge" id="favCountBadge">0</span>
+</button>
+
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

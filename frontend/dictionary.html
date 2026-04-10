@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niharika Dictionary - Hindi Literary Terms and Meanings</title>
+  <meta name="description" content="Niharika Dictionary - India's most comprehensive dictionary of Hindi poetry terms. Search meaning of doha, kavita, ras, alankar, virah and much more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .dict-hero{background:linear-gradient(135deg,var(--crimson-deep) 0%,var(--crimson) 50%,var(--espresso) 100%);padding:70px 0;text-align:center;position:relative;overflow:hidden}
+    .dict-hero::before{content:'शब्द';position:absolute;right:-60px;top:50%;transform:translateY(-50%);font-family:var(--font-hindi);font-size:300px;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none}
+    .dict-hero h1{font-family:var(--font-display);font-size:54px;color:white;font-weight:700;margin-bottom:12px;letter-spacing:-1px}
+    .dict-hero p{color:rgba(255,255,255,0.7);font-size:17px;max-width:500px;margin:0 auto 36px}
+    .dict-search-big{display:flex;gap:0;max-width:600px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+    .dict-search-big input{flex:1;padding:18px 24px;border:none;font-size:17px;outline:none;color:var(--text)}
+    .dict-search-big button{padding:18px 28px;background:var(--gold);color:var(--dark);font-size:16px;font-weight:700;border:none;cursor:pointer;transition:var(--t2)}
+    .dict-search-big button:hover{background:var(--gold-bright)}
+    .dict-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:52px 0}
+    .dict-sidebar{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:24px;height:fit-content;position:sticky;top:100px}
+    .dict-az{display:flex;flex-wrap:wrap;gap:6px}
+    .dict-az-btn{width:36px;height:36px;border-radius:8px;background:var(--surface);border:1px solid var(--border);font-size:13px;font-weight:600;color:var(--muted);transition:var(--t2);cursor:pointer}
+    .dict-az-btn:hover,.dict-az-btn.active{background:var(--crimson);color:white;border-color:var(--crimson)}
+    .dict-category-btn{width:100%;text-align:left;padding:9px 12px;border-radius:8px;font-size:13px;color:var(--muted);transition:var(--t2);display:flex;gap:10px;align-items:center;background:none;border:none;cursor:pointer}
+    .dict-category-btn:hover,.dict-category-btn.active{background:var(--crimson-light);color:var(--crimson)}
+    .dict-wod-banner{background:linear-gradient(135deg,var(--crimson),var(--crimson-dark));color:white;border-radius:var(--radius);padding:30px;margin-bottom:28px;position:relative;overflow:hidden}
+    .dict-result-card{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:28px;margin-bottom:16px;display:none}
+    .dict-result-card.show{display:block;animation:fadeIn 0.3s var(--ease)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .dict-word-big{font-family:var(--font-hindi);font-size:52px;font-weight:700;color:var(--crimson);line-height:1.2;margin-bottom:6px}
+    .dict-word-roman{font-size:16px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .dict-word-pos{font-size:12.5px;font-weight:700;color:var(--gold-dark);letter-spacing:1px;text-transform:uppercase;background:var(--gold-light);padding:4px 12px;border-radius:20px;display:inline-block;margin-bottom:16px}
+    .dict-meaning{font-size:16px;line-height:1.8;color:var(--text);margin-bottom:14px;padding:16px;background:var(--surface);border-radius:10px;border-left:3px solid var(--crimson)}
+    .dict-example{font-family:var(--font-hindi);font-size:16px;font-style:italic;color:var(--muted);line-height:2;margin-bottom:14px}
+    .dict-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .dict-tag{padding:4px 12px;border-radius:20px;background:var(--border-2);color:var(--muted);font-size:11.5px;font-weight:600}
+    .dict-all-words{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .dict-word-card{background:white;border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:20px;cursor:pointer;transition:var(--t3)}
+    .dict-word-card:hover{border-color:var(--crimson);transform:translateY(-3px);box-shadow:var(--shadow-sm)}
+    .dict-card-hindi{font-family:var(--font-hindi);font-size:30px;font-weight:700;color:var(--crimson);margin-bottom:4px}
+    .dict-card-word{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--text);margin-bottom:6px}
+    .dict-card-meaning{font-size:12.5px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    @media(max-width:900px){.dict-layout{grid-template-columns:1fr}.dict-sidebar{display:none}.dict-all-words{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.dict-all-words{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-book"></i> Niharika Dictionary - 200+ Hindi Poetry Terms</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="poets.html" class="btn btn-gold btn-sm"><i class="fas fa-feather-alt"></i> Poets</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="kavita.html" class="nav-link"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="dictionary.html" class="nav-link active"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+      <li><a href="quiz.html" class="nav-link"><i class="fas fa-question-circle"></i> QUIZ</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<section class="dict-hero">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center">NIHARIKA DICTIONARY</div>
+    <h1>शब्द कोश</h1>
+    <p>Explore Hindi literary terms, poetry forms, philosophical concepts, and classical vocabulary</p>
+    <div class="dict-search-big">
+      <input type="text" id="dictMainInput" placeholder="Search: doha, kavita, ras, prem, alankar..." autocomplete="off" />
+      <button id="dictMainBtn"><i class="fas fa-search"></i> Search</button>
+    </div>
+  </div>
+</section>
+
+<main>
+  <div class="container">
+    <div class="dict-layout">
+      <aside class="dict-sidebar">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:14px">BROWSE A-Z</div>
+        <div class="dict-az" id="dictAZ"></div>
+        <hr style="border:none;border-top:1px solid var(--border-2);margin:20px 0" />
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:14px">CATEGORIES</div>
+        <div style="display:flex;flex-direction:column;gap:4px" id="dictCatBtns">
+          <button class="dict-category-btn active" data-cat="all"><i class="fas fa-globe-asia"></i> All Terms</button>
+          <button class="dict-category-btn" data-cat="form"><i class="fas fa-scroll"></i> Poetry Forms</button>
+          <button class="dict-category-btn" data-cat="poetics"><i class="fas fa-star"></i> Poetics</button>
+          <button class="dict-category-btn" data-cat="emotion"><i class="fas fa-heart"></i> Emotions</button>
+          <button class="dict-category-btn" data-cat="philosophy"><i class="fas fa-om"></i> Philosophy</button>
+          <button class="dict-category-btn" data-cat="classical"><i class="fas fa-landmark"></i> Classical</button>
+          <button class="dict-category-btn" data-cat="devotional"><i class="fas fa-praying-hands"></i> Devotional</button>
+        </div>
+        <hr style="border:none;border-top:1px solid var(--border-2);margin:20px 0" />
+        <div style="text-align:center">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:12px">WORD COUNT</div>
+          <div style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--crimson)" id="dictCount">0</div>
+          <div style="font-size:12px;color:var(--muted)">Literary Terms</div>
+        </div>
+      </aside>
+
+      <div>
+        <!-- Word of Day Banner -->
+        <div class="dict-wod-banner" id="dictWodBanner">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.6);margin-bottom:8px"><i class="fas fa-star"></i> WORD OF THE DAY</div>
+          <div class="dict-card-hindi" style="font-size:52px;margin-bottom:4px" id="wodBannerHindi">कविता</div>
+          <div style="font-size:14px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,0.6);margin-bottom:10px" id="wodBannerRoman">KAVITA</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.85);max-width:500px;line-height:1.7" id="wodBannerMeaning">Poetry; a literary form expressing emotions and ideas through rhythm and language.</div>
+          <div style="margin-top:16px;display:flex;gap:10px">
+            <button class="btn btn-white btn-sm" id="wodSpeak"><i class="fas fa-volume-up"></i> Pronounce</button>
+            <button class="btn" style="background:rgba(255,255,255,0.15);color:white;padding:8px 18px;border-radius:24px;font-size:12px;font-weight:600" id="wodNext">Next Word <i class="fas fa-forward"></i></button>
+          </div>
+        </div>
+
+        <!-- Search Result -->
+        <div class="dict-result-card" id="dictResultCard">
+          <div class="dict-word-big" id="rcHindi"></div>
+          <div class="dict-word-roman" id="rcRoman"></div>
+          <div class="dict-word-pos" id="rcPos"></div>
+          <div class="dict-meaning" id="rcMeaning"></div>
+          <div class="dict-example" id="rcExample"></div>
+          <div class="dict-tags" id="rcTags"></div>
+          <div style="margin-top:16px;display:flex;gap:10px">
+            <button class="btn btn-crimson btn-sm" id="rcSpeak"><i class="fas fa-volume-up"></i> Pronounce</button>
+            <button class="btn btn-outline-crimson btn-sm" id="rcCopy"><i class="fas fa-copy"></i> Copy</button>
+          </div>
+        </div>
+
+        <!-- All Words Grid -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+            <h2 style="font-family:var(--font-display);font-size:24px;font-weight:600" id="dictGridTitle">All Terms</h2>
+            <span style="font-size:13px;color:var(--muted)" id="dictGridCount"></span>
+          </div>
+          <div class="dict-all-words" id="dictWordsGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="chatbot.html">Sakhi</a><a href="poets.html">Poets</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+let allWords = [];
+let wodDictIdx = Math.floor(Math.random() * Object.keys(FB_DICT).length);
+
+async function loadWords() {
+  const r = await NiharikaAPI.getDictAll();
+  allWords = r?.data?.length ? r.data : Object.entries(FB_DICT).map(([key, v]) => ({ key, ...v }));
+  document.getElementById('dictCount').textContent = allWords.length;
+  document.getElementById('dictGridCount').textContent = allWords.length + ' terms';
+  renderWordsGrid(allWords);
+  buildAZ();
+  renderWodBanner();
+}
+
+function renderWordsGrid(words) {
+  const grid = document.getElementById('dictWordsGrid');
+  if (!words.length) { grid.innerHTML = '<div style="text-align:center;padding:60px;color:var(--muted)"><i class="fas fa-search fa-3x" style="margin-bottom:16px;color:var(--border);display:block"></i>No results found.</div>'; return; }
+  grid.innerHTML = words.map(w => `
+    <div class="dict-word-card reveal" onclick="showWordResult('${w.key}')">
+      <div class="dict-card-hindi">${w.hindi}</div>
+      <div class="dict-card-word">${(w.word || '').toUpperCase()}</div>
+      <div class="dict-card-meaning">${w.meaning}</div>
+    </div>
+  `).join('');
+  initReveal && initReveal();
+}
+
+function buildAZ() {
+  const az = document.getElementById('dictAZ');
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'dict-az-btn'; btn.textContent = l;
+    const count = allWords.filter(w => w.word?.toUpperCase().startsWith(l)).length;
+    if (!count) btn.style.opacity = '0.35';
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.dict-az-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = allWords.filter(w => w.word?.toUpperCase().startsWith(l));
+      renderWordsGrid(filtered);
+      document.getElementById('dictGridTitle').textContent = 'Words starting with "' + l + '"';
+      document.getElementById('dictGridCount').textContent = filtered.length + ' terms';
+    });
+    az.appendChild(btn);
+  });
+}
+
+document.querySelectorAll('.dict-category-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.dict-category-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    const filtered = cat === 'all' ? allWords : allWords.filter(w => w.tags?.includes(cat));
+    renderWordsGrid(filtered);
+    document.getElementById('dictGridTitle').textContent = btn.textContent.trim();
+    document.getElementById('dictGridCount').textContent = filtered.length + ' terms';
+  });
+});
+
+async function showWordResult(key) {
+  const r = await NiharikaAPI.lookupWord(key);
+  const data = r?.data || FB_DICT[key];
+  if (!data) return showToast('Word not found');
+  document.getElementById('rcHindi').textContent = data.hindi;
+  document.getElementById('rcRoman').textContent = (data.word || '').toUpperCase();
+  document.getElementById('rcPos').textContent = data.pos || '';
+  document.getElementById('rcMeaning').textContent = data.meaning;
+  document.getElementById('rcExample').textContent = data.example ? '"' + data.example + '"' : '';
+  document.getElementById('rcTags').innerHTML = (data.tags || []).map(t => `<span class="dict-tag">${t}</span>`).join('');
+  document.getElementById('dictResultCard').classList.add('show');
+  document.getElementById('dictResultCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.getElementById('rcSpeak')?.addEventListener('click', () => {
+  const w = document.getElementById('rcRoman')?.textContent;
+  if (w && 'speechSynthesis' in window) { const u = new SpeechSynthesisUtterance(w); u.lang = 'hi-IN'; speechSynthesis.speak(u); showToast('Pronouncing: ' + w); }
+});
+document.getElementById('rcCopy')?.addEventListener('click', () => {
+  const w = document.getElementById('rcRoman')?.textContent;
+  const m = document.getElementById('rcMeaning')?.textContent;
+  navigator.clipboard.writeText(w + ': ' + m + '\n(Niharika Dictionary)').then(() => showToast('Copied!'));
+});
+
+const doMainSearch = async () => {
+  const q = document.getElementById('dictMainInput')?.value.toLowerCase().trim();
+  if (!q) { renderWordsGrid(allWords); return showToast('Enter a word to search'); }
+  const r = await NiharikaAPI.lookupWord(q);
+  const data = r?.data || FB_DICT[q];
+  if (data) { showWordResult(q); }
+  const filtered = allWords.filter(w => (w.word || '').toLowerCase().includes(q) || w.meaning?.toLowerCase().includes(q));
+  renderWordsGrid(filtered);
+  document.getElementById('dictGridTitle').textContent = 'Results for "' + q + '"';
+  document.getElementById('dictGridCount').textContent = filtered.length + ' terms';
+  if (!filtered.length) showToast('No results for "' + q + '"');
+};
+document.getElementById('dictMainBtn')?.addEventListener('click', doMainSearch);
+document.getElementById('dictMainInput')?.addEventListener('keypress', e => { if (e.key === 'Enter') doMainSearch(); });
+
+const WOD_KEYS = Object.keys(FB_DICT);
+function renderWodBanner() {
+  const key = WOD_KEYS[wodDictIdx];
+  const w = FB_DICT[key];
+  if (!w) return;
+  document.getElementById('wodBannerHindi').textContent = w.hindi;
+  document.getElementById('wodBannerRoman').textContent = (w.word || '').toUpperCase();
+  document.getElementById('wodBannerMeaning').textContent = w.meaning;
+}
+document.getElementById('wodSpeak')?.addEventListener('click', () => {
+  const w = FB_DICT[WOD_KEYS[wodDictIdx]]?.word;
+  if (w && 'speechSynthesis' in window) { const u = new SpeechSynthesisUtterance(w); u.lang = 'hi-IN'; speechSynthesis.speak(u); showToast('Pronouncing: ' + w); }
+});
+document.getElementById('wodNext')?.addEventListener('click', async () => {
+  wodDictIdx = (wodDictIdx + 1) % WOD_KEYS.length;
+  const key = WOD_KEYS[wodDictIdx];
+  const r = await NiharikaAPI.lookupWord(key);
+  const data = r?.data || FB_DICT[key];
+  if (data) {
+    document.getElementById('wodBannerHindi').textContent = data.hindi;
+    document.getElementById('wodBannerRoman').textContent = (data.word || '').toUpperCase();
+    document.getElementById('wodBannerMeaning').textContent = data.meaning;
+    showToast('Next word: ' + data.word);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', loadWords);
+</script>
+</body>
+</html>

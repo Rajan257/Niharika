@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Poet Profile - Niharika</title>
+  <meta name="description" content="Explore poet profiles on Niharika - full biography, poetry library, quotes, and literary legacy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .poet-hero{position:relative;min-height:420px;display:flex;align-items:flex-end;padding:0 0 50px;overflow:hidden}
+    .poet-hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.8) 100%)}
+    .poet-hero-inner{position:relative;z-index:2;display:flex;gap:36px;align-items:flex-end}
+    .poet-hero-orb{width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:64px;font-weight:700;color:white;border:5px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.5);flex-shrink:0}
+    .poet-hero-name{font-family:var(--font-display);font-size:52px;font-weight:700;color:white;line-height:1.1;letter-spacing:-1px}
+    .poet-hero-hindi{font-family:var(--font-hindi);font-size:24px;color:rgba(255,255,255,0.6);margin-bottom:14px}
+    .poet-hero-tags{display:flex;gap:10px;flex-wrap:wrap}
+    .poet-hero-tag{padding:5px 16px;border-radius:20px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:12px;font-weight:600;letter-spacing:0.5px;border:1px solid rgba(255,255,255,0.2)}
+    .poet-hero-tag.gold{background:rgba(201,152,42,0.3);border-color:rgba(201,152,42,0.5);color:#E8B84B}
+    .poet-tabs{background:white;border-bottom:2px solid var(--border-2);position:sticky;top:64px;z-index:50}
+    .poet-tabs-inner{display:flex;gap:0}
+    .poet-tab{padding:16px 26px;font-size:13px;font-weight:600;letter-spacing:0.5px;color:var(--muted);border-bottom:3px solid transparent;cursor:pointer;transition:var(--t2);margin-bottom:-2px;background:none;border-left:none;border-right:none;border-top:none}
+    .poet-tab:hover{color:var(--crimson)}
+    .poet-tab.active{color:var(--crimson);border-bottom-color:var(--crimson)}
+    .poet-layout{display:grid;grid-template-columns:1fr 320px;gap:36px;padding:40px 0}
+    .poet-panel{display:none}
+    .poet-panel.active{display:block;animation:fadeIn 0.3s var(--ease)}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+    .bio-stat{background:var(--surface);border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:18px 20px}
+    .bio-stat-label{font-size:10.5px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+    .bio-stat-value{font-size:18px;font-weight:700;color:var(--text)}
+    .bio-text{font-size:15.5px;line-height:1.9;color:var(--text);margin-bottom:24px}
+    .award-item{display:flex;gap:14px;padding:14px 16px;background:var(--gold-mist);border-radius:10px;border-left:3px solid var(--gold);margin-bottom:10px}
+    .award-icon{color:var(--gold);font-size:18px;flex-shrink:0;margin-top:2px}
+    .poems-filter{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    .poems-list{display:flex;flex-direction:column;gap:16px}
+    .quotes-list{display:flex;flex-direction:column;gap:16px}
+    .quote-card{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:24px;border-left:4px solid var(--crimson);position:relative;cursor:pointer;transition:var(--t2)}
+    .quote-card:hover{box-shadow:var(--shadow-sm);transform:translateX(4px)}
+    .quote-card-text{font-family:var(--font-display);font-size:18px;font-style:italic;line-height:1.8;color:var(--text);margin-bottom:8px}
+    .quote-card-hindi{font-family:var(--font-hindi);font-size:16px;color:var(--muted);line-height:2}
+    .quote-copy{position:absolute;top:16px;right:16px;color:var(--faint);font-size:14px;transition:var(--t2)}
+    .quote-card:hover .quote-copy{color:var(--crimson)}
+    .poet-sidebar-widget{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:22px;margin-bottom:20px}
+    .pswt{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted);margin-bottom:14px;text-transform:uppercase}
+    .other-poet-card{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-2);cursor:pointer;transition:var(--t2);text-decoration:none}
+    .other-poet-card:last-child{border-bottom:none}
+    .other-poet-card:hover{padding-left:6px}
+    .other-poet-mini-orb{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:16px;color:white;font-weight:700;flex-shrink:0}
+    @media(max-width:900px){.poet-layout{grid-template-columns:1fr}.poet-hero-name{font-size:38px}.poet-hero-orb{width:120px;height:120px;font-size:48px}}
+    @media(max-width:600px){.bio-grid{grid-template-columns:1fr}.poet-hero-inner{flex-direction:column;align-items:center;text-align:center}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-feather-alt"></i> Niharika - Explore Poet Profiles</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="poets.html"><i class="fas fa-users"></i> All Poets</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link active"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="kavita.html" class="nav-link"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+      <li><a href="quiz.html" class="nav-link"><i class="fas fa-question-circle"></i> QUIZ</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="poet-hero" id="poetHero">
+  <div class="poet-hero-bg"></div>
+  <div class="container">
+    <div class="poet-hero-inner">
+      <div class="poet-hero-orb" id="poetOrb">क</div>
+      <div class="poet-hero-info">
+        <div class="poet-hero-name" id="poetName">Loading...</div>
+        <div class="poet-hero-hindi hindi" id="poetHindi"></div>
+        <div class="poet-hero-tags" id="poetTags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="poet-tabs">
+  <div class="container">
+    <div class="poet-tabs-inner">
+      <button class="poet-tab active" data-tab="bio">Biography</button>
+      <button class="poet-tab" data-tab="poems">Poetry Library</button>
+      <button class="poet-tab" data-tab="quotes">Quotes</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="poet-layout">
+      <div>
+        <!-- BIO -->
+        <div class="poet-panel active" id="panel-bio">
+          <div class="bio-grid">
+            <div class="bio-stat"><div class="bio-stat-label">Period</div><div class="bio-stat-value" id="bioPeriod">-</div></div>
+            <div class="bio-stat"><div class="bio-stat-label">Speciality</div><div class="bio-stat-value" id="bioSpec">-</div></div>
+            <div class="bio-stat"><div class="bio-stat-label">Era</div><div class="bio-stat-value" id="bioEra">-</div></div>
+            <div class="bio-stat"><div class="bio-stat-label">Poetry Forms</div><div class="bio-stat-value" id="bioForms">-</div></div>
+          </div>
+          <div class="bio-text" id="bioBio">Loading biography...</div>
+          <div class="bio-awards" id="bioAwards"></div>
+        </div>
+        <!-- POEMS -->
+        <div class="poet-panel" id="panel-poems">
+          <div class="poems-filter" id="poemFilter"></div>
+          <div class="poems-list" id="poemsList"></div>
+        </div>
+        <!-- QUOTES -->
+        <div class="poet-panel" id="panel-quotes">
+          <div class="quotes-list" id="quotesList"></div>
+        </div>
+      </div>
+      <!-- Sidebar -->
+      <aside>
+        <div class="poet-sidebar-widget">
+          <div class="pswt"><i class="fas fa-chart-bar"></i> At a Glance</div>
+          <div style="display:flex;flex-direction:column;gap:12px" id="glanceStats"></div>
+        </div>
+        <div class="poet-sidebar-widget">
+          <div class="pswt"><i class="fas fa-users"></i> Other Poets</div>
+          <div id="otherPoets"></div>
+        </div>
+        <div class="poet-sidebar-widget" style="background:var(--crimson);color:white;border:none">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.6);margin-bottom:12px">QUICK ACTIONS</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn btn-white" onclick="showToast('Sharing...')"><i class="fas fa-share-alt"></i> Share Profile</button>
+            <a href="chatbot.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.25);padding:10px 20px;border-radius:24px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;justify-content:center"><i class="fas fa-robot"></i> Ask About This Poet</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="chatbot.html">Sakhi</a><a href="poets.html">Poets</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const poetId = parseInt(params.get('id')) || 1;
+let poetData = null, allPoetPoems = [];
+
+async function loadPoet() {
+  const r = await NiharikaAPI.getPoet(poetId);
+  if (r?.data) {
+    poetData = r.data;
+    allPoetPoems = r.data.poems || FB_POEMS.filter(p => p.poetId === poetId);
+  } else {
+    poetData = FB_POETS.find(p => p.id === poetId) || FB_POETS[0];
+    allPoetPoems = FB_POEMS.filter(p => p.poetId === poetId);
+  }
+  renderHero(); renderBio(); renderPoems(allPoetPoems); renderQuotes(); renderSidebar(); loadOtherPoets();
+}
+
+function renderHero() {
+  const p = poetData;
+  document.getElementById('pageTitle').textContent = p.name + ' - Niharika';
+  document.getElementById('poetName').textContent = p.name;
+  document.getElementById('poetHindi').textContent = p.hindi || '';
+  document.getElementById('poetOrb').textContent = p.initials || p.name[0];
+  document.getElementById('poetHero').style.background = `linear-gradient(135deg,${p.color}CC 0%,${p.color}88 50%,#1C1410 100%)`;
+  const isFounder = p.tags?.includes('founder');
+  document.getElementById('poetTags').innerHTML = `
+    ${isFounder ? '<span class="poet-hero-tag gold"><i class="fas fa-crown"></i> Founder of Niharika</span>' : ''}
+    <span class="poet-hero-tag"><i class="fas fa-calendar"></i> ${p.period}</span>
+    <span class="poet-hero-tag"><i class="fas fa-feather-alt"></i> ${p.speciality || 'Hindi Poetry'}</span>
+    ${(p.tags || []).filter(t => t !== 'founder').map(t => `<span class="poet-hero-tag">${t}</span>`).join('')}
+  `;
+}
+
+function renderBio() {
+  const p = poetData;
+  document.getElementById('bioBio').textContent = p.bio || 'No biography available.';
+  document.getElementById('bioPeriod').textContent = p.period || '-';
+  document.getElementById('bioSpec').textContent = p.speciality || '-';
+  document.getElementById('bioEra').textContent = p.category ? p.category.charAt(0).toUpperCase() + p.category.slice(1) : '-';
+  document.getElementById('bioForms').textContent = (p.tags || []).slice(0, 3).join(', ') || '-';
+  const awardsMap = {
+    3: ['Sahitya Akademi Award (1976)', 'Saraswati Samman', 'Padma Bhushan', 'Soviet Land Nehru Award'],
+    5: ['Sahitya Akademi Award (1959)', 'Padma Bhushan (1959)', 'Padma Vibhushan (1965)'],
+    7: ['Sahitya Akademi Award (1956)', 'Padma Bhushan (1956)', 'Bharat Ratna (1988)', 'Jnanpith Award (1982)'],
+    8: ['Sahitya Akademi Award', 'Padma Bhushan', 'Jnanpith Award (1968)'],
+    11: ['Sahitya Akademi Award', 'Padma Bhushan'],
+  };
+  const awards = awardsMap[p.id] || [];
+  document.getElementById('bioAwards').innerHTML = awards.length ? `
+    <h3 style="font-family:var(--font-display);font-size:22px;margin-bottom:16px">Awards and Honours</h3>
+    ${awards.map(a => `<div class="award-item"><i class="fas fa-award award-icon"></i><div><div style="font-size:14px;font-weight:600;color:var(--text)">${a}</div></div></div>`).join('')}
+  ` : '';
+}
+
+function renderPoems(poems) {
+  const list = document.getElementById('poemsList');
+  const filter = document.getElementById('poemFilter');
+  if (!poems.length) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)"><i class="fas fa-scroll" style="font-size:40px;color:var(--border);margin-bottom:12px;display:block"></i>No poems found</div>';
+    return;
+  }
+  const forms = [...new Set(poems.map(p => p.form))];
+  filter.innerHTML = `
+    <button class="tab-pill active" onclick="filterPoems('ALL',this)">All (${poems.length})</button>
+    ${forms.map(f => `<button class="tab-pill" onclick="filterPoems('${f}',this)">${f}</button>`).join('')}
+  `;
+  list.innerHTML = poems.map((p, i) => `
+    <article class="poem-card" id="pp-${p.id}">
+      <span class="poem-number">${i + 1}</span>
+      <div class="poem-form-tag">${p.form}</div>
+      <div class="poem-text ${isHindi(p.text) ? 'hindi' : ''}">${p.text.replace(/\n/g, '<br>')}</div>
+      ${p.hindi && !isHindi(p.text) ? `<div class="poem-translation hindi">${p.hindi.replace(/\n/g, '<br>')}</div>` : ''}
+      <div class="poem-footer">
+        <div class="poem-poet-name">${p.poet}</div>
+        <div class="poem-actions">
+          <button class="btn-icon" onclick="ppLike(this,${p.id})"><i class="far fa-heart"></i></button>
+          <button class="btn-icon" onclick="ppSave(${p.id})"><i class="fas fa-bookmark"></i></button>
+          <button class="btn-icon" onclick="ppCopy(${p.id})"><i class="fas fa-copy"></i></button>
+        </div>
+      </div>
+      <div class="poem-likes"><i class="fas fa-heart"></i> ${fmt(p.likes)} likes</div>
+    </article>
+  `).join('');
+}
+
+function filterPoems(form, btn) {
+  document.querySelectorAll('.poems-filter .tab-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPoems(form === 'ALL' ? allPoetPoems : allPoetPoems.filter(p => p.form === form));
+}
+
+async function ppLike(btn, id) {
+  btn.classList.toggle('liked');
+  btn.querySelector('i').className = btn.classList.contains('liked') ? 'fas fa-heart' : 'far fa-heart';
+  if (btn.classList.contains('liked')) {
+    showToast('Liked!');
+    const r = await NiharikaAPI.likePoem(id);
+    if (r?.data?.likes) {
+      const el = document.querySelector(`#pp-${id} .poem-likes`);
+      if (el) el.innerHTML = `<i class="fas fa-heart"></i> ${fmt(r.data.likes)} likes`;
+    }
+  }
+}
+function ppSave(id) { const p = allPoetPoems.find(x => x.id === id); if (p) saveFav(p); }
+function ppCopy(id) {
+  const p = allPoetPoems.find(x => x.id === id);
+  if (!p) return;
+  navigator.clipboard.writeText(`${p.text}\n- ${p.poet}\n(Niharika)`).then(() => showToast('Copied!'));
+}
+
+function renderQuotes() {
+  const el = document.getElementById('quotesList');
+  const quotes = poetData?.quotes?.length ? poetData.quotes :
+    (poetData.tags?.includes('founder') ? FB_QUOTES : []);
+  if (!quotes.length) {
+    el.innerHTML = allPoetPoems.slice(0, 5).map(p => `
+      <div class="quote-card" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g, "\\'")} - ${p.poet}').then(()=>showToast('Copied!'))">
+        <div class="quote-card-text">"${p.text.split('\n')[0]}"</div>
+        ${p.hindi ? `<div class="quote-card-hindi">${p.hindi.split('\n')[0]}</div>` : ''}
+        <i class="fas fa-copy quote-copy"></i>
+      </div>
+    `).join('');
+    return;
+  }
+  el.innerHTML = quotes.map(q => `
+    <div class="quote-card" onclick="navigator.clipboard.writeText('"${q.text}" - ${q.author} (Niharika)').then(()=>showToast('Copied!'))">
+      <div class="quote-card-text">"${q.text}"</div>
+      ${q.hindi ? `<div class="quote-card-hindi">"${q.hindi}"</div>` : ''}
+      <i class="fas fa-copy quote-copy"></i>
+    </div>
+  `).join('');
+}
+
+function renderSidebar() {
+  document.getElementById('glanceStats').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-2)">
+      <span style="font-size:13px;color:var(--muted)">Poems in library</span>
+      <span style="font-size:16px;font-weight:700;color:var(--crimson)">${allPoetPoems.length}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-2)">
+      <span style="font-size:13px;color:var(--muted)">Total likes</span>
+      <span style="font-size:16px;font-weight:700;color:var(--crimson)">${fmt(allPoetPoems.reduce((s, x) => s + (x.likes || 0), 0))}</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0">
+      <span style="font-size:13px;color:var(--muted)">Era</span>
+      <span style="font-size:14px;font-weight:700;color:var(--text)">${poetData.category || '-'}</span>
+    </div>
+  `;
+}
+
+async function loadOtherPoets() {
+  const el = document.getElementById('otherPoets');
+  FB_POETS.filter(p => p.id !== poetId).slice(0, 5).forEach(p => {
+    const a = document.createElement('a');
+    a.href = 'poet-profile.html?id=' + p.id;
+    a.className = 'other-poet-card';
+    a.innerHTML = `
+      <div class="other-poet-mini-orb" style="background:${p.color}">${p.initials}</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${p.name}</div>
+        <div style="font-size:11px;color:var(--muted)">${p.period}</div>
+      </div>
+    `;
+    el.appendChild(a);
+  });
+}
+
+document.querySelectorAll('.poet-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.poet-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.poet-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab)?.classList.add('active');
+  });
+});
+
+document.addEventListener('DOMContentLoaded', loadPoet);
+</script>
+</body>
+</html>

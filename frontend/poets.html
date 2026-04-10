@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Poets - Niharika Hindi Poetry Platform</title>
+  <meta name="description" content="Explore all Hindi poets on Niharika - from classical masters like Kabir Das and Mirabai to contemporary voices like Rajan Rai and Gulzar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .poets-hero{background:linear-gradient(135deg,var(--espresso) 0%,var(--crimson-deep) 100%);padding:60px 0;text-align:center}
+    .poets-hero h1{font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:10px}
+    .poets-hero p{color:rgba(255,255,255,0.6);font-size:17px;margin-bottom:30px}
+    .poets-search-box{max-width:480px;margin:0 auto;display:flex;gap:0;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,0.3)}
+    .poets-search-box input{flex:1;padding:15px 20px;border:none;font-size:15px;outline:none}
+    .poets-search-box button{padding:15px 22px;background:var(--gold);color:var(--dark);font-weight:700;font-size:14px;border:none;cursor:pointer}
+    .poets-filters{padding:24px 0;background:white;border-bottom:1px solid var(--border-2);position:sticky;top:64px;z-index:40}
+    .poets-filters-inner{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .poets-grid-full{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+    .poet-card-full{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:24px 16px;text-align:center;cursor:pointer;transition:var(--t3);text-decoration:none;display:block}
+    .poet-card-full:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:transparent}
+    .founder-card-full{border:2px solid var(--gold) !important;background:linear-gradient(135deg,var(--gold-mist),white) !important}
+    .poet-big-orb{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:40px;font-weight:700;color:white;margin:0 auto 16px;box-shadow:var(--shadow-sm);transition:var(--t3);position:relative}
+    .poet-card-full:hover .poet-big-orb{transform:scale(1.08)}
+    .crown-overlay{position:absolute;top:-6px;right:-6px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--dark);display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid white}
+    .pn-en{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+    .pn-hi{font-family:var(--font-hindi);font-size:13px;color:var(--muted);margin-bottom:5px}
+    .pn-era{font-size:11.5px;color:var(--faint);letter-spacing:0.5px}
+    .pn-spec{font-size:11.5px;color:var(--crimson);font-weight:600;margin-top:6px;background:var(--crimson-light);padding:3px 10px;border-radius:12px;display:inline-block}
+    @media(max-width:1100px){.poets-grid-full{grid-template-columns:repeat(4,1fr)}}
+    @media(max-width:700px){.poets-grid-full{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<div class="announcement-bar">
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-feather-alt"></i> Niharika - India's Finest Poetry Platform</span></div><div class="announcement-right"><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a><a href="dictionary.html"><i class="fas fa-book"></i> Dictionary</a></div></div>
+</div>
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
+      <div style="flex:1"></div>
+      <div class="header-actions">
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+      </div>
+    </div>
+    <nav class="site-nav" id="siteNav"><ul class="nav-menu">
+      <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
+      <li><a href="poets.html" class="nav-link active"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="kavita.html" class="nav-link"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
+      <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
+      <li><a href="quiz.html" class="nav-link"><i class="fas fa-question-circle"></i> QUIZ</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<section class="poets-hero">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center">LITERARY MASTERS</div>
+    <h1>Explore Poets</h1>
+    <p>From classical saints to contemporary voices - discover the minds behind India's greatest poetry</p>
+    <div class="poets-search-box">
+      <input type="text" id="poetSearch" placeholder="Search poet name..." />
+      <button onclick="doSearch()"><i class="fas fa-search"></i> Search</button>
+    </div>
+  </div>
+</section>
+
+<div class="poets-filters">
+  <div class="container">
+    <div class="poets-filters-inner">
+      <button class="tab-pill active" data-cat="all">All Poets</button>
+      <button class="tab-pill" data-cat="classical">Classical Era</button>
+      <button class="tab-pill" data-cat="modern">Modern Era</button>
+      <button class="tab-pill" data-cat="contemporary">Contemporary</button>
+      <button class="tab-pill" data-cat="founder">Founder</button>
+      <div style="margin-left:auto;font-size:13px;color:var(--muted)" id="countLabel"></div>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container"><div class="poets-grid-full" id="poetsGridFull"></div></div>
+</section>
+
+<footer class="site-footer" style="padding:40px 0 0">
+  <div class="container">
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="chatbot.html">Sakhi</a><a href="dictionary.html">Dictionary</a></div></div>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script>
+let allPoetsData = [];
+async function loadPoets() {
+  const r = await NiharikaAPI.getPoets();
+  allPoetsData = r?.data?.length ? r.data : FB_POETS;
+  renderPoets(allPoetsData);
+}
+function renderPoets(poets) {
+  const grid = document.getElementById('poetsGridFull');
+  document.getElementById('countLabel').textContent = poets.length + ' poets';
+  grid.innerHTML = poets.map(p => {
+    const isFounder = p.tags?.includes('founder');
+    return `
+      <a href="poet-profile.html?id=${p.id}" class="poet-card-full ${isFounder ? 'founder-card-full' : ''} reveal">
+        <div class="poet-big-orb" style="background:linear-gradient(135deg,${p.color},${p.color}99)">
+          ${p.initials}
+          ${isFounder ? '<div class="crown-overlay"><i class="fas fa-crown"></i></div>' : ''}
+        </div>
+        <div class="pn-en">${p.name}</div>
+        <div class="pn-hi hindi">${p.hindi}</div>
+        <div class="pn-era">${p.period}</div>
+        <div class="pn-spec">${(p.speciality || 'Poetry').split(',')[0]}</div>
+      </a>
+    `;
+  }).join('');
+  initReveal && initReveal();
+}
+function doSearch() {
+  const q = document.getElementById('poetSearch')?.value.toLowerCase().trim();
+  if (!q) { renderPoets(allPoetsData); return; }
+  renderPoets(allPoetsData.filter(p =>
+    p.name.toLowerCase().includes(q) || (p.hindi || '').includes(q) || (p.speciality || '').toLowerCase().includes(q)
+  ));
+}
+document.getElementById('poetSearch')?.addEventListener('keypress', e => { if (e.key === 'Enter') doSearch(); });
+document.querySelectorAll('.tab-pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    const f = cat === 'all' ? allPoetsData :
+               cat === 'founder' ? allPoetsData.filter(p => p.tags?.includes('founder')) :
+               allPoetsData.filter(p => p.category === cat || p.tags?.includes(cat));
+    renderPoets(f);
+  });
+});
+document.addEventListener('DOMContentLoaded', loadPoets);
+</script>
+</body>
+</html>
