@@ -1,6 +1,6 @@
 // frontend/js/api.js - Niharika API Client
 
-const API = '/api';
+const API = 'https://niharika-298h.onrender.com/api';
 
 async function apiGet(path) {
   try {
