@@ -63,7 +63,7 @@ async function generateResponse(message, context = {}) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // Distill relevant context to save tokens if needed, though we can pass broad guidance
     const contextPrompt = `
