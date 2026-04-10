@@ -27,6 +27,21 @@ const Dictionary = require('./models/Dictionary');
 const Book = require('./models/Book');
 const User = require('./models/User');
 
+// Legacy DB Helpers
+const DB_PATH = path.join(__dirname, 'db.json');
+const readDB = () => {
+  try {
+    return JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
+  } catch (err) {
+    return { poets: [], poems: [], dictionary: {}, quotes: [], subscribers: [] };
+  }
+};
+const writeDB = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
+
+// Extended Data (for fallback and searching before full DB index)
+const { EXTENDED_POETS } = require('./data/poets-extended');
+const { EXTENDED_DICTIONARY } = require('./data/dictionary-extended');
+
 // ── Middleware ──────────────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
@@ -101,19 +116,16 @@ app.get('/api/poets', async (req, res) => {
 
 app.get('/api/poets/:id', async (req, res) => {
   try {
-    const poet = await Poet.findOne({ id: req.params.id });
+    const { id } = req.params;
+    const poet = await Poet.findOne({ id: id });
     if (!poet) return res.status(404).json({ success: false, message: 'Poet not found' });
+    
+    // We can also fetch dedicated poems if they are stored separately, 
+    // but in our current schema, they are part of the Poet object.
     res.json({ success: true, data: poet });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
-});
-  const dbPoems = db.poems.filter(p => p.poetId === id);
-  const inlinePoems = (poet.poems || []).map((p, i) => ({ id: `${id}_${i}`, poetId: id, poet: poet.name, ...p, likes: p.likes || Math.floor(Math.random()*20000)+1000 }));
-  const allPoems = [...dbPoems, ...(dbPoems.length ? [] : inlinePoems)];
-  
-  const quotes = poet.quotes || (poet.tags?.includes('founder') ? db.quotes.filter(q => q.isFounder) : []);
-  res.json({ success: true, data: { ...poet, poems: allPoems, quotes } });
 });
 
 // ── Poems ─────────────────────────────────────────────────────────────
@@ -293,35 +305,43 @@ app.get('/api/quiz', async (req, res) => {
     // Placeholder for quiz questions from DB
     res.json({ success: true, data: [] });
 });
-  res.json({ success: true, data: quiz });
-});
 
 // ── Search ─────────────────────────────────────────────────────────────
-app.get('/api/search', (req, res) => {
+app.get('/api/search', async (req, res) => {
   const { q } = req.query;
   if (!q) return res.json({ success: true, data: [] });
-  const db    = readDB();
-  const query = q.toLowerCase();
-  const results = [];
+  
+  try {
+    const query = new RegExp(q, 'i');
+    
+    // Search Poets
+    const poets = await Poet.find({
+      $or: [
+        { name: query },
+        { hindi: query },
+        { bio: query },
+        { speciality: query }
+      ]
+    }).limit(10);
 
-  ALL_POETS.forEach(p => {
-    if (p.name.toLowerCase().includes(query) || (p.hindi || '').includes(query) || (p.bio||'').toLowerCase().includes(query))
-      results.push({ type: 'poet', label: p.name, sublabel: p.hindi || p.period, id: p.id, icon: 'feather-alt' });
-  });
-  db.poems.forEach(p => {
-    if (p.text.toLowerCase().includes(query) || p.poet.toLowerCase().includes(query))
-      results.push({ type: 'poem', label: p.text.slice(0, 60) + '...', sublabel: '- ' + p.poet, id: p.id, icon: 'scroll' });
-  });
-  Object.entries(ALL_DICTIONARY).forEach(([k, v]) => {
-    if (k.includes(query) || (v.word||'').toLowerCase().includes(query) || (v.meaning||'').toLowerCase().includes(query))
-      results.push({ type: 'word', label: v.word, sublabel: v.hindi, key: k, icon: 'book' });
-  });
-  db.quotes.forEach(q2 => {
-    if (q2.text.toLowerCase().includes(query) || q2.author.toLowerCase().includes(query))
-      results.push({ type: 'quote', label: q2.text.slice(0, 60) + '...', sublabel: '- ' + q2.author, icon: 'quote-left' });
-  });
+    // Search Dictionary
+    const dict = await Dictionary.find({
+      $or: [
+        { word: query },
+        { hindi: query },
+        { meaning: query }
+      ]
+    }).limit(10);
 
-  res.json({ success: true, count: results.length, data: results.slice(0, 10) });
+    const results = [
+      ...poets.map(p => ({ type: 'poet', label: p.name, sublabel: p.hindi || p.period, id: p.id, icon: 'feather-alt' })),
+      ...dict.map(d => ({ type: 'word', label: d.word, sublabel: d.hindi, id: d.word, icon: 'book' }))
+    ];
+
+    res.json({ success: true, count: results.length, data: results.slice(0, 15) });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ── Chatbot ────────────────────────────────────────────────────────────
@@ -331,7 +351,9 @@ app.post('/api/chatbot/message', async (req, res) => {
   if (!message || typeof message !== 'string')
     return res.status(400).json({ success: false, message: 'Message is required' });
   try {
-    const response = await generateResponse(message.trim(), { poets: ALL_POETS, dictionary: ALL_DICTIONARY });
+    // For chatbot, we'll pass a snippet of data as context or let it fetch independently
+    const samplePoets = await Poet.find().limit(20);
+    const response = await generateResponse(message.trim(), { poets: samplePoets });
     res.json({ success: true, data: response });
   } catch (e) {
     console.error(e);
@@ -340,12 +362,13 @@ app.post('/api/chatbot/message', async (req, res) => {
 });
 
 // ── Founder ────────────────────────────────────────────────────────────
-app.get('/api/founder', (req, res) => {
-  const db      = readDB();
-  const founder = ALL_POETS.find(p => p.tags?.includes('founder'));
-  const poems   = db.poems.filter(p => p.isRajanQuote);
-  const quotes  = db.quotes.filter(q => q.isFounder);
-  res.json({ success: true, data: { ...founder, poems, quotes } });
+app.get('/api/founder', async (req, res) => {
+  try {
+    const founder = await Poet.findOne({ tags: 'founder' });
+    res.json({ success: true, data: founder });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ── Newsletter ─────────────────────────────────────────────────────────
@@ -361,14 +384,19 @@ app.post('/api/subscribe', (req, res) => {
 });
 
 // ── Poet Letters (A-Z) ──────────────────────────────────────────────────
-app.get('/api/poets/letters', (req, res) => {
-  const letters = {};
-  ALL_POETS.forEach(p => {
-    const l = p.name.charAt(0).toUpperCase();
-    if (!letters[l]) letters[l] = 0;
-    letters[l]++;
-  });
-  res.json({ success: true, data: letters });
+app.get('/api/poets/letters', async (req, res) => {
+  try {
+    const poets = await Poet.find({}, 'name');
+    const letters = {};
+    poets.forEach(p => {
+      const l = p.name.charAt(0).toUpperCase();
+      if (!letters[l]) letters[l] = 0;
+      letters[l]++;
+    });
+    res.json({ success: true, data: letters });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ── 404 API ───────────────────────────────────────────────────────────
