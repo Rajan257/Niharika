@@ -47,6 +47,71 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
+// ── Backend UI / Dashboard ──────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Niharika | API Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+        <style>
+            :root { --primary: #8B1A1A; --gold: #C9982A; --dark: #121212; }
+            body { 
+                margin: 0; font-family: 'Outfit', sans-serif; 
+                background: var(--dark); color: white;
+                display: flex; align-items: center; justify-content: center;
+                height: 100vh; overflow: hidden;
+            }
+            .container {
+                text-align: center; padding: 40px;
+                border: 1px solid rgba(201, 152, 42, 0.2);
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 20px; backdrop-filter: blur(10px);
+                box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+                max-width: 500px; width: 90%;
+            }
+            h1 { color: var(--gold); margin-bottom: 10px; font-size: 2.5rem; }
+            p { opacity: 0.8; line-height: 1.6; margin-bottom: 30px; }
+            .status-vibrant {
+                display: inline-block; padding: 8px 20px;
+                background: linear-gradient(45deg, #2e7d32, #43a047);
+                border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+                box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+                margin-bottom: 20px;
+            }
+            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+            .card {
+                padding: 15px; background: rgba(255,255,255,0.05);
+                border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            }
+            .card small { display: block; opacity: 0.5; margin-bottom: 5px; font-size: 0.7rem; }
+            .card span { font-weight: 600; color: var(--gold); }
+            .footer { margin-top: 30px; font-size: 0.8rem; opacity: 0.4; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="status-vibrant">SYSTEM ONLINE</div>
+            <h1>Niharika API</h1>
+            <p>Welcome to the core of the Niharika Literature Platform. The backend is fully operational and connected to MongoDB.</p>
+            
+            <div class="grid">
+                <div class="card"><small>VERSION</small><span>4.0.0 (Evolution)</span></div>
+                <div class="card"><small>DATABASE</small><span>MongoDB Atlas</span></div>
+                <div class="card"><small>AI ENGINE</small><span>Gemini Pro</span></div>
+                <div class="card"><small>STATUS</small><span>Ready</span></div>
+            </div>
+
+            <div class="footer">Founded by Rajan Rai © 2026</div>
+        </div>
+    </body>
+    </html>
+  `);
+});
+
 // Health check
 app.get('/api/health', async (req, res) => {
   const poetCount = await Poet.countDocuments();
