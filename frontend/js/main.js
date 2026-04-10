@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSearch();
   initModals();
   initQuoteWidget();
+  initMobileNav();
 
   await Promise.all([
     renderTopPoems(),
@@ -43,6 +44,31 @@ function initSlider() {
   document.getElementById('heroNext')?.addEventListener('click', () => { go(cur+1); start(); });
   dots.forEach((d,i) => d.addEventListener('click', () => { go(i); start(); }));
   start();
+}
+
+// ── Mobile Navigation ─────────────────────────────────
+function initMobileNav() {
+  const burger  = document.getElementById('hamburgerBtn');
+  const drawer  = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const close   = document.getElementById('drawerClose');
+
+  if (!burger || !drawer || !overlay) return;
+
+  const toggle = (open) => {
+    drawer.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+
+  burger.addEventListener('click', () => toggle(true));
+  close?.addEventListener('click', () => toggle(false));
+  overlay.addEventListener('click', () => toggle(false));
+
+  // Auto-close on link click
+  drawer.querySelectorAll('.drawer-link').forEach(link => {
+    link.addEventListener('click', () => toggle(false));
+  });
 }
 
 // ── Live Search ───────────────────────────────────────

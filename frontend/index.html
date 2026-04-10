@@ -14,25 +14,6 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#8b1a1a" />
   <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3261/3261310.png" />
-  <style>
-    .home-content-grid { display: grid; grid-template-columns: 1fr 370px; gap: 28px; }
-    .poets-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
-    .kavita-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .categories-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-    .videos-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    @media(max-width:1100px){.poets-grid{grid-template-columns:repeat(4,1fr)}.categories-grid{grid-template-columns:repeat(3,1fr)}.videos-grid{grid-template-columns:repeat(3,1fr)}.kavita-grid{grid-template-columns:repeat(2,1fr)}.blog-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:900px){.home-content-grid{grid-template-columns:1fr}.poets-grid{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:600px){.poets-grid{grid-template-columns:repeat(2,1fr)}.videos-grid{grid-template-columns:repeat(2,1fr)}.kavita-grid{grid-template-columns:1fr}.blog-grid{grid-template-columns:1fr}.categories-grid{grid-template-columns:repeat(2,1fr)}}
-    
-    /* Bottom Nav for Mobile */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: none; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--border-2); z-index: 1000; padding: 8px 0; }
-    .bottom-nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--muted); gap: 4px; }
-    .bottom-nav-item i { font-size: 20px; }
-    .bottom-nav-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
-    .bottom-nav-item.active { color: var(--crimson); }
-    @media(max-width: 600px) { .bottom-nav { display: grid; } body { padding-bottom: 70px; } .site-nav { display: none; } }
-  </style>
 </head>
 <body>
 
@@ -439,6 +420,27 @@
   <i class="fas fa-heart"></i>
   <span class="fav-count-badge" id="favCountBadge">0</span>
 </button>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<aside class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-header">
+    <div class="drawer-logo">Niharika</div>
+    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a href="index.html" class="drawer-link active"><i class="fas fa-home"></i> Home</a>
+    <a href="poets.html" class="drawer-link"><i class="fas fa-feather-alt"></i> Poets</a>
+    <a href="kavita.html" class="drawer-link"><i class="fas fa-scroll"></i> Kavita</a>
+    <a href="dictionary.html" class="drawer-link"><i class="fas fa-book"></i> Dictionary</a>
+    <a href="library.html" class="drawer-link"><i class="fas fa-book-open"></i> Library</a>
+    <a href="chatbot.html" class="drawer-link"><i class="fas fa-robot"></i> Ask Sakhi</a>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:10px 0">
+    <a href="quiz.html" class="drawer-link"><i class="fas fa-question-circle"></i> Quiz</a>
+    <a href="blog.html" class="drawer-link"><i class="fas fa-newspaper"></i> Blog</a>
+    <a href="profile.html" class="drawer-link"><i class="fas fa-user-circle"></i> My Profile</a>
+  </div>
+</aside>
 
 <!-- Bottom Nav -->
 <nav class="bottom-nav">

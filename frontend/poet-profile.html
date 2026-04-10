@@ -49,8 +49,17 @@
     .other-poet-card:last-child{border-bottom:none}
     .other-poet-card:hover{padding-left:6px}
     .other-poet-mini-orb{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:16px;color:white;font-weight:700;flex-shrink:0}
-    @media(max-width:900px){.poet-layout{grid-template-columns:1fr}.poet-hero-name{font-size:38px}.poet-hero-orb{width:120px;height:120px;font-size:48px}}
-    @media(max-width:600px){.bio-grid{grid-template-columns:1fr}.poet-hero-inner{flex-direction:column;align-items:center;text-align:center}}
+    @media(max-width:900px){
+      .poet-layout{grid-template-columns:1fr}
+      .poet-hero-name{font-size: var(--fs-h1);}
+      .poet-hero-orb{width:120px;height:120px;font-size:48px}
+    }
+    @media(max-width:600px){
+      .poet-hero { min-height: auto; padding: 40px 0; }
+      .poet-hero-inner { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+      .bio-grid{grid-template-columns:1fr}
+      .poet-tabs { top: 0; }
+    }
   </style>
 </head>
 <body>
@@ -65,6 +74,7 @@
       <div class="header-actions">
         <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
         <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+        <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
     <nav class="site-nav" id="siteNav"><ul class="nav-menu">
@@ -157,6 +167,35 @@
     <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="chatbot.html">Sakhi</a><a href="poets.html">Poets</a></div></div>
   </div>
 </footer>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+<aside class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-header">
+    <div class="drawer-logo">Niharika</div>
+    <button class="drawer-close" id="drawerClose"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="drawer-content">
+    <a href="index.html" class="drawer-link"><i class="fas fa-home"></i> Home</a>
+    <a href="poets.html" class="drawer-link active"><i class="fas fa-feather-alt"></i> Poets</a>
+    <a href="kavita.html" class="drawer-link"><i class="fas fa-scroll"></i> Kavita</a>
+    <a href="dictionary.html" class="drawer-link"><i class="fas fa-book"></i> Dictionary</a>
+    <a href="library.html" class="drawer-link"><i class="fas fa-book-open"></i> Library</a>
+    <a href="chatbot.html" class="drawer-link"><i class="fas fa-robot"></i> Ask Sakhi</a>
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.05);margin:10px 0">
+    <a href="quiz.html" class="drawer-link"><i class="fas fa-question-circle"></i> Quiz</a>
+    <a href="blog.html" class="drawer-link"><i class="fas fa-newspaper"></i> Blog</a>
+  </div>
+</aside>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item active"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="library.html" class="bottom-nav-item"><i class="fas fa-book-open"></i><span>Library</span></a>
+  <a href="dictionary.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
 <script src="js/api.js"></script>
@@ -348,7 +387,35 @@ document.querySelectorAll('.poet-tab').forEach(tab => {
   });
 });
 
-document.addEventListener('DOMContentLoaded', loadPoet);
+
+// Mobile Nav
+function initMobileNav() {
+  const burger  = document.getElementById('hamburgerBtn');
+  const drawer  = document.getElementById('mobileDrawer');
+  const overlay = document.getElementById('drawerOverlay');
+  const close   = document.getElementById('drawerClose');
+
+  if (!burger || !drawer || !overlay) return;
+
+  const toggle = (open) => {
+    drawer.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+
+  burger.addEventListener('click', () => toggle(true));
+  close?.addEventListener('click', () => toggle(false));
+  overlay.addEventListener('click', () => toggle(false));
+
+  drawer.querySelectorAll('.drawer-link').forEach(link => {
+    link.addEventListener('click', () => toggle(false));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadPoet();
+  initMobileNav();
+});
 </script>
 </body>
 </html>

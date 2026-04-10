@@ -10,16 +10,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     /* ─── Page Layout ─── */
-    body { overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
-    .chatbot-root { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 108px); }
+    body { overflow: hidden; height: 100dvh; display: flex; flex-direction: column; }
+    .chatbot-root { display: flex; flex: 1; overflow: hidden; height: calc(100dvh - 108px); }
 
     /* ─── Sidebar ─── */
     .chat-sidebar {
-      width: 270px; flex-shrink: 0;
+      width: 280px; flex-shrink: 0;
       background: linear-gradient(180deg, #160A06 0%, #220E08 60%, #1a0808 100%);
       border-right: 1px solid rgba(255,255,255,0.06);
       display: flex; flex-direction: column; overflow-y: auto;
       scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;
+      transition: var(--t3);
     }
     .chat-sidebar::-webkit-scrollbar { width: 4px; }
     .chat-sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
@@ -189,13 +190,25 @@
     .starter-card-text { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.4; }
 
     /* ─── Responsive ─── */
+    .sidebar-toggle-btn { display: none; }
+
     @media(max-width:768px) {
-      .chat-sidebar { display: none; }
-      .chatbot-root { height: calc(100vh - 64px); }
-      .chat-messages { padding: 16px; }
-      .msg-row { max-width: 90%; }
-      .chat-header { padding: 12px 16px; }
-      .chat-input-area { padding: 12px 14px 14px; }
+      .chat-sidebar { 
+        position: fixed; top: 0; left: -280px; bottom: 0; 
+        z-index: 100; box-shadow: 20px 0 60px rgba(0,0,0,0.5);
+      }
+      .chat-sidebar.open { left: 0; }
+      .sidebar-toggle-btn { display: flex; }
+      .chatbot-root { height: calc(100dvh - 64px); }
+      .chat-header { padding: 10px 16px; gap: 12px; }
+      .chat-header-avatar { width: 40px; height: 40px; font-size: 18px; }
+      .chat-header-name { font-size: 14px; }
+      .chat-messages { padding: 14px; gap: 14px; }
+      .msg-row { max-width: 92%; }
+      .msg-bubble { font-size: 14px; padding: 10px 14px; }
+      .chat-input-area { padding: 10px 12px 12px; }
+      .chat-input-wrap { padding: 6px 10px 6px 14px; border-radius: 20px; }
+      .chat-textarea { font-size: 14px; }
     }
   </style>
 </head>
@@ -295,6 +308,7 @@
 
     <!-- Chat Header -->
     <div class="chat-header">
+      <button class="ctrl-btn sidebar-toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
       <div class="chat-header-avatar">🌸</div>
       <div>
         <div class="chat-header-name">Niharika Sakhi</div>
@@ -377,6 +391,14 @@
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script>
+// ============================================================
+//   SIDEBAR TOGGLE
+// ============================================================
+function toggleSidebar() {
+  const sidebar = document.querySelector('.chat-sidebar');
+  sidebar.classList.toggle('open');
+}
+
 // ============================================================
 //   STATE
 // ============================================================

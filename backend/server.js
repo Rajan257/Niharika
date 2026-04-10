@@ -23,6 +23,7 @@ if (MONGODB_URI) {
 
 // Models
 const Poet = require('./models/Poet');
+const Poem = require('./models/Poem');
 const Dictionary = require('./models/Dictionary');
 const Book = require('./models/Book');
 const User = require('./models/User');
@@ -182,32 +183,40 @@ app.get('/api/poets', async (req, res) => {
 app.get('/api/poets/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const poet = await Poet.findOne({ id: id });
+    const poet = await Poet.findOne({ id: id }).lean();
     if (!poet) return res.status(404).json({ success: false, message: 'Poet not found' });
     
-    // We can also fetch dedicated poems if they are stored separately, 
-    // but in our current schema, they are part of the Poet object.
-    res.json({ success: true, data: poet });
+    // Fetch poems separately for this poet
+    const poems = await Poem.find({ poet: poet._id }).sort({ createdAt: -1 });
+    
+    res.json({ success: true, data: { ...poet, poems } });
   } catch (err) {
     res.status(500).json({ success: false, message: err.message });
   }
 });
 
 // ── Poems ─────────────────────────────────────────────────────────────
-app.get('/api/poems', (req, res) => {
-  const db = readDB();
-  let poems = db.poems;
-  const { form, poetId, limit, isRajan, category } = req.query;
-  if (form)            poems = poems.filter(p => p.form?.toLowerCase() === form.toLowerCase());
-  if (poetId)          poems = poems.filter(p => p.poetId === parseInt(poetId));
-  if (isRajan === 'true') poems = poems.filter(p => p.isRajanQuote);
-  if (category) {
-    const catMap = { love:['prem','love','mohabbat','virah'], philosophical:['philosophy','wisdom','aphorism'], motivational:['motivation','hope','strength'], shayari:['sher','ghazal','nazm'] };
-    const tags = catMap[category.toLowerCase()] || [category.toLowerCase()];
-    poems = poems.filter(p => tags.some(t => (p.form||'').toLowerCase().includes(t) || (p.text||'').toLowerCase().includes(t)));
+app.get('/api/poems', async (req, res) => {
+  try {
+    const { form, poetId, limit, isRajan, category, search } = req.query;
+    let query = {};
+
+    if (form) query.form = { $regex: new RegExp(form, 'i') };
+    if (poetId) query.poetId = parseInt(poetId);
+    if (category) query.category = category.toLowerCase();
+    
+    if (search) {
+      const q = new RegExp(search, 'i');
+      query.$or = [{ title: q }, { text: q }, { poetName: q }];
+    }
+
+    const limitNum = parseInt(limit) || 50;
+    const poems = await Poem.find(query).limit(limitNum).populate('poet').sort({ createdAt: -1 });
+    
+    res.json({ success: true, count: poems.length, data: poems });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  if (limit) poems = poems.slice(0, parseInt(limit));
-  res.json({ success: true, count: poems.length, data: poems });
 });
 
 // Extended poems from poets' inline arrays
