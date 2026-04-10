@@ -12,7 +12,7 @@
     .poet-hero{position:relative;min-height:420px;display:flex;align-items:flex-end;padding:0 0 50px;overflow:hidden}
     .poet-hero-bg{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.8) 100%)}
     .poet-hero-inner{position:relative;z-index:2;display:flex;gap:36px;align-items:flex-end}
-    .poet-hero-orb{width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:64px;font-weight:700;color:white;border:5px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.5);flex-shrink:0}
+    .poet-hero-orb{width:160px;height:160px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:64px;font-weight:700;color:white;border:5px solid rgba(255,255,255,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.5);flex-shrink:0;background-size:cover;background-position:center;position:relative}
     .poet-hero-name{font-family:var(--font-display);font-size:52px;font-weight:700;color:white;line-height:1.1;letter-spacing:-1px}
     .poet-hero-hindi{font-family:var(--font-hindi);font-size:24px;color:rgba(255,255,255,0.6);margin-bottom:14px}
     .poet-hero-tags{display:flex;gap:10px;flex-wrap:wrap}
@@ -188,8 +188,14 @@ function renderHero() {
   document.getElementById('pageTitle').textContent = p.name + ' - Niharika';
   document.getElementById('poetName').textContent = p.name;
   document.getElementById('poetHindi').textContent = p.hindi || '';
-  document.getElementById('poetOrb').textContent = p.initials || p.name[0];
-  document.getElementById('poetHero').style.background = `linear-gradient(135deg,${p.color}CC 0%,${p.color}88 50%,#1C1410 100%)`;
+  document.getElementById('poetOrb').textContent = p.image ? '' : (p.initials || p.name[0]);
+  if (p.image) {
+    document.getElementById('poetOrb').style.backgroundImage = `url('${p.image}')`;
+    document.getElementById('poetOrb').style.backgroundSize = 'cover';
+  } else {
+    document.getElementById('poetOrb').style.background = `linear-gradient(135deg,${p.color},${p.color}99)`;
+  }
+  document.getElementById('poetHero').style.background = `linear-gradient(135deg,${p.color || '#8B1A1A'}CC 0%,${p.color || '#8B1A1A'}88 50%,#1C1410 100%)`;
   const isFounder = p.tags?.includes('founder');
   document.getElementById('poetTags').innerHTML = `
     ${isFounder ? '<span class="poet-hero-tag gold"><i class="fas fa-crown"></i> Founder of Niharika</span>' : ''}

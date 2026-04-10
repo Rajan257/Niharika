@@ -13,13 +13,15 @@ const PoetSchema = new mongoose.Schema({
     literary_style: String,
     bio: String,
     era: String,
+    image: String,
     tags: [String],
     isFeatured: { type: Boolean, default: false },
     quotes: [String],
     poems: [{
         title: String,
         text: String,
-        form: String
+        form: String,
+        category: String
     }]
 }, { timestamps: true });
 

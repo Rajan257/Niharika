@@ -21,9 +21,11 @@
     .poet-card-full{background:white;border:1px solid var(--border-2);border-radius:var(--radius);padding:24px 16px;text-align:center;cursor:pointer;transition:var(--t3);text-decoration:none;display:block}
     .poet-card-full:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:transparent}
     .founder-card-full{border:2px solid var(--gold) !important;background:linear-gradient(135deg,var(--gold-mist),white) !important}
-    .poet-big-orb{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:40px;font-weight:700;color:white;margin:0 auto 16px;box-shadow:var(--shadow-sm);transition:var(--t3);position:relative}
+    .poet-big-orb{width:110px;height:110px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:40px;font-weight:700;color:white;margin:0 auto 16px;box-shadow:var(--shadow-sm);transition:var(--t3);position:relative;background-size:cover;background-position:center;overflow:hidden}
+    .poet-img-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--t2)}
+    .poet-card-full:hover .poet-img-overlay{opacity:1}
     .poet-card-full:hover .poet-big-orb{transform:scale(1.08)}
-    .crown-overlay{position:absolute;top:-6px;right:-6px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--dark);display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid white}
+    .crown-overlay{position:absolute;top:0;right:0;width:32px;height:32px;border-radius:50%;background:var(--gold);color:var(--dark);display:flex;align-items:center;justify-content:center;font-size:12px;border:3px solid white;z-index:2}
     .pn-en{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
     .pn-hi{font-family:var(--font-hindi);font-size:13px;color:var(--muted);margin-bottom:5px}
     .pn-era{font-size:11.5px;color:var(--faint);letter-spacing:0.5px}
@@ -109,9 +111,10 @@ function renderPoets(poets) {
     const isFounder = p.tags?.includes('founder');
     return `
       <a href="poet-profile.html?id=${p.id}" class="poet-card-full ${isFounder ? 'founder-card-full' : ''} reveal">
-        <div class="poet-big-orb" style="background:linear-gradient(135deg,${p.color},${p.color}99)">
-          ${p.initials}
+        <div class="poet-big-orb" style="background:${p.image ? `url('${p.image}')` : `linear-gradient(135deg,${p.color},${p.color}99)`}">
+          ${p.image ? '' : (p.initials || p.name[0])}
           ${isFounder ? '<div class="crown-overlay"><i class="fas fa-crown"></i></div>' : ''}
+          <div class="poet-img-overlay"><i class="fas fa-eye"></i></div>
         </div>
         <div class="pn-en">${p.name}</div>
         <div class="pn-hi hindi">${p.hindi}</div>
