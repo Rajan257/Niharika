@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In / Sign Up - Niharika</title>
+  <meta name="description" content="Join Niharika - save your favourite poems, bookmark poets, and explore India's finest poetry platform. Founded by Rajan Rai." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root { --crimson:#8B1A1A; --gold:#C9A227; --bg-dark:#0D0B08; --bg-card:rgba(255,255,255,0.04); }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg-dark); min-height:100vh; font-family:'Plus Jakarta Sans',sans-serif; color:#fff; display:flex; align-items:center; justify-content:center; }
+    body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.15) 0%, transparent 60%), radial-gradient(ellipse at 80% 30%, rgba(201,162,39,0.08) 0%, transparent 50%); pointer-events:none; }
+    .auth-page { width:100%; min-height:100vh; display:grid; grid-template-columns:1fr 1fr; }
+    @media(max-width:900px) { .auth-page { grid-template-columns:1fr; } .auth-left { display:none; } }
+    
+    /* Left panel */
+    .auth-left { background:linear-gradient(135deg, #1C1410 0%, #2C1810 50%, #4A0E0E 100%); display:flex; flex-direction:column; justify-content:center; align-items:center; padding:60px; text-align:center; position:relative; overflow:hidden; }
+    .auth-left::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at center, rgba(201,162,39,0.05) 0%, transparent 60%); }
+    .auth-logo { font-family:'Cormorant Garamond',serif; font-size:52px; font-weight:700; color:#fff; margin-bottom:6px; position:relative; }
+    .auth-logo-hindi { font-family:'Noto Sans Devanagari',sans-serif; font-size:22px; color:rgba(201,162,39,0.8); margin-bottom:40px; }
+    .auth-orb { width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg, #8B1A1A, #4A0E0E); margin:0 auto 32px; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans Devanagari'; font-size:48px; color:#C9A227; border:3px solid rgba(201,162,39,0.3); box-shadow:0 0 60px rgba(139,26,26,0.5); }
+    .auth-tagline { font-family:'Cormorant Garamond',serif; font-size:24px; font-style:italic; color:rgba(255,255,255,0.8); line-height:1.6; margin-bottom:24px; }
+    .auth-stats { display:flex; gap:32px; margin-top:32px; }
+    .auth-stat { text-align:center; }
+    .auth-stat-n { font-size:28px; font-weight:800; color:var(--gold); }
+    .auth-stat-l { font-size:12px; color:rgba(255,255,255,0.5); letter-spacing:1px; text-transform:uppercase; }
+    .auth-quote { margin-top:48px; padding:20px 24px; background:rgba(201,162,39,0.08); border:1px solid rgba(201,162,39,0.2); border-radius:16px; max-width:320px; }
+    .auth-quote-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:18px; color:rgba(255,255,255,0.85); line-height:1.6; }
+    .auth-quote-author { font-size:12px; color:var(--gold); margin-top:10px; font-weight:600; letter-spacing:1px; }
+    
+    /* Right panel */
+    .auth-right { display:flex; align-items:center; justify-content:center; padding:40px 32px; background:rgba(0,0,0,0.4); backdrop-filter:blur(20px); }
+    .auth-box { width:100%; max-width:440px; }
+    .auth-back { display:inline-flex; align-items:center; gap:8px; color:rgba(255,255,255,0.5); font-size:13px; text-decoration:none; margin-bottom:32px; transition:color 0.2s; }
+    .auth-back:hover { color:var(--gold); }
+    .auth-tabs { display:flex; gap:0; margin-bottom:36px; border-bottom:2px solid rgba(255,255,255,0.08); }
+    .auth-tab { flex:1; padding:14px; text-align:center; font-weight:700; font-size:15px; cursor:pointer; color:rgba(255,255,255,0.4); border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.25s; letter-spacing:0.5px; background:none; border-top:none; border-left:none; border-right:none; }
+    .auth-tab.active { color:#fff; border-bottom-color:var(--crimson); }
+    .auth-tab:hover { color:rgba(255,255,255,0.8); }
+    .auth-form { display:none; }
+    .auth-form.active { display:block; }
+    .form-group { margin-bottom:20px; }
+    .form-label { font-size:12px; font-weight:700; letter-spacing:1.5px; color:rgba(255,255,255,0.5); text-transform:uppercase; margin-bottom:8px; display:block; }
+    .form-input { width:100%; padding:14px 18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:#fff; font-size:15px; font-family:'Plus Jakarta Sans',sans-serif; outline:none; transition:all 0.25s; }
+    .form-input:focus { border-color:rgba(201,162,39,0.5); background:rgba(255,255,255,0.08); box-shadow:0 0 0 3px rgba(201,162,39,0.1); }
+    .form-input::placeholder { color:rgba(255,255,255,0.3); }
+    .input-wrap { position:relative; }
+    .input-icon { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:rgba(255,255,255,0.3); font-size:14px; }
+    .input-wrap .form-input { padding-left:44px; }
+    .form-input-eye { position:absolute; right:14px; top:50%; transform:translateY(-50%); background:none; border:none; color:rgba(255,255,255,0.3); cursor:pointer; padding:4px; font-size:14px; }
+    .auth-submit { width:100%; padding:16px; background:linear-gradient(135deg, var(--crimson), #6B1010); border:none; border-radius:12px; color:#fff; font-size:16px; font-weight:700; cursor:pointer; letter-spacing:0.5px; transition:all 0.25s; margin-top:6px; font-family:'Plus Jakarta Sans',sans-serif; position:relative; overflow:hidden; }
+    .auth-submit::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, #a02020, #8B1A1A); opacity:0; transition:opacity 0.25s; }
+    .auth-submit:hover::before { opacity:1; }
+    .auth-submit:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(139,26,26,0.4); }
+    .auth-submit span { position:relative; z-index:1; }
+    .auth-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .divider { display:flex; align-items:center; gap:12px; margin:24px 0; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.08); }
+    .divider span { font-size:12px; color:rgba(255,255,255,0.3); }
+    .google-btn { width:100%; padding:14px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; color:rgba(255,255,255,0.8); font-size:14px; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px; transition:all 0.25s; font-family:'Plus Jakarta Sans',sans-serif; }
+    .google-btn:hover { background:rgba(255,255,255,0.1); }
+    .auth-error { background:rgba(183,28,28,0.15); border:1px solid rgba(183,28,28,0.4); border-radius:10px; padding:12px 16px; font-size:13px; color:#ff6b6b; margin-bottom:16px; display:none; }
+    .auth-success { background:rgba(46,125,50,0.15); border:1px solid rgba(46,125,50,0.4); border-radius:10px; padding:12px 16px; font-size:13px; color:#69f0ae; margin-bottom:16px; display:none; }
+    .auth-title { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:700; color:#fff; margin-bottom:6px; }
+    .auth-subtitle { font-size:14px; color:rgba(255,255,255,0.5); margin-bottom:32px; }
+    .password-strength { margin-top:8px; display:flex; gap:4px; }
+    .strength-bar { height:3px; flex:1; border-radius:2px; background:rgba(255,255,255,0.1); transition:background 0.3s; }
+    .strength-bar.weak { background:#f44336; }
+    .strength-bar.medium { background:#ff9800; }
+    .strength-bar.strong { background:#4caf50; }
+    .password-hint { font-size:11px; color:rgba(255,255,255,0.4); margin-top:6px; }
+    .terms-text { font-size:12px; color:rgba(255,255,255,0.4); text-align:center; margin-top:20px; line-height:1.6; }
+    .terms-text a { color:var(--gold); text-decoration:none; }
+    .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:8px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="auth-page">
+  <!-- Left: Brand Panel -->
+  <div class="auth-left">
+    <div class="auth-logo">Niharika</div>
+    <div class="auth-logo-hindi">निहारिका - हिंदी कविता का घर</div>
+    <div class="auth-orb">रा</div>
+    <div class="auth-tagline">"Great poetry should be free,<br>accessible, and celebrated<br>by every soul that loves words."</div>
+    <div class="auth-stats">
+      <div class="auth-stat"><div class="auth-stat-n">1200+</div><div class="auth-stat-l">Poets</div></div>
+      <div class="auth-stat"><div class="auth-stat-n">45K+</div><div class="auth-stat-l">Poems</div></div>
+      <div class="auth-stat"><div class="auth-stat-n">500+</div><div class="auth-stat-l">Dict Words</div></div>
+    </div>
+    <div class="auth-quote">
+      <div class="auth-quote-text">"A man can do anything, when he realises he is a man."</div>
+      <div class="auth-quote-author">- RAJAN RAI, FOUNDER</div>
+    </div>
+  </div>
+
+  <!-- Right: Auth Form -->
+  <div class="auth-right">
+    <div class="auth-box">
+      <a href="index.html" class="auth-back"><i class="fas fa-arrow-left"></i> Back to Niharika</a>
+      
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="loginTab" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="signupTab" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+      
+      <!-- LOGIN FORM -->
+      <div class="auth-form active" id="loginForm">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Sign in to access your saved poems and bookmarks</p>
+        
+        <div class="auth-error" id="loginError"></div>
+        <div class="auth-success" id="loginSuccess"></div>
+        
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Your password" />
+            <button class="form-input-eye" onclick="togglePwd('loginPassword', this)"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="auth-submit" id="loginBtn" onclick="handleLogin()">
+          <span><i class="fas fa-sign-in-alt"></i> Sign In</span>
+        </button>
+        <div class="terms-text" style="margin-top:20px">
+          Don't have an account? <a href="javascript:void(0)" onclick="switchTab('signup')">Sign Up Free</a>
+        </div>
+      </div>
+      
+      <!-- SIGNUP FORM -->
+      <div class="auth-form" id="signupForm">
+        <h1 class="auth-title">Join Niharika</h1>
+        <p class="auth-subtitle">Create your free account and explore the world of poetry</p>
+        
+        <div class="auth-error" id="signupError"></div>
+        <div class="auth-success" id="signupSuccess"></div>
+        
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <div class="input-wrap">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" id="signupName" class="form-input" placeholder="Your full name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Create Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" id="signupPassword" class="form-input" placeholder="At least 6 characters" oninput="checkStrength(this.value)" />
+            <button class="form-input-eye" onclick="togglePwd('signupPassword', this)"><i class="fas fa-eye"></i></button>
+          </div>
+          <div class="password-strength" id="strengthBars">
+            <div class="strength-bar" id="sb1"></div>
+            <div class="strength-bar" id="sb2"></div>
+            <div class="strength-bar" id="sb3"></div>
+            <div class="strength-bar" id="sb4"></div>
+          </div>
+          <div class="password-hint" id="strengthHint">Minimum 6 characters</div>
+        </div>
+        <button class="auth-submit" id="signupBtn" onclick="handleSignup()">
+          <span><i class="fas fa-user-plus"></i> Create Free Account</span>
+        </button>
+        <div class="terms-text">
+          By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.<br>
+          Already have an account? <a href="javascript:void(0)" onclick="switchTab('login')">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:5000/api';
+
+function switchTab(tab) {
+  document.getElementById('loginForm').classList.toggle('active', tab === 'login');
+  document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+  document.getElementById('loginTab').classList.toggle('active', tab === 'login');
+  document.getElementById('signupTab').classList.toggle('active', tab === 'signup');
+  clearErrors();
+}
+
+function clearErrors() {
+  ['loginError','loginSuccess','signupError','signupSuccess'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.textContent = ''; }
+  });
+}
+
+function showMsg(id, msg, isError = true) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function setLoading(btnId, loading) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = loading;
+  if (loading) {
+    btn.innerHTML = '<span><span class="spinner"></span>Please wait...</span>';
+  } else {
+    const isLogin = btnId === 'loginBtn';
+    btn.innerHTML = `<span><i class="fas fa-${isLogin?'sign-in-alt':'user-plus'}"></i> ${isLogin?'Sign In':'Create Free Account'}</span>`;
+  }
+}
+
+function togglePwd(id, btn) {
+  const inp = document.getElementById(id);
+  const isPass = inp.type === 'password';
+  inp.type = isPass ? 'text' : 'password';
+  btn.innerHTML = `<i class="fas fa-eye${isPass?'-slash':''}"></i>`;
+}
+
+function checkStrength(pwd) {
+  const bars = ['sb1','sb2','sb3','sb4'];
+  let score = 0;
+  if (pwd.length >= 6) score++;
+  if (pwd.length >= 10) score++;
+  if (/[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) score++;
+  if (/[^A-Za-z0-9]/.test(pwd)) score++;
+  const colors = ['','weak','medium','medium','strong'];
+  const hints  = ['Min 6 chars','Weak password','Medium strength','Good password','Strong password!'];
+  bars.forEach((b, i) => {
+    const el = document.getElementById(b);
+    el.className = 'strength-bar ' + (i < score ? colors[score] : '');
+  });
+  document.getElementById('strengthHint').textContent = hints[score] || 'Minimum 6 characters';
+}
+
+async function handleLogin() {
+  clearErrors();
+  const email    = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  if (!email || !password) { showMsg('loginError', 'Please fill in all fields.'); return; }
+  setLoading('loginBtn', true);
+  try {
+    const r = await fetch(`${API}/auth/login`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await r.json();
+    if (data.success) {
+      localStorage.setItem('niharika_token', data.token);
+      localStorage.setItem('niharika_user', JSON.stringify(data.user));
+      showMsg('loginSuccess', `Welcome back, ${data.user.name}! Redirecting...`, false);
+      setTimeout(() => {
+        const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
+        sessionStorage.removeItem('niharika_redirect');
+        window.location.href = redirect;
+      }, 800);
+    } else {
+      showMsg('loginError', data.message || 'Login failed. Please try again.');
+    }
+  } catch {
+    showMsg('loginError', 'Server not available. Please start the backend server.');
+  }
+  setLoading('loginBtn', false);
+}
+
+async function handleSignup() {
+  clearErrors();
+  const name     = document.getElementById('signupName').value.trim();
+  const email    = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  if (!name || !email || !password) { showMsg('signupError', 'Please fill in all fields.'); return; }
+  if (password.length < 6) { showMsg('signupError', 'Password must be at least 6 characters.'); return; }
+  setLoading('signupBtn', true);
+  try {
+    const r = await fetch(`${API}/auth/register`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await r.json();
+    if (data.success) {
+      localStorage.setItem('niharika_token', data.token);
+      localStorage.setItem('niharika_user', JSON.stringify(data.user));
+      showMsg('signupSuccess', `Account created! Welcome, ${data.user.name}! Redirecting...`, false);
+      setTimeout(() => {
+        const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
+        sessionStorage.removeItem('niharika_redirect');
+        window.location.href = redirect;
+      }, 800);
+    } else {
+      showMsg('signupError', data.message || 'Registration failed. Please try again.');
+    }
+  } catch {
+    showMsg('signupError', 'Server not available. Please start the backend server.');
+  }
+  setLoading('signupBtn', false);
+}
+
+// Handle Enter key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const loginActive = document.getElementById('loginForm').classList.contains('active');
+    if (loginActive) handleLogin(); else handleSignup();
+  }
+});
+
+// Check if already logged in
+if (localStorage.getItem('niharika_token')) {
+  const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
+  window.location.href = redirect;
+}
+</script>
+</body>
+</html>

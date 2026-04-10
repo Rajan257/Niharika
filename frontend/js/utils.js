@@ -1,4 +1,4 @@
-// frontend/js/utils.js — Shared Utilities for Niharika
+// frontend/js/utils.js - Shared Utilities for Niharika
 
 // ── DOM Helpers ──────────────────────────────────────
 const $ = (s, p = document) => p.querySelector(s);
@@ -92,7 +92,7 @@ function renderFavPanel() {
   body.innerHTML = FAVORITES.map(f => `
     <div class="fav-item" id="fav-${f.id}">
       <div class="fav-item-text ${isHindi(f.text) ? 'hindi' : ''}">${f.text.replace(/\n/g,'<br>')}</div>
-      <div class="fav-item-poet">— ${f.poet || f.author}</div>
+      <div class="fav-item-poet">- ${f.poet || f.author}</div>
       <button class="fav-remove" onclick="removeFav(${f.id})"><i class="fas fa-times"></i></button>
     </div>
   `).join('');

@@ -1,4 +1,4 @@
-// frontend/js/main.js — Homepage Logic for Niharika
+// frontend/js/main.js - Homepage Logic for Niharika
 
 let _poems = [], _quotes = [], _quizQs = [], _qIdx = 0, _qScore = 0, _shareId = null;
 
@@ -141,7 +141,7 @@ function doSave(id) {
 function doCopy(id) {
   const p = [..._poems, ...FB_POEMS].find(x => x.id === id);
   if (!p) return;
-  navigator.clipboard.writeText(`${p.text}\n— ${p.poet}\n(Niharika — निहारिका)`).then(() => showToast('📋 Copied!'));
+  navigator.clipboard.writeText(`${p.text}\n- ${p.poet}\n(Niharika - निहारिका)`).then(() => showToast('📋 Copied!'));
 }
 
 function doShare(id) {
@@ -270,7 +270,7 @@ async function renderFounderSection() {
   const quotes = data?.quotes || FB_QUOTES.slice(0, 3);
 
   philoEl.innerHTML = quotes.slice(0, 3).map(q => `
-    <div class="philosophy-item" onclick="navigator.clipboard.writeText('${q.text} — ${q.author}').then(()=>showToast('📋 Copied!'))">
+    <div class="philosophy-item" onclick="navigator.clipboard.writeText('${q.text} - ${q.author}').then(()=>showToast('📋 Copied!'))">
       <i class="fas fa-quote-left"></i>
       <p>"${q.text}"</p>
     </div>
@@ -356,7 +356,7 @@ function initQuoteWidget() {
     const s = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
     s('quoteText',   `"${q.text}"`);
     s('quoteHindi',  `"${q.hindi}"`);
-    s('quoteAuthor', `— ${q.author}${q.isFounder ? ', Founder of Niharika' : ''}`);
+    s('quoteAuthor', `- ${q.author}${q.isFounder ? ', Founder of Niharika' : ''}`);
   };
 
   async function loadQuotes() {
@@ -378,7 +378,7 @@ function initQuoteWidget() {
   document.getElementById('copyQuoteBtn')?.addEventListener('click', () => {
     const q = _quotes[idx];
     if (!q) return;
-    navigator.clipboard.writeText(`"${q.text}"\n— ${q.author} (Niharika)`).then(() => showToast('📋 Copied!'));
+    navigator.clipboard.writeText(`"${q.text}"\n- ${q.author} (Niharika)`).then(() => showToast('📋 Copied!'));
   });
   document.getElementById('likeQuoteBtn')?.addEventListener('click', function() {
     this.querySelector('i').className = 'fas fa-heart'; this.style.color = 'var(--crimson)';
@@ -387,7 +387,7 @@ function initQuoteWidget() {
   document.getElementById('shareQuoteBtn')?.addEventListener('click', () => {
     const q = _quotes[idx];
     if (!q) return;
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`"${q.text}"\n— ${q.author} (Niharika)`)}`, '_blank');
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(`"${q.text}"\n- ${q.author} (Niharika)`)}`, '_blank');
   });
 }
 
@@ -469,7 +469,7 @@ function initModals() {
     btn.addEventListener('click', () => {
       const p = FB_POEMS.find(x => x.id === _shareId);
       if (!p) return;
-      const txt = encodeURIComponent(`${p.text}\n— ${p.poet}\n(Niharika — Indian Poetry Platform)`);
+      const txt = encodeURIComponent(`${p.text}\n- ${p.poet}\n(Niharika - Indian Poetry Platform)`);
       if (btn.classList.contains('share-wa'))  window.open(`https://api.whatsapp.com/send?text=${txt}`, '_blank');
       if (btn.classList.contains('share-tw'))  window.open(`https://twitter.com/intent/tweet?text=${txt}`, '_blank');
       if (btn.classList.contains('share-fb'))  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`, '_blank');

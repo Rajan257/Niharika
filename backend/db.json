@@ -403,7 +403,7 @@
     "nazm": {
       "word": "Nazm",
       "hindi": "नज़्म",
-      "meaning": "A poem, especially one that does not follow a strict verse form — often used for free verse and lyrical poetry.",
+      "meaning": "A poem, especially one that does not follow a strict verse form - often used for free verse and lyrical poetry.",
       "example": "यह नज़्म बहुत भावुक है। (This poem is very emotional.)",
       "pos": "Noun (Feminine)"
     },
@@ -431,14 +431,14 @@
     "sahitya": {
       "word": "Sahitya",
       "hindi": "साहित्य",
-      "meaning": "Literature; the body of written works — poetry, prose, drama — of a language or culture.",
+      "meaning": "Literature; the body of written works - poetry, prose, drama - of a language or culture.",
       "example": "हिंदी साहित्य बहुत समृद्ध है। (Hindi literature is very rich.)",
       "pos": "Noun (Masculine)"
     },
     "shraddha": {
       "word": "Shraddha",
       "hindi": "श्रद्धा",
-      "meaning": "Faith, reverence, deep respect — especially towards a teacher, parent, or spiritual path.",
+      "meaning": "Faith, reverence, deep respect - especially towards a teacher, parent, or spiritual path.",
       "example": "गुरु के प्रति श्रद्धा होनी चाहिए। (One should have reverence for the teacher.)",
       "pos": "Noun (Feminine)"
     },
@@ -452,21 +452,21 @@
     "moksha": {
       "word": "Moksha",
       "hindi": "मोक्ष",
-      "meaning": "Liberation; freedom from the cycle of birth and death — the highest spiritual goal in Indian philosophy.",
+      "meaning": "Liberation; freedom from the cycle of birth and death - the highest spiritual goal in Indian philosophy.",
       "example": "मोक्ष की प्राप्ति आत्मज्ञान से होती है। (Liberation is achieved through self-realisation.)",
       "pos": "Noun (Masculine)"
     },
     "karma": {
       "word": "Karma",
       "hindi": "कर्म",
-      "meaning": "Action, deed; the principle that one's actions determine one's future — the law of cause and effect.",
+      "meaning": "Action, deed; the principle that one's actions determine one's future - the law of cause and effect.",
       "example": "कर्म ही पूजा है। (Action is worship.)",
       "pos": "Noun (Masculine)"
     },
     "anand": {
       "word": "Anand",
       "hindi": "आनंद",
-      "meaning": "Joy, bliss, supreme happiness — especially the pure bliss arising from spiritual realisation.",
+      "meaning": "Joy, bliss, supreme happiness - especially the pure bliss arising from spiritual realisation.",
       "example": "भक्ति में आनंद मिलता है। (One finds bliss in devotion.)",
       "pos": "Noun (Masculine)"
     }
@@ -487,7 +487,7 @@
     {
       "id": 2,
       "title": "Rajan Rai: Why I Built Niharika for India's Poetry Lovers",
-      "excerpt": "Niharika was born from a simple belief — that great poetry should be free, accessible, and celebrated. Founder Rajan Rai shares the personal journey behind building India's newest literary home.",
+      "excerpt": "Niharika was born from a simple belief - that great poetry should be free, accessible, and celebrated. Founder Rajan Rai shares the personal journey behind building India's newest literary home.",
       "category": "FOUNDER'S NOTE",
       "date": "Apr 5, 2024",
       "emoji": "✍️",
@@ -509,7 +509,7 @@
     {
       "id": 4,
       "title": "Mirabai: The Saint Who Chose Krishna Over Kingdoms",
-      "excerpt": "Mirabai defied royalty, social norms, and tradition to follow her burning devotion for Lord Krishna. Her poetry is not just literature — it is a spiritual revolution.",
+      "excerpt": "Mirabai defied royalty, social norms, and tradition to follow her burning devotion for Lord Krishna. Her poetry is not just literature - it is a spiritual revolution.",
       "category": "HISTORY",
       "date": "Mar 30, 2024",
       "emoji": "🙏",
@@ -520,7 +520,7 @@
     {
       "id": 5,
       "title": "The Nine Rasas: Understanding Emotions in Hindi Poetry",
-      "excerpt": "Indian aesthetics identifies nine fundamental emotional states — Navarasa — from love (Shringar) to heroism (Veer) to spiritual peace (Shanta). Every great poem vibrates with at least one.",
+      "excerpt": "Indian aesthetics identifies nine fundamental emotional states - Navarasa - from love (Shringar) to heroism (Veer) to spiritual peace (Shanta). Every great poem vibrates with at least one.",
       "category": "POETICS",
       "date": "Mar 27, 2024",
       "emoji": "🌈",
@@ -531,7 +531,7 @@
     {
       "id": 6,
       "title": "Dinkar's Rashmirathi: The Epic That Reimagined Karna",
-      "excerpt": "Ramdhari Singh Dinkar's Rashmirathi retells the Mahabharata from Karna's perspective — giving voice to the unrecognised hero, the man born great but denied greatness by destiny.",
+      "excerpt": "Ramdhari Singh Dinkar's Rashmirathi retells the Mahabharata from Karna's perspective - giving voice to the unrecognised hero, the man born great but denied greatness by destiny.",
       "category": "EPIC POETRY",
       "date": "Mar 25, 2024",
       "emoji": "⚔️",
@@ -542,14 +542,14 @@
   ],
 
   "videos": [
-    { "id": 1, "title": "Kabir Ke Dohe — Complete Collection Reading", "poet": "Kabir Das", "views": "3.2M", "duration": "42:18", "letter": "क", "bg": "#7B1D1D" },
-    { "id": 2, "title": "Madhushala — Harivansh Rai Bachchan Live", "poet": "H.R. Bachchan", "views": "4.5M", "duration": "58:44", "letter": "ह", "bg": "#4a2800" },
-    { "id": 3, "title": "Rashmirathi — Dinkar's Epic Recitation", "poet": "Ramdhari Singh Dinkar", "views": "2.1M", "duration": "1:12:30", "letter": "दि", "bg": "#1a237e" },
-    { "id": 4, "title": "Mirabai Bhajans — Devotional Collection", "poet": "Mirabai", "views": "5.8M", "duration": "1:05:10", "letter": "मी", "bg": "#4A0072" },
-    { "id": 5, "title": "Rajan Rai — Philosophical Poetry Session", "poet": "Rajan Rai", "views": "890K", "duration": "34:22", "letter": "रा", "bg": "#1C1917" },
-    { "id": 6, "title": "Gulzar — Nazm Reading Evening", "poet": "Gulzar", "views": "2.7M", "duration": "1:20:00", "letter": "गु", "bg": "#263238" },
-    { "id": 7, "title": "Chhayawad Poetry Night — Pant & Nirala", "poet": "Pant, Nirala", "views": "1.1M", "duration": "55:18", "letter": "पं", "bg": "#1b4000" },
-    { "id": 8, "title": "Kavi Sammelan — Best of Hindi Poetry 2023", "poet": "Multiple Poets", "views": "6.2M", "duration": "2:10:45", "letter": "क", "bg": "#3e0000" }
+    { "id": 1, "title": "Kabir Ke Dohe - Complete Collection Reading", "poet": "Kabir Das", "views": "3.2M", "duration": "42:18", "letter": "क", "bg": "#7B1D1D" },
+    { "id": 2, "title": "Madhushala - Harivansh Rai Bachchan Live", "poet": "H.R. Bachchan", "views": "4.5M", "duration": "58:44", "letter": "ह", "bg": "#4a2800" },
+    { "id": 3, "title": "Rashmirathi - Dinkar's Epic Recitation", "poet": "Ramdhari Singh Dinkar", "views": "2.1M", "duration": "1:12:30", "letter": "दि", "bg": "#1a237e" },
+    { "id": 4, "title": "Mirabai Bhajans - Devotional Collection", "poet": "Mirabai", "views": "5.8M", "duration": "1:05:10", "letter": "मी", "bg": "#4A0072" },
+    { "id": 5, "title": "Rajan Rai - Philosophical Poetry Session", "poet": "Rajan Rai", "views": "890K", "duration": "34:22", "letter": "रा", "bg": "#1C1917" },
+    { "id": 6, "title": "Gulzar - Nazm Reading Evening", "poet": "Gulzar", "views": "2.7M", "duration": "1:20:00", "letter": "गु", "bg": "#263238" },
+    { "id": 7, "title": "Chhayawad Poetry Night - Pant & Nirala", "poet": "Pant, Nirala", "views": "1.1M", "duration": "55:18", "letter": "पं", "bg": "#1b4000" },
+    { "id": 8, "title": "Kavi Sammelan - Best of Hindi Poetry 2023", "poet": "Multiple Poets", "views": "6.2M", "duration": "2:10:45", "letter": "क", "bg": "#3e0000" }
   ],
 
   "categories": [
@@ -583,7 +583,7 @@
     },
     {
       "question": "Kabir Das belonged to which religious tradition in terms of his poetry?",
-      "options": ["Shaiva tradition", "Nirguna Bhakti — the formless divine", "Vaishnava Bhakti", "Shakta tradition"],
+      "options": ["Shaiva tradition", "Nirguna Bhakti - the formless divine", "Vaishnava Bhakti", "Shakta tradition"],
       "answer": 1
     },
     {
@@ -614,6 +614,126 @@
     {
       "question": "Gulzar received which international award for film lyrics?",
       "options": ["BAFTA Award", "Academy Award (Oscar)", "Grammy Award", "Golden Globe"],
+      "answer": 1
+    },
+    {
+      "question": "Which of these poets was one of the 'Navratnas' (Nine Gems) in Emperor Akbar's court?",
+      "options": ["Tulsidas", "Kabir Das", "Rahim Das", "Surdas"],
+      "answer": 2
+    },
+    {
+      "question": "Who authored the famous epic poem 'Rashmirathi'?",
+      "options": ["Jaishankar Prasad", "Ramdhari Singh Dinkar", "Suryakant Tripathi Nirala", "Sumitranandan Pant"],
+      "answer": 1
+    },
+    {
+      "question": "'Kamayani' is considered a masterpiece of which literary era?",
+      "options": ["Bhakti Era", "Pragativad Era", "Chhayawad Era", "Prayogvad Era"],
+      "answer": 2
+    },
+    {
+      "question": "Which emotion does 'Shringar Ras' primarily deal with?",
+      "options": ["Anger", "Heroism", "Love and Beauty", "Sorrow"],
+      "answer": 2
+    },
+    {
+      "question": "What is the pen name (takhallus) of Suryakant Tripathi?",
+      "options": ["Nirala", "Dinkar", "Agyeya", "Bachan"],
+      "answer": 0
+    },
+    {
+      "question": "Which of these is NOT a figure of speech (Alankar) in Hindi?",
+      "options": ["Upama", "Rupak", "Anupras", "Doha"],
+      "answer": 3
+    },
+    {
+      "question": "The famous line 'मन चंगा तो कठौती में गंगा' is attributed to:",
+      "options": ["Sushruta", "Kabir Das", "Tulsidas", "Guru Nanak"],
+      "answer": 1
+    },
+    {
+      "question": "Which poet is particularly famous for introducing 'Mukt Chhand' (Free Verse) into Hindi poetry?",
+      "options": ["Sumitranandan Pant", "Harivansh Rai Bachchan", "Suryakant Tripathi Nirala", "Mahadevi Verma"],
+      "answer": 2
+    },
+    {
+      "question": "What is the primary theme of Harivansh Rai Bachchan's 'Madhushala'?",
+      "options": ["A tavern, representing life and its transient nature", "The beauty of nature in spring", "A historical war", "Devotion to Lord Krishna"],
+      "answer": 0
+    },
+    {
+      "question": "Which poem retells the Mahabharata from Karna's perspective?",
+      "options": ["Kamayani", "Rashmirathi", "Urvashi", "Kurukshetra"],
+      "answer": 1
+    },
+    {
+      "question": "Which of these is considered a 'Mahakavya' (Epic Poem)?",
+      "options": ["Madhushala", "Kamayani", "Gitanjali", "Yama"],
+      "answer": 1
+    },
+    {
+      "question": "Who won the Jnanpith Award for his collection 'Kitni Navon Mein Kitni Baar', and is known as the pioneer of Prayogvad?",
+      "options": ["Agyeya", "Nirala", "Dinkar", "Pant"],
+      "answer": 0
+    },
+    {
+      "question": "In a traditional Doha, how many syllables (matras) are there in each of the two lines?",
+      "options": ["16", "24 (11+13)", "32", "20"],
+      "answer": 1
+    },
+    {
+      "question": "Which poet's real name was Abdul Rahim Khan-i-Khana?",
+      "options": ["Rahim Das", "Kabir Das", "Amir Khusrau", "Mirza Ghalib"],
+      "answer": 0
+    },
+    {
+      "question": "Sumitranandan Pant's poetry is deeply inspired by:",
+      "options": ["Political revolutions", "The Himalayas and Nature", "Taverns and Wine", "Urban struggles"],
+      "answer": 1
+    },
+    {
+      "question": "Which of these describes a 'Nazm'?",
+      "options": ["A two-line verse", "A poem with a single, continuous theme", "A devotional hymn", "A collection of unrelated couplets"],
+      "answer": 1
+    },
+    {
+      "question": "Who is the central female figure in Prasad's 'Kamayani' representing Reason?",
+      "options": ["Shraddha", "Ida", "Urvashi", "Sita"],
+      "answer": 1
+    },
+    {
+      "question": "'Veer Ras' in Hindi poetry evokes which emotion?",
+      "options": ["Fear", "Disgust", "Heroism and Courage", "Peace"],
+      "answer": 2
+    },
+    {
+      "question": "The famous ghazal poet Mirza Ghalib wrote primarily in which two languages?",
+      "options": ["Hindi and Sanskrit", "Urdu and Persian", "Punjabi and Urdu", "Awadhi and Brajbhasha"],
+      "answer": 1
+    },
+    {
+      "question": "Rajan Rai describes philosophy and truth through:",
+      "options": ["Epic poetry", "Free verse and Aphorisms", "Devotional songs", "Gazals"],
+      "answer": 1
+    },
+    {
+      "question": "According to Rajan Rai, 'Silence is the loudest answer the _______ ever gives.'",
+      "options": ["mind", "world", "soul", "heart"],
+      "answer": 2
+    },
+    {
+      "question": "Which of these movements focused heavily on individualism, mysticism, and romanticism in nature?",
+      "options": ["Pragativad", "Chhayawad", "Nai Kavita", "Dwivedi Yug"],
+      "answer": 1
+    },
+    {
+      "question": "Mirabai composed her poems and songs primarily in which language/dialect?",
+      "options": ["Pure Sanskrit", "Bhojpuri", "Rajasthani and Brajbhasha", "Maithili"],
+      "answer": 2
+    },
+    {
+      "question": "Which word translates to 'separation' or the pain of being apart from a loved one?",
+      "options": ["Prem", "Virah", "Shraddha", "Jigyasa"],
       "answer": 1
     }
   ],

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile - Niharika</title>
+  <meta name="description" content="Your Niharika profile - saved poems, bookmarked poets, and reading history." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .profile-hero { background:linear-gradient(135deg,#1C1410,#2C1810,#4A0E0E); padding:60px 0 40px; }
+    .profile-hero-inner { display:flex; align-items:center; gap:32px; }
+    .profile-avatar { width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg,#8B1A1A,#4A0E0E); display:flex; align-items:center; justify-content:center; font-size:42px; font-weight:700; color:#C9A227; border:3px solid rgba(201,162,39,0.4); flex-shrink:0; }
+    .profile-name { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; color:#fff; }
+    .profile-email { color:rgba(255,255,255,0.5); font-size:14px; margin-top:4px; }
+    .profile-joined { color:rgba(201,162,39,0.8); font-size:13px; margin-top:8px; }
+    .profile-stats { display:flex; gap:24px; margin-top:20px; }
+    .profile-stat { text-align:center; }
+    .profile-stat-n { font-size:26px; font-weight:800; color:#C9A227; }
+    .profile-stat-l { font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:1px; text-transform:uppercase; }
+    .profile-actions { display:flex; gap:12px; margin-top:24px; }
+    
+    .profile-tabs { display:flex; gap:0; border-bottom:2px solid var(--border-2,rgba(255,255,255,0.08)); margin-bottom:40px; }
+    .profile-tab { padding:16px 24px; background:none; border:none; border-bottom:2px solid transparent; margin-bottom:-2px; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.5px; color:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.25s; }
+    .profile-tab.active { color:#fff; border-bottom-color:#8B1A1A; }
+    .profile-tab:hover { color:rgba(255,255,255,0.8); }
+    .profile-panel { display:none; }
+    .profile-panel.active { display:block; }
+    
+    .poem-card-sm { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:20px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px; transition:all 0.25s; }
+    .poem-card-sm:hover { background:rgba(255,255,255,0.07); border-color:rgba(201,162,39,0.25); }
+    .poem-card-sm-text { font-style:italic; color:rgba(255,255,255,0.8); line-height:1.7; white-space:pre-line; font-size:14px; flex:1; }
+    .poem-card-sm-poet { font-size:12px; color:rgba(201,162,39,0.8); margin-top:8px; font-weight:600; }
+    .poem-card-sm-remove { background:none; border:1px solid rgba(183,28,28,0.3); border-radius:8px; padding:8px 12px; color:rgba(183,28,28,0.7); cursor:pointer; font-size:12px; flex-shrink:0; transition:all 0.25s; }
+    .poem-card-sm-remove:hover { background:rgba(183,28,28,0.1); color:#ff6b6b; }
+    
+    .poet-bookmark-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:20px; display:flex; align-items:center; gap:16px; margin-bottom:16px; transition:all 0.25s; text-decoration:none; }
+    .poet-bookmark-card:hover { background:rgba(255,255,255,0.07); border-color:rgba(201,162,39,0.25); transform:translateX(4px); }
+    .poet-bm-orb { width:52px; height:52px; border-radius:50%; background:linear-gradient(135deg,#8B1A1A,#4A0E0E); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:#C9A227; flex-shrink:0; }
+    .poet-bm-name { font-weight:700; font-size:16px; color:#fff; }
+    .poet-bm-date { font-size:12px; color:rgba(255,255,255,0.35); margin-top:4px; }
+    .poet-bm-arrow { margin-left:auto; color:rgba(255,255,255,0.3); }
+    
+    .history-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .history-item:last-child { border-bottom:none; }
+    .history-icon { width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; color:rgba(201,162,39,0.8); font-size:13px; flex-shrink:0; }
+    .history-name { font-weight:600; color:rgba(255,255,255,0.8); font-size:14px; }
+    .history-date { font-size:12px; color:rgba(255,255,255,0.35); margin-top:2px; }
+    
+    .empty-state { text-align:center; padding:60px 20px; color:rgba(255,255,255,0.4); }
+    .empty-state i { font-size:48px; margin-bottom:20px; display:block; }
+    .empty-state h3 { font-family:'Cormorant Garamond',serif; font-size:24px; color:rgba(255,255,255,0.6); margin-bottom:8px; }
+    .section-count { font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:24px; letter-spacing:1px; text-transform:uppercase; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER (includes auth.js for header UI) -->
+<div class="announcement-bar">
+  <div class="container">
+    <div class="announcement-left">
+      <span><i class="fas fa-star"></i> Niharika - Founded by Rajan Rai</span>
+    </div>
+    <div class="announcement-right">
+      <a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a>
+      <a href="dictionary.html"><i class="fas fa-book"></i> Dictionary</a>
+    </div>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-main">
+      <a href="index.html" class="logo">
+        <span class="logo-wordmark">Niharika</span>
+        <span class="logo-tagline">निहारिका · Poetry</span>
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-home"></i> Home</a>
+        <div class="user-menu" id="userMenu" style="display:none;align-items:center;gap:12px;position:relative">
+          <button class="user-avatar-btn" id="userAvatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8B1A1A,#4A0E0E);border:2px solid rgba(201,162,39,0.4);color:#C9A227;font-weight:700;cursor:pointer;font-size:14px;"></button>
+          <span id="userNameDisplay" style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:600;"></span>
+          <div id="userDropdown" style="position:absolute;top:calc(100% + 12px);right:0;background:#1a1410;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:160px;display:none;z-index:999;">
+            <a href="profile.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,255,255,0.8);text-decoration:none;border-radius:8px;font-size:13px;transition:background 0.2s;"><i class="fas fa-user" style="color:#C9A227;width:16px;"></i> My Profile</a>
+            <a href="poet-profile.html?id=1" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,255,255,0.8);text-decoration:none;border-radius:8px;font-size:13px;"><i class="fas fa-crown" style="color:#C9A227;width:16px;"></i> Rajan Rai</a>
+            <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:6px 0;" />
+            <button id="logoutBtn" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,100,100,0.8);background:none;border:none;width:100%;font-size:13px;cursor:pointer;border-radius:8px;font-family:inherit;"><i class="fas fa-sign-out-alt" style="width:16px;"></i> Logout</button>
+          </div>
+        </div>
+        <a href="auth.html" class="btn btn-gold btn-sm" id="authBtn"><i class="fas fa-user"></i> Sign In</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PROFILE HERO -->
+<section class="profile-hero">
+  <div class="container">
+    <div class="profile-hero-inner" id="profileHeroInner">
+      <div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);width:100%"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE CONTENT -->
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="profile-tabs">
+        <button class="profile-tab active" onclick="switchPanel('favorites')"><i class="fas fa-heart"></i> Saved Poems</button>
+        <button class="profile-tab" onclick="switchPanel('bookmarks')"><i class="fas fa-bookmark"></i> Bookmarked Poets</button>
+        <button class="profile-tab" onclick="switchPanel('history')"><i class="fas fa-history"></i> Reading History</button>
+      </div>
+      
+      <!-- Favorites Panel -->
+      <div class="profile-panel active" id="panel-favorites">
+        <div class="section-count" id="fav-count">Loading...</div>
+        <div id="favorites-list"></div>
+      </div>
+      
+      <!-- Bookmarks Panel -->
+      <div class="profile-panel" id="panel-bookmarks">
+        <div class="section-count" id="bm-count">Loading...</div>
+        <div id="bookmarks-list"></div>
+      </div>
+      
+      <!-- History Panel -->
+      <div class="profile-panel" id="panel-history">
+        <div class="section-count" id="hist-count">Loading...</div>
+        <div id="history-list"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/api.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/auth.js"></script>
+<script>
+const API = 'http://localhost:5000/api';
+
+// Check auth
+if (!localStorage.getItem('niharika_token')) {
+  sessionStorage.setItem('niharika_redirect', 'profile.html');
+  window.location.href = 'auth.html';
+}
+
+function switchPanel(id) {
+  document.querySelectorAll('.profile-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.profile-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(`panel-${id}`).classList.add('active');
+  event.target.closest('.profile-tab').classList.add('active');
+}
+
+function timeAgo(dateStr) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const d = Math.floor(diff / 86400000);
+  if (d === 0) return 'Today';
+  if (d === 1) return 'Yesterday';
+  if (d < 30) return `${d} days ago`;
+  const m = Math.floor(d/30);
+  return `${m} month${m>1?'s':''} ago`;
+}
+
+async function loadProfile() {
+  const token = localStorage.getItem('niharika_token');
+  const user  = JSON.parse(localStorage.getItem('niharika_user') || '{}');
+  
+  document.getElementById('profileHeroInner').innerHTML = `
+    <div class="profile-avatar">${user.avatar || (user.name||'U').charAt(0).toUpperCase()}</div>
+    <div>
+      <div class="profile-name">${user.name || 'Reader'}</div>
+      <div class="profile-email"><i class="fas fa-envelope" style="margin-right:6px;color:rgba(201,162,39,0.7)"></i>${user.email || ''}</div>
+      <div class="profile-joined"><i class="fas fa-calendar-alt" style="margin-right:6px"></i>Joined ${user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN',{month:'long',year:'numeric'}) : 'Recently'}</div>
+      <div class="profile-actions">
+        <a href="poets.html" class="btn btn-gold btn-sm"><i class="fas fa-feather-alt"></i> Explore Poets</a>
+        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <button class="btn btn-sm" style="background:rgba(183,28,28,0.2);color:rgba(255,100,100,0.8);border:1px solid rgba(183,28,28,0.3)" onclick="AUTH.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+  `;
+  
+  // Load favorites
+  const favRes = await fetch(`${API}/user/favorites`, { headers:{ Authorization:`Bearer ${token}` } });
+  const favData = await favRes.json();
+  const favs = favData.success ? favData.data : [];
+  document.getElementById('fav-count').textContent = `${favs.length} Saved Poem${favs.length!==1?'s':''}`;
+  document.getElementById('favorites-list').innerHTML = favs.length ? favs.map(f => `
+    <div class="poem-card-sm">
+      <div>
+        <div class="poem-card-sm-text">${(f.poemText||'').replace(/\n/g,'<br>')}</div>
+        <div class="poem-card-sm-poet">- ${f.poet || 'Unknown'} · <span style="color:rgba(255,255,255,0.35)">${timeAgo(f.savedAt)}</span></div>
+      </div>
+      <button class="poem-card-sm-remove" onclick="removeFav(${f.poemId})"><i class="fas fa-times"></i> Remove</button>
+    </div>`).join('') : `<div class="empty-state"><i class="far fa-heart" style="color:rgba(139,26,26,0.5)"></i><h3>No saved poems yet</h3><p>Click the heart icon on any poem to save it here.</p><a href="poets.html" class="btn btn-gold" style="margin-top:20px;display:inline-flex"><i class="fas fa-feather-alt"></i> Explore Poets</a></div>`;
+  
+  // Load bookmarks
+  const bmRes = await fetch(`${API}/user/bookmarks`, { headers:{ Authorization:`Bearer ${token}` } });
+  const bmData = await bmRes.json();
+  const bms = bmData.success ? bmData.data : [];
+  document.getElementById('bm-count').textContent = `${bms.length} Bookmarked Poet${bms.length!==1?'s':''}`;
+  document.getElementById('bookmarks-list').innerHTML = bms.length ? bms.map(b => `
+    <a href="poet-profile.html?id=${b.poetId}" class="poet-bookmark-card">
+      <div class="poet-bm-orb">${(b.poetName||'P').charAt(0)}</div>
+      <div>
+        <div class="poet-bm-name">${b.poetName}</div>
+        <div class="poet-bm-date">Bookmarked · ${timeAgo(b.savedAt)}</div>
+      </div>
+      <i class="fas fa-chevron-right poet-bm-arrow"></i>
+    </a>`).join('') : `<div class="empty-state"><i class="fas fa-bookmark" style="color:rgba(201,162,39,0.3)"></i><h3>No bookmarked poets yet</h3><p>Bookmark poets from their profile pages to see them here.</p><a href="poets.html" class="btn btn-gold" style="margin-top:20px;display:inline-flex"><i class="fas fa-feather-alt"></i> Browse Poets</a></div>`;
+  
+  // Loading history from user data
+  const user2 = favData.success ? null : null;
+  const historyItems = user.readingHistory || [];
+  document.getElementById('hist-count').textContent = `${historyItems.length} Recently Viewed`;
+  document.getElementById('history-list').innerHTML = historyItems.length ? historyItems.map(h => `
+    <a href="poet-profile.html?id=${h.poetId}" style="text-decoration:none">
+      <div class="history-item">
+        <div class="history-icon"><i class="fas fa-feather-alt"></i></div>
+        <div><div class="history-name">${h.poetName}</div><div class="history-date">${timeAgo(h.visitedAt)}</div></div>
+        <i class="fas fa-chevron-right" style="margin-left:auto;color:rgba(255,255,255,0.2)"></i>
+      </div>
+    </a>`).join('') : `<div class="empty-state"><i class="fas fa-history" style="color:rgba(255,255,255,0.15)"></i><h3>No reading history yet</h3><p>Visit poet profiles to build your reading history.</p></div>`;
+}
+
+async function removeFav(poemId) {
+  const token = localStorage.getItem('niharika_token');
+  await fetch(`${API}/user/favorites`, { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:`Bearer ${token}` }, body:JSON.stringify({ poemId }) });
+  loadProfile();
+}
+
+loadProfile();
+</script>
+</body>
+</html>

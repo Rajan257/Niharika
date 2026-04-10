@@ -9,9 +9,92 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .kavita-page-grid{display:grid;grid-template-columns:1fr 340px;gap:32px}
-    .kavita-list-wrap{display:flex;flex-direction:column;gap:18px}
+    /* ── Kavita Hero ── */
+    .kavita-hero {
+      background: linear-gradient(135deg, #1C0A1A 0%, #3B0A25 40%, #1C1917 100%);
+      padding: 80px 0 60px; text-align: center; position: relative; overflow: hidden;
+    }
+    .kavita-hero::before {
+      content: 'कविता'; position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+      font-size: 320px; color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none; font-family: var(--font-hindi);
+    }
+    .kavita-hero::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--bg), transparent);
+    }
+    .kavita-hero h1 { font-family: var(--font-display); font-size: 64px; color: white; font-weight: 700; margin-bottom: 8px; letter-spacing: -1px; }
+    .kavita-hero p { color: rgba(255,255,255,0.6); font-size: 16px; max-width: 500px; margin: 0 auto 40px; }
+    
+    .kavita-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+    .kavita-stat { text-align: center; }
+    .kavita-stat-num { font-size: 28px; font-weight: 800; color: white; }
+    .kavita-stat-num.gold { color: var(--gold); }
+    .kavita-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase; }
+
+    /* ── Form Filters ── */
+    .form-bar {
+      background: white; border-bottom: 1px solid var(--border-2);
+      position: sticky; top: 65px; z-index: 90; box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .form-bar-inner {
+      display: flex; gap: 0; overflow-x: auto; padding: 0; scrollbar-width: none;
+    }
+    .form-bar-inner::-webkit-scrollbar { display: none; }
+    .form-btn {
+      display: flex; align-items: center; gap: 7px; padding: 14px 20px; font-size: 12.5px; font-weight: 700;
+      letter-spacing: 0.5px; white-space: nowrap; border: none; background: none; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; transition: all 0.2s ease;
+    }
+    .form-btn:hover { color: var(--crimson); background: var(--crimson-light); }
+    .form-btn.active { color: var(--crimson); border-bottom-color: var(--crimson); background: var(--crimson-light); }
+    .form-btn .form-icon { font-size: 16px; margin-right: 4px; }
+
+    /* ── Layout ── */
+    .kavita-page-grid { display: grid; grid-template-columns: 1fr 340px; gap: 40px; padding: 48px 0; }
+    .kavita-list-wrap { display: flex; flex-direction: column; gap: 24px; }
+    
+    /* ── Poem Card Premium ── */
+    .poem-card {
+      background: white; border: 1px solid var(--border-2); border-radius: 20px; padding: 36px 40px;
+      position: relative; transition: all 0.3s var(--ease); overflow: hidden;
+    }
+    .poem-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-color: rgba(139,26,26,0.2); }
+    .poem-number {
+      position: absolute; top: 20px; right: 28px; font-family: var(--font-display); font-size: 48px; color: rgba(139,26,26,0.05); font-weight: 800; line-height: 1; pointer-events: none;
+    }
+    .poem-form-tag {
+      display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
+      background: #f1f5f9; color: #475569;
+    }
+    
+    /* Different Form Tag Colors */
+    .poem-form-tag.doha { background: #fee2e2; color: #991b1b; }
+    .poem-form-tag.kavita { background: #dbeafe; color: #1e40af; }
+    .poem-form-tag.nazm { background: #fce7f3; color: #9d174d; }
+    .poem-form-tag.bhajan { background: #fef3c7; color: #92400e; }
+    .poem-form-tag.aphorism { background: #ede9fe; color: #5b21b6; }
+
+    .poem-text {
+      font-family: var(--font-hindi); font-size: 22px; line-height: 1.9; color: var(--text); margin-bottom: 20px; font-weight: 500;
+    }
+    .poem-text.english { font-family: var(--font-display); font-size: 20px; font-weight: 600; font-style: italic; }
+    .poem-translation { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; padding-left: 16px; border-left: 2px solid var(--border-2); display: none; }
+    .poem-translation.show { display: block; }
+    
+    .poem-footer {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 20px; border-top: 1px solid var(--border-2);
+    }
+    .poem-poet-info { display: flex; align-items: center; gap: 10px; }
+    .poem-poet-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-hindi); font-size: 14px; font-weight: 700; color: white; background: var(--crimson); flex-shrink: 0; }
+    .poem-poet-name { font-size: 14px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .poem-poet-name:hover { color: var(--crimson); }
+    .poem-likes-text { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+    
+    .poem-actions { display: flex; gap: 6px; align-items: center; }
+    .poem-action-btn { display: flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: 24px; font-size: 12px; font-weight: 600; border: 1.5px solid var(--border-2); background: white; color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .poem-action-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+    .poem-action-btn.liked { background: var(--crimson); color: white; border-color: var(--crimson); }
+
     @media(max-width:900px){.kavita-page-grid{grid-template-columns:1fr}}
+    @media(max-width:600px){.kavita-hero h1{font-size:44px}.poem-card{padding:24px 20px}.poem-text{font-size:18px}}
   </style>
 </head>
 <body>
@@ -32,29 +115,52 @@
       <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
       <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
       <li><a href="kavita.html" class="nav-link active"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="sher.html" class="nav-link"><i class="fas fa-star-and-crescent"></i> SHER</a></li>
       <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
-      <li><a href="blog.html" class="nav-link"><i class="fas fa-newspaper"></i> BLOG</a></li>
       <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
     </ul></nav>
   </div>
 </header>
-<section style="background:linear-gradient(135deg,var(--espresso) 0%, var(--crimson-deep) 100%);padding:60px 0;text-align:center">
-  <div class="container">
-    <div class="section-label" style="color:var(--gold-bright);justify-content:center">KAVITA SANGRAH</div>
-    <h1 style="font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px">Kavita</h1>
-    <p style="color:rgba(255,255,255,0.65);font-size:17px;max-width:500px;margin:0 auto">From timeless dohas to modern aphorisms - the complete poetry collection on Niharika</p>
+
+<!-- Hero -->
+<section class="kavita-hero">
+  <div class="container" style="position:relative;z-index:1">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center;margin-bottom:16px"><i class="fas fa-scroll"></i> KAVITA SANGRAH</div>
+    <h1>Kavita</h1>
+    <p>From timeless dohas to modern aphorisms - the complete Hindi poetry collection on Niharika</p>
+    <div class="kavita-stats">
+      <div class="kavita-stat">
+        <div class="kavita-stat-num gold" id="kavitaCount">-</div>
+        <div class="kavita-stat-label">Poems</div>
+      </div>
+      <div class="kavita-stat">
+        <div class="kavita-stat-num">5</div>
+        <div class="kavita-stat-label">Forms</div>
+      </div>
+      <div class="kavita-stat">
+        <div class="kavita-stat-num">45K+</div>
+        <div class="kavita-stat-label">Total in Library</div>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Form Filter Bar -->
+<div class="form-bar" id="formBar">
+  <div class="container">
+    <div class="form-bar-inner">
+      <button class="form-btn active" data-form="all"><span class="form-icon">✨</span> ALL</button>
+      <button class="form-btn" data-form="Doha"><span class="form-icon">📜</span> DOHA</button>
+      <button class="form-btn" data-form="Kavita"><span class="form-icon">🌹</span> KAVITA</button>
+      <button class="form-btn" data-form="Nazm"><span class="form-icon">✍️</span> NAZM</button>
+      <button class="form-btn" data-form="Bhajan"><span class="form-icon">🙏</span> BHAJAN</button>
+      <button class="form-btn" data-form="Aphorism"><span class="form-icon">💡</span> APHORISM</button>
+    </div>
+  </div>
+</div>
+
 <section class="section section-alt">
   <div class="container">
-    <div style="display:flex;gap:8px;margin-bottom:28px;border-bottom:2px solid var(--border-2);padding-bottom:0;flex-wrap:wrap">
-      <button class="tab-pill active" data-form="all">All</button>
-      <button class="tab-pill" data-form="Doha">Doha</button>
-      <button class="tab-pill" data-form="Kavita">Kavita</button>
-      <button class="tab-pill" data-form="Nazm">Nazm</button>
-      <button class="tab-pill" data-form="Bhajan">Bhajan</button>
-      <button class="tab-pill" data-form="Aphorism">Aphorism</button>
-    </div>
     <div class="kavita-page-grid">
       <div>
         <div class="kavita-list-wrap" id="kavitaList">
@@ -63,9 +169,9 @@
       </div>
       <aside>
         <div class="widget">
-          <div class="widget-header"><span class="widget-title"><i class="fas fa-quote-left"></i> Rajan Rai's Thought</span></div>
-          <p class="quote-text-display" id="sideQuote">"A man can do anything, when he realises he is a man."</p>
-          <p class="quote-author-display">- Rajan Rai, Founder of Niharika</p>
+          <div class="widget-header"><span class="widget-title"><i class="fas fa-quote-left"></i> Founder's Thought</span></div>
+          <p class="quote-text-display" id="sideQuote">"Every storm within you is just a sunrise waiting to break."</p>
+          <p class="quote-author-display">- Rajan Rai, Philosopher-Poet</p>
         </div>
         <div class="widget wod-widget">
           <div class="widget-header"><span class="widget-title"><i class="fas fa-star"></i> Word of the Day</span></div>
@@ -74,10 +180,10 @@
           <div class="wod-meaning">Poetry; a literary form expressing emotions and ideas through rhythm and language.</div>
         </div>
         <div class="widget">
-          <div style="font-size:13px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:14px">QUICK LINKS</div>
+          <div style="font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:14px;text-transform:uppercase;">Quick Links</div>
           <div style="display:flex;flex-direction:column;gap:10px">
             <a href="poets.html" class="btn btn-crimson"><i class="fas fa-feather-alt"></i> Explore Poets</a>
-            <a href="dictionary.html" class="btn btn-gold"><i class="fas fa-book"></i> Niharika Dictionary</a>
+            <a href="sher.html" class="btn btn-outline-crimson"><i class="fas fa-star-and-crescent"></i> Sher &amp; Shayari</a>
             <a href="chatbot.html" class="btn" style="background:var(--espresso);color:white;padding:12px 24px;border-radius:24px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;justify-content:center"><i class="fas fa-robot"></i> Ask Sakhi</a>
           </div>
         </div>
@@ -96,33 +202,83 @@
 <script src="js/utils.js"></script>
 <script>
 let allPoems = [];
+let likedKavitas = new Set(JSON.parse(localStorage.getItem('kavita_liked') || '[]'));
+
 async function loadPoems() {
   const r = await NiharikaAPI.getPoems();
   allPoems = r?.data?.length ? r.data : FB_POEMS;
+  
+  // Render all initally
   renderPoems(allPoems);
 }
 function renderPoems(poems) {
-  document.getElementById('kavitaList').innerHTML = poems.length ? poems.map((p, i) => `
+  document.getElementById('kavitaCount').textContent = poems.length;
+  document.getElementById('kavitaList').innerHTML = poems.length ? poems.map((p, i) => {
+    const isEnglish = /^[A-Za-z]/.test(p.text);
+    const hasTranslation = p.hindi && p.hindi !== p.text;
+    const isLiked = likedKavitas.has(p.id.toString());
+    const formClass = (p.form || '').toLowerCase().replace(/\s+/g, '-');
+    return `
     <article class="poem-card reveal">
       <span class="poem-number">${i + 1}</span>
-      <div class="poem-form-tag">${p.form}</div>
-      <div class="poem-text ${/[\u0900-\u097F]/.test(p.text) ? 'hindi' : ''}">${p.text.replace(/\n/g,'<br>')}</div>
-      ${p.hindi && p.hindi !== p.text ? `<div class="poem-translation hindi">${p.hindi.replace(/\n/g,'<br>')}</div>` : ''}
+      <div class="poem-form-tag ${formClass}"><i class="fas fa-scroll"></i> &nbsp;${p.form}</div>
+      <div class="poem-text ${isEnglish ? 'english' : ''}">${p.text.replace(/\n/g,'<br>')}</div>
+      ${hasTranslation ? `
+        <div class="poem-translation" id="trans-${p.id}">
+           ${isEnglish ? p.hindi.replace(/\n/g,'<br>') : ''}
+        </div>
+        ${isEnglish ? `<button class="poem-action-btn" onclick="toggleTrans('${p.id}')" style="margin-bottom:16px;font-size:11px">
+          <i class="fas fa-language"></i> <span id="transLabel-${p.id}">Hindi</span>
+        </button>` : ''}
+      ` : ''}
       <div class="poem-footer">
-        <a href="poet-profile.html?id=${p.poetId}" class="poem-poet-name">${p.poet}</a>
+        <div class="poem-poet-info">
+          <div class="poem-poet-avatar">${p.poet.charAt(0)}</div>
+          <div>
+            <a href="poet-profile.html?id=${p.poetId}" class="poem-poet-name">${p.poet}</a>
+            <div class="poem-likes-text"><i class="fas fa-heart" style="color:var(--crimson);font-size:10px"></i> ${fmt(p.likes || 12000)} likes</div>
+          </div>
+        </div>
         <div class="poem-actions">
-          <button class="btn-icon" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g,"\\'")} - ${p.poet}').then(()=>showToast('Copied!'))"><i class="fas fa-copy"></i></button>
-          <button class="btn-icon" onclick="showToast('Saved!')"><i class="fas fa-bookmark"></i></button>
+          <button class="poem-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${p.id}', this)">
+            <i class="fas fa-heart"></i> ${isLiked ? 'Liked' : 'Like'}
+          </button>
+          <button class="poem-action-btn" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g,"\\'").replace(/\n/g,"\\n")}\\n\\n- ${p.poet}').then(()=>showToast('Copied!'))"><i class="fas fa-copy"></i></button>
+          <button class="poem-action-btn" onclick="showToast('Link ready to share!')"><i class="fas fa-share-alt"></i></button>
         </div>
       </div>
-      <div class="poem-likes"><i class="fas fa-heart"></i> ${fmt(p.likes)} likes</div>
     </article>
-  `).join('') : '<div style="text-align:center;padding:60px;color:var(--muted)">No poems found in this category.</div>';
+  `}).join('') : '<div style="text-align:center;padding:60px;color:var(--muted)">No poems found in this category.</div>';
   initReveal && initReveal();
 }
-document.querySelectorAll('.tab-pill[data-form]').forEach(btn => {
+
+function toggleTrans(id) {
+  const el = document.getElementById('trans-' + id);
+  const label = document.getElementById('transLabel-' + id);
+  if (!el) return;
+  const open = el.classList.toggle('show');
+  if (label) label.textContent = open ? 'Hide' : 'Hindi';
+}
+
+function toggleLike(id, btn) {
+  strId = id.toString();
+  if (likedKavitas.has(strId)) {
+    likedKavitas.delete(strId);
+    btn.classList.remove('liked');
+    btn.innerHTML = '<i class="fas fa-heart"></i> Like';
+    showToast('Removed from liked');
+  } else {
+    likedKavitas.add(strId);
+    btn.classList.add('liked');
+    btn.innerHTML = '<i class="fas fa-heart"></i> Liked';
+    showToast('Added to your collection!');
+  }
+  localStorage.setItem('kavita_liked', JSON.stringify([...likedKavitas]));
+}
+
+document.querySelectorAll('.form-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-pill[data-form]').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.form-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     const form = btn.dataset.form;
     renderPoems(form === 'all' ? allPoems : allPoems.filter(p => p.form === form));

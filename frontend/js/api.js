@@ -1,4 +1,4 @@
-// frontend/js/api.js — Niharika API Client
+// frontend/js/api.js - Niharika API Client
 
 const API = 'http://localhost:5000/api';
 
@@ -83,17 +83,17 @@ const FB_DICT = {
   kavita:   { word:"Kavita",   hindi:"कविता",  meaning:"Poetry; a literary form expressing emotions through rhythm.", example:"उसकी कविता मन को छू लेती है।", pos:"Noun (Feminine)", tags:["poetry","hindi"] },
   doha:     { word:"Doha",     hindi:"दोहा",   meaning:"A traditional two-line verse with 24 syllables (11+13). Kabir's dohas are the most celebrated.", example:"कबीर के दोहे आज भी प्रासंगिक हैं।", pos:"Noun (Masculine)", tags:["form","classical"] },
   prem:     { word:"Prem",     hindi:"प्रेम",  meaning:"Love; a deep unconditional affection for a person, nature, or the divine.", example:"प्रेम सबसे बड़ी शक्ति है।", pos:"Noun (Masculine)", tags:["emotion"] },
-  virah:    { word:"Virah",    hindi:"विरह",   meaning:"Separation; the pain of being apart from a loved one — a central theme in Indian poetry.", example:"विरह की पीड़ा असहनीय होती है।", pos:"Noun (Masculine)", tags:["emotion","classical"] },
+  virah:    { word:"Virah",    hindi:"विरह",   meaning:"Separation; the pain of being apart from a loved one - a central theme in Indian poetry.", example:"विरह की पीड़ा असहनीय होती है।", pos:"Noun (Masculine)", tags:["emotion","classical"] },
   ras:      { word:"Ras",      hindi:"रस",     meaning:"The aesthetic flavour of a poem. Nine rasas: Shringar, Hasya, Karuna, Raudra, Veer, Bhayanaka, Bibhatsa, Adbhuta, Shanta.", example:"श्रृंगार रस प्रेम का प्रतीक है।", pos:"Noun (Masculine)", tags:["poetics"] },
   bhajan:   { word:"Bhajan",   hindi:"भजन",   meaning:"A devotional song or hymn in praise of God, especially in the Hindu tradition.", example:"मीराबाई के भजन बहुत प्रसिद्ध हैं।", pos:"Noun (Masculine)", tags:["form","devotional"] },
   karma:    { word:"Karma",    hindi:"कर्म",   meaning:"Action; the law of cause and effect. One's actions determine one's future.", example:"कर्म ही पूजा है।", pos:"Noun (Masculine)", tags:["philosophy"] },
-  moksha:   { word:"Moksha",   hindi:"मोक्ष",  meaning:"Liberation; freedom from the cycle of rebirth — the highest spiritual goal.", example:"मोक्ष की प्राप्ति आत्मज्ञान से होती है।", pos:"Noun (Masculine)", tags:["philosophy"] },
+  moksha:   { word:"Moksha",   hindi:"मोक्ष",  meaning:"Liberation; freedom from the cycle of rebirth - the highest spiritual goal.", example:"मोक्ष की प्राप्ति आत्मज्ञान से होती है।", pos:"Noun (Masculine)", tags:["philosophy"] },
   anand:    { word:"Anand",    hindi:"आनंद",   meaning:"Joy, bliss; the pure happiness arising from spiritual realisation.", example:"भक्ति में आनंद मिलता है।", pos:"Noun (Masculine)", tags:["emotion","philosophy"] },
-  shraddha: { word:"Shraddha", hindi:"श्रद्धा",meaning:"Faith, deep reverence — especially towards a teacher or spiritual path.", example:"गुरु के प्रति श्रद्धा होनी चाहिए।", pos:"Noun (Feminine)", tags:["philosophy"] },
+  shraddha: { word:"Shraddha", hindi:"श्रद्धा",meaning:"Faith, deep reverence - especially towards a teacher or spiritual path.", example:"गुरु के प्रति श्रद्धा होनी चाहिए।", pos:"Noun (Feminine)", tags:["philosophy"] },
   nazm:     { word:"Nazm",     hindi:"नज़्म",  meaning:"A poem with a single theme; free verse or structured narrative poetry.", example:"यह नज़्म बहुत भावुक है।", pos:"Noun (Feminine)", tags:["form"] },
-  alankar:  { word:"Alankar",  hindi:"अलंकार",meaning:"Figure of speech in Hindi poetry — Upama (simile), Rupak (metaphor), Anupras (alliteration).", example:"उपमा एक प्रमुख अलंकार है।", pos:"Noun (Masculine)", tags:["poetics"] },
+  alankar:  { word:"Alankar",  hindi:"अलंकार",meaning:"Figure of speech in Hindi poetry - Upama (simile), Rupak (metaphor), Anupras (alliteration).", example:"उपमा एक प्रमुख अलंकार है।", pos:"Noun (Masculine)", tags:["poetics"] },
   chhand:   { word:"Chhand",   hindi:"छंद",    meaning:"Meter; the rhythmic pattern in classical Hindi poetry. Common: Doha, Chaupai, Savaiya.", example:"रामायण में दोहा और चौपाई छंद है।", pos:"Noun (Masculine)", tags:["poetics"] },
-  sahitya:  { word:"Sahitya",  hindi:"साहित्य",meaning:"Literature; the body of written works — poetry, prose, drama — of a language.", example:"हिंदी साहित्य बहुत समृद्ध है।", pos:"Noun (Masculine)", tags:["general"] },
+  sahitya:  { word:"Sahitya",  hindi:"साहित्य",meaning:"Literature; the body of written works - poetry, prose, drama - of a language.", example:"हिंदी साहित्य बहुत समृद्ध है।", pos:"Noun (Masculine)", tags:["general"] },
   jigyasa:  { word:"Jigyasa",  hindi:"जिज्ञासा",meaning:"Curiosity, inquisitiveness; the burning desire to know and understand.", example:"ज्ञान की जिज्ञासा मनुष्य को महान बनाती है।", pos:"Noun (Feminine)", tags:["philosophy"] },
 };
 
@@ -106,20 +106,20 @@ const FB_CATEGORIES = [
 ];
 
 const FB_VIDEOS = [
-  {id:1,title:"Kabir Ke Dohe — Complete Reading",poet:"Kabir Das",views:"3.2M",duration:"42:18",letter:"क",bg:"#4a2800"},
-  {id:2,title:"Madhushala — Bachchan Live",poet:"H.R. Bachchan",views:"4.5M",duration:"58:44",letter:"ह",bg:"#1b4000"},
-  {id:3,title:"Rashmirathi — Dinkar's Epic",poet:"Ramdhari Singh Dinkar",views:"2.1M",duration:"1:12:30",letter:"दि",bg:"#1a237e"},
-  {id:4,title:"Mirabai Bhajans — Devotional",poet:"Mirabai",views:"5.8M",duration:"1:05:10",letter:"मी",bg:"#3d0060"},
-  {id:5,title:"Rajan Rai — Philosophy Session",poet:"Rajan Rai",views:"890K",duration:"34:22",letter:"रा",bg:"#4A0E0E"},
-  {id:6,title:"Gulzar — Nazm Evening",poet:"Gulzar",views:"2.7M",duration:"1:20:00",letter:"गु",bg:"#1C2227"},
-  {id:7,title:"Chhayawad Night — Pant & Nirala",poet:"Pant, Nirala",views:"1.1M",duration:"55:18",letter:"पं",bg:"#1a3200"},
-  {id:8,title:"Kavi Sammelan — Best of 2024",poet:"Multiple Poets",views:"6.2M",duration:"2:10:45",letter:"क",bg:"#3e0000"},
+  {id:1,title:"Kabir Ke Dohe - Complete Reading",poet:"Kabir Das",views:"3.2M",duration:"42:18",letter:"क",bg:"#4a2800"},
+  {id:2,title:"Madhushala - Bachchan Live",poet:"H.R. Bachchan",views:"4.5M",duration:"58:44",letter:"ह",bg:"#1b4000"},
+  {id:3,title:"Rashmirathi - Dinkar's Epic",poet:"Ramdhari Singh Dinkar",views:"2.1M",duration:"1:12:30",letter:"दि",bg:"#1a237e"},
+  {id:4,title:"Mirabai Bhajans - Devotional",poet:"Mirabai",views:"5.8M",duration:"1:05:10",letter:"मी",bg:"#3d0060"},
+  {id:5,title:"Rajan Rai - Philosophy Session",poet:"Rajan Rai",views:"890K",duration:"34:22",letter:"रा",bg:"#4A0E0E"},
+  {id:6,title:"Gulzar - Nazm Evening",poet:"Gulzar",views:"2.7M",duration:"1:20:00",letter:"गु",bg:"#1C2227"},
+  {id:7,title:"Chhayawad Night - Pant & Nirala",poet:"Pant, Nirala",views:"1.1M",duration:"55:18",letter:"पं",bg:"#1a3200"},
+  {id:8,title:"Kavi Sammelan - Best of 2024",poet:"Multiple Poets",views:"6.2M",duration:"2:10:45",letter:"क",bg:"#3e0000"},
 ];
 
 const FB_BLOG = [
   {id:1,title:"Understanding the Doha: Kabir's Gift to Hindi Literature",excerpt:"The Doha carries centuries of wisdom in just two lines. Kabir's dohas continue to resonate across all religions and nations.",category:"POETRY 101",date:"Apr 8, 2024",emoji:"📜",bg:"linear-gradient(135deg,#4a2800,#8a5000)",author:"Rajan Rai"},
-  {id:2,title:"Rajan Rai: Why I Built Niharika for India's Poetry Lovers",excerpt:"Niharika was born from a simple belief — that great poetry should be free and accessible to all. The founder shares his journey.",category:"FOUNDER'S NOTE",date:"Apr 5, 2024",emoji:"✍️",bg:"linear-gradient(135deg,#1C1410,#3d2b1f)",author:"Rajan Rai"},
-  {id:3,title:"Madhushala: Harivansh Rai Bachchan's Timeless Masterpiece",excerpt:"135 quatrains about life, death, and the divine — written in 1935 and never having lost their power.",category:"BIOGRAPHY",date:"Apr 2, 2024",emoji:"🍶",bg:"linear-gradient(135deg,#1b4000,#2e7d32)",author:"Rajan Rai"},
+  {id:2,title:"Rajan Rai: Why I Built Niharika for India's Poetry Lovers",excerpt:"Niharika was born from a simple belief - that great poetry should be free and accessible to all. The founder shares his journey.",category:"FOUNDER'S NOTE",date:"Apr 5, 2024",emoji:"✍️",bg:"linear-gradient(135deg,#1C1410,#3d2b1f)",author:"Rajan Rai"},
+  {id:3,title:"Madhushala: Harivansh Rai Bachchan's Timeless Masterpiece",excerpt:"135 quatrains about life, death, and the divine - written in 1935 and never having lost their power.",category:"BIOGRAPHY",date:"Apr 2, 2024",emoji:"🍶",bg:"linear-gradient(135deg,#1b4000,#2e7d32)",author:"Rajan Rai"},
 ];
 
 const FB_QUIZ = [

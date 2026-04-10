@@ -2,16 +2,249 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>Sher - Hindi Couplets on Niharika</title>
-  <meta name="description" content="Explore the best sher and couplets in Hindi and English poetry on Niharika." />
+  <title>Sher - Best Hindi Shayari & Couplets | Niharika</title>
+  <meta name="description" content="Read the finest sher, shayari, ghazal and couplets in Hindi and Urdu on Niharika. Explore by mood - love, pain, philosophy, and more from Kabir, Gulzar, Rajan Rai." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ── Sher Hero ── */
+    .sher-hero {
+      background: linear-gradient(135deg, #1C0A1A 0%, #3B0A25 40%, #1C1917 100%);
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sher-hero::before {
+      content: 'شعر';
+      position: absolute; right: -40px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 320px; color: rgba(255,255,255,0.03);
+      line-height: 1; pointer-events: none;
+    }
+    .sher-hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to top, var(--bg), transparent);
+    }
+    .sher-hero h1 {
+      font-family: var(--font-display);
+      font-size: 64px; color: white; font-weight: 700;
+      margin-bottom: 8px; letter-spacing: -1px;
+    }
+    .sher-hero-urdu {
+      font-size: 28px; color: rgba(201, 162, 39, 0.85);
+      margin-bottom: 14px; direction: rtl;
+      font-family: var(--font-hindi);
+    }
+    .sher-hero p {
+      color: rgba(255,255,255,0.6); font-size: 16px;
+      max-width: 480px; margin: 0 auto 40px;
+    }
+    .sher-stats {
+      display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+    }
+    .sher-stat { text-align: center; }
+    .sher-stat-num {
+      font-size: 28px; font-weight: 800; color: white;
+    }
+    .sher-stat-num.gold { color: var(--gold); }
+    .sher-stat-label {
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase;
+    }
+
+    /* ── Mood Filters ── */
+    .mood-bar {
+      background: white; border-bottom: 1px solid var(--border-2);
+      position: sticky; top: 65px; z-index: 90;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .mood-bar-inner {
+      display: flex; gap: 0; overflow-x: auto; padding: 0;
+      scrollbar-width: none;
+    }
+    .mood-bar-inner::-webkit-scrollbar { display: none; }
+    .mood-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 14px 20px; font-size: 12.5px; font-weight: 700;
+      letter-spacing: 0.5px; white-space: nowrap;
+      border: none; background: none; cursor: pointer;
+      color: var(--muted); border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+    }
+    .mood-btn:hover { color: var(--crimson); background: var(--crimson-light); }
+    .mood-btn.active {
+      color: var(--crimson); border-bottom-color: var(--crimson);
+      background: var(--crimson-light);
+    }
+    .mood-btn .mood-icon { font-size: 16px; }
+
+    /* ── Main Layout ── */
+    .sher-layout {
+      max-width: 900px; margin: 0 auto; padding: 48px 20px;
+    }
+
+    /* ── Sher Card ── */
+    .sher-card {
+      background: white;
+      border: 1px solid var(--border-2);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 24px;
+      position: relative;
+      transition: all 0.3s var(--ease);
+      overflow: hidden;
+    }
+    .sher-card::before {
+      content: '"';
+      position: absolute; top: 16px; left: 28px;
+      font-family: Georgia, serif;
+      font-size: 80px; line-height: 1;
+      color: rgba(139, 26, 26, 0.06);
+      pointer-events: none;
+    }
+    .sher-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border-color: rgba(139,26,26,0.2);
+    }
+    .sher-card.featured {
+      border-left: 4px solid var(--gold);
+      background: linear-gradient(135deg, #fffbf0, white);
+    }
+    .sher-mood-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .sher-mood-tag.love { background: #fce7f3; color: #9d174d; }
+    .sher-mood-tag.pain { background: #ede9fe; color: #5b21b6; }
+    .sher-mood-tag.philosophy { background: #dbeafe; color: #1e40af; }
+    .sher-mood-tag.nature { background: #dcfce7; color: #15803d; }
+    .sher-mood-tag.faith { background: #fef3c7; color: #92400e; }
+    .sher-mood-tag.patriot { background: #fee2e2; color: #991b1b; }
+    .sher-mood-tag.wisdom { background: #f1f5f9; color: #475569; }
+    .sher-text {
+      font-family: var(--font-hindi);
+      font-size: 22px; line-height: 1.9;
+      color: var(--text); margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .sher-text.english {
+      font-family: var(--font-display);
+      font-size: 20px; line-height: 1.8;
+      font-weight: 600; font-style: italic;
+    }
+    .sher-translation {
+      font-size: 14px; color: var(--muted); line-height: 1.8;
+      margin-bottom: 20px; padding-left: 16px;
+      border-left: 2px solid var(--border-2);
+      display: none;
+    }
+    .sher-translation.show { display: block; }
+    .sher-footer {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-2);
+    }
+    .sher-poet-info {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sher-poet-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-hindi); font-size: 14px;
+      font-weight: 700; color: white; flex-shrink: 0;
+    }
+    .sher-poet-name {
+      font-size: 13px; font-weight: 700; color: var(--text);
+      text-decoration: none;
+    }
+    .sher-poet-name:hover { color: var(--crimson); }
+    .sher-form { font-size: 11.5px; color: var(--muted); }
+    .sher-actions {
+      display: flex; gap: 6px; align-items: center;
+    }
+    .sher-action-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 7px 14px; border-radius: 24px;
+      font-size: 12px; font-weight: 600;
+      border: 1.5px solid var(--border-2);
+      background: white; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .sher-action-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+    .sher-action-btn.liked { background: var(--crimson); color: white; border-color: var(--crimson); }
+    .sher-likes { font-size: 12px; color: var(--muted); font-weight: 600; }
+
+    /* ── Featured Quote Banner ── */
+    .rajan-quote-banner {
+      background: linear-gradient(135deg, var(--espresso), #2d1515);
+      border-radius: 20px; padding: 40px;
+      margin-bottom: 32px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .rajan-quote-banner::before {
+      content: '"';
+      position: absolute; font-size: 200px; color: rgba(255,255,255,0.04);
+      top: -40px; left: 20px; font-family: Georgia, serif; line-height: 1;
+    }
+    .rajan-quote-text {
+      font-family: var(--font-display);
+      font-size: 22px; color: white; font-style: italic;
+      line-height: 1.7; margin-bottom: 16px;
+    }
+    .rajan-quote-hindi {
+      font-family: var(--font-hindi);
+      font-size: 16px; color: rgba(201,162,39,0.85);
+      line-height: 1.9; margin-bottom: 20px;
+    }
+    .rajan-quote-author {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.5);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* ── Section Divider ── */
+    .sher-section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      color: var(--muted); text-transform: uppercase;
+      margin-bottom: 24px; margin-top: 40px;
+    }
+    .sher-section-label::before, .sher-section-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border-2);
+    }
+
+    /* ── Empty/Loading ── */
+    .sher-empty {
+      text-align: center; padding: 80px 20px; color: var(--muted);
+    }
+    .sher-loader {
+      display: flex; justify-content: center; padding: 40px;
+    }
+
+    /* ── Load More ── */
+    .load-more-wrap {
+      text-align: center; margin: 40px 0;
+    }
+
+    @media (max-width: 600px) {
+      .sher-hero h1 { font-size: 44px; }
+      .sher-card { padding: 24px 20px; }
+      .sher-text { font-size: 18px; }
+      .sher-stat-num { font-size: 22px; }
+    }
+  </style>
 </head>
 <body>
 <div class="announcement-bar">
-  <div class="container"><div class="announcement-left"><span><i class="fas fa-scroll"></i> Niharika - Sher and Couplets</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
+  <div class="container"><div class="announcement-left"><span><i class="fas fa-scroll"></i> Niharika - Finest Sher, Shayari &amp; Ghazal</span></div><div class="announcement-right"><a href="index.html"><i class="fas fa-home"></i> Home</a><a href="chatbot.html"><i class="fas fa-robot"></i> Ask Sakhi</a></div></div>
 </div>
 <header class="site-header" id="siteHeader">
   <div class="container">
@@ -26,53 +259,320 @@
     <nav class="site-nav" id="siteNav"><ul class="nav-menu">
       <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a></li>
       <li><a href="poets.html" class="nav-link"><i class="fas fa-feather-alt"></i> POETS</a></li>
+      <li><a href="kavita.html" class="nav-link"><i class="fas fa-scroll"></i> KAVITA</a></li>
+      <li><a href="sher.html" class="nav-link active"><i class="fas fa-star-and-crescent"></i> SHER</a></li>
       <li><a href="dictionary.html" class="nav-link"><i class="fas fa-book"></i> DICTIONARY</a></li>
       <li><a href="chatbot.html" class="nav-link"><i class="fas fa-robot"></i> SAKHI</a></li>
     </ul></nav>
   </div>
 </header>
-<section style="background:linear-gradient(135deg,var(--espresso),var(--crimson-deep));padding:64px 0;text-align:center">
-  <div class="container">
-    <div class="section-label" style="color:var(--gold-bright);justify-content:center">HINDI COUPLETS</div>
-    <h1 style="font-family:var(--font-display);font-size:52px;color:white;font-weight:700;margin-bottom:12px">Sher</h1>
-    <p style="color:rgba(255,255,255,0.65);font-size:17px">The finest couplets from Hindi and classical poetry traditions</p>
-  </div>
-</section>
-<section class="section">
-  <div class="container" style="max-width:800px">
-    <div style="display:flex;flex-direction:column;gap:20px" id="sherList">
-      <div style="text-align:center;padding:80px;color:var(--muted)"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+
+<!-- Hero -->
+<section class="sher-hero">
+  <div class="container" style="position:relative;z-index:1">
+    <div class="section-label" style="color:var(--gold-bright);justify-content:center;margin-bottom:16px"><i class="fas fa-star-and-crescent"></i> SHER &amp; SHAYARI</div>
+    <h1>Sher</h1>
+    <div class="sher-hero-urdu">شعر · شاعری · غزل</div>
+    <p>The finest couplets, shayari and ghazals from classical to contemporary - in Hindi, Urdu and English</p>
+    <div class="sher-stats">
+      <div class="sher-stat">
+        <div class="sher-stat-num gold" id="sherCount">-</div>
+        <div class="sher-stat-label">Sher &amp; Couplets</div>
+      </div>
+      <div class="sher-stat">
+        <div class="sher-stat-num">150+</div>
+        <div class="sher-stat-label">Poets</div>
+      </div>
+      <div class="sher-stat">
+        <div class="sher-stat-num gold">6</div>
+        <div class="sher-stat-label">Moods</div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Mood Filter Bar -->
+<div class="mood-bar" id="moodBar">
+  <div class="container">
+    <div class="mood-bar-inner" id="moodBtns">
+      <button class="mood-btn active" data-mood="all"><span class="mood-icon">✨</span> ALL</button>
+      <button class="mood-btn" data-mood="love"><span class="mood-icon">❤️</span> ISHQ / LOVE</button>
+      <button class="mood-btn" data-mood="pain"><span class="mood-icon">🌙</span> DARD / PAIN</button>
+      <button class="mood-btn" data-mood="philosophy"><span class="mood-icon">🧠</span> FIKR / PHILOSOPHY</button>
+      <button class="mood-btn" data-mood="nature"><span class="mood-icon">🌿</span> KUDRAT / NATURE</button>
+      <button class="mood-btn" data-mood="faith"><span class="mood-icon">🙏</span> IMAN / FAITH</button>
+      <button class="mood-btn" data-mood="patriot"><span class="mood-icon">⚔️</span> WATAN / PATRIOT</button>
+      <button class="mood-btn" data-mood="wisdom"><span class="mood-icon">📜</span> HIKMAT / WISDOM</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main>
+  <div class="sher-layout" id="sherLayout">
+    <div class="sher-loader"><i class="fas fa-spinner fa-spin fa-2x" style="color:var(--crimson)"></i></div>
+  </div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+    <button class="btn btn-outline-crimson" style="padding:14px 36px;border-radius:30px;font-size:14px" id="loadMoreBtn">
+      <i class="fas fa-plus"></i> Load More Sher
+    </button>
+  </div>
+</main>
+
 <footer class="site-footer" style="padding:40px 0 0">
   <div class="container">
-    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="poets.html">Poets</a></div></div>
+    <div class="footer-bottom"><p>&copy; 2024 Niharika Platform - Founded by Rajan Rai</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="poets.html">Poets</a><a href="chatbot.html">Sakhi</a><a href="dictionary.html">Dictionary</a></div></div>
   </div>
 </footer>
 <div class="toast" id="toast"></div>
+<div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script>
-async function loadSher() {
-  const r = await NiharikaAPI.getPoems();
-  const poems = r?.data?.length ? r.data : FB_POEMS;
-  const filtered = poems.filter(p => p.form === 'Doha' || p.form === 'Aphorism');
-  document.getElementById('sherList').innerHTML = filtered.map(p => `
-    <div class="poem-card reveal">
-      <div class="poem-form-tag">${p.form}</div>
-      <div class="poem-text hindi">${p.text.replace(/\n/g,'<br>')}</div>
-      <div class="poem-footer">
-        <div class="poem-poet-name">${p.poet}</div>
-        <div class="poem-actions">
-          <button class="btn-icon" onclick="navigator.clipboard.writeText('${p.text.replace(/'/g,"\\'")} - ${p.poet}').then(()=>showToast('Copied!'))"><i class="fas fa-copy"></i></button>
+// ── Sher Data ─────────────────────────────────────────────────────────────
+const SHER_DATA = [
+  // Rajan Rai - Philosophy
+  { id:'r1', text:"A man can do anything,\nwhen he realises he is a man.", hindi:"एक इंसान सब कुछ कर सकता है,\nजब वो जान ले कि वो वाकई एक इंसान है।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"philosophy", likes:12400, featured:true },
+  { id:'r2', text:"Silence is the loudest answer\nthe soul ever gives.", hindi:"खामोशी वो सबसे ऊँची आवाज़ है\nजो आत्मा कभी देती है।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"philosophy", likes:9800, featured:true },
+  { id:'r3', text:"Every storm within you\nis just a sunrise waiting to break.", hindi:"तुम्हारे भीतर का हर तूफ़ान\nबस एक सूर्योदय है जो उगने की राह देख रहा है।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Nazm", mood:"philosophy", likes:10200 },
+  { id:'r4', text:"Love is not what you feel -\nit is what you become.", hindi:"प्रेम वो नहीं जो तुम महसूस करते हो -\nप्रेम वो है जो तुम बन जाते हो।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"love", likes:11500, featured:true },
+  { id:'r5', text:"Truth does not need many words -\nit only needs one honest moment.", hindi:"सत्य को कई शब्दों की ज़रूरत नहीं -\nउसे बस एक ईमानदार पल चाहिए।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"wisdom", likes:8700, featured:true },
+  { id:'r6', text:"The strongest man is not the one who never falls -\nit is the one who always rises.", hindi:"सबसे मजबूत इंसान वो नहीं जो कभी गिरता नहीं -\nबल्कि वो है जो हमेशा उठता है।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"wisdom", likes:9100 },
+  { id:'r7', text:"The mind that questions itself\nis already wiser than most.", hindi:"वो मन जो खुद से सवाल करता है\nवो पहले से ही अधिकांश से अधिक बुद्धिमान है।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Aphorism", mood:"philosophy", likes:8200 },
+  { id:'r8', text:"Poetry is not written - it is revealed.\nEvery real poem is a wound that healed into light.", hindi:"कविता लिखी नहीं जाती - वो प्रकट होती है।\nहर सच्ची कविता एक ज़ख्म है जो रोशनी बनकर भर गया।", poet:"Rajan Rai", poetId:1, color:"#8B1A1A", initials:"रा", form:"Nazm", mood:"philosophy", likes:7600 },
+
+  // Kabir Das
+  { id:'k1', text:"माटी कहे कुम्हार से, तू क्या रौंदे मोय।\nएक दिन ऐसा आएगा, मैं रौंदूंगी तोय।", hindi:"माटी कहे कुम्हार से, तू क्या रौंदे मोय।\nएक दिन ऐसा आएगा, मैं रौंदूंगी तोय।", poet:"Kabir Das", poetId:2, color:"#C9A227", initials:"क", form:"Doha", mood:"wisdom", likes:42000 },
+  { id:'k2', text:"बुरा जो देखन मैं चला, बुरा न मिलिया कोय।\nजो दिल खोजा आपना, मुझसे बुरा न कोय।", hindi:"बुरा जो देखन मैं चला, बुरा न मिलिया कोय।\nजो दिल खोजा आपना, मुझसे बुरा न कोय।", poet:"Kabir Das", poetId:2, color:"#C9A227", initials:"क", form:"Doha", mood:"wisdom", likes:58000, featured:true },
+  { id:'k3', text:"मन चंगा तो कठौती में गंगा।", hindi:"मन चंगा तो कठौती में गंगा।", poet:"Kabir Das", poetId:2, color:"#C9A227", initials:"क", form:"Sakhi", mood:"philosophy", likes:34000 },
+  { id:'k4', text:"प्रेम न बाड़ी ऊपजे, प्रेम न हाट बिकाय।\nराजा परजा जेहि रुचे, सिर दे सो लेि जाय।", hindi:"प्रेम न बाड़ी ऊपजे, प्रेम न हाट बिकाय।\nराजा परजा जेहि रुचे, सिर दे सो लेि जाय।", poet:"Kabir Das", poetId:2, color:"#C9A227", initials:"क", form:"Doha", mood:"love", likes:28000 },
+  { id:'k5', text:"दुःख में सुमिरन सब करे, सुख में करे न कोय।\nजो सुख में सुमिरन करे, तो दुःख काहे होय।", hindi:"दुःख में सुमिरन सब करे, सुख में करे न कोय।\nजो सुख में सुमिरन करे, तो दुःख काहे होय।", poet:"Kabir Das", poetId:2, color:"#C9A227", initials:"क", form:"Doha", mood:"faith", likes:31500 },
+
+  // Mirabai
+  { id:'m1', text:"मेरे तो गिरिधर गोपाल दूसरो न कोई,\nजाके सिर मोर मुकुट मेरो पति सोई।", hindi:"मेरे तो गिरिधर गोपाल दूसरो न कोई,\nजाके सिर मोर मुकुट मेरो पति सोई।", poet:"Mirabai", poetId:4, color:"#6A0572", initials:"मी", form:"Bhajan", mood:"faith", likes:45000, featured:true },
+  { id:'m2', text:"पायो जी मैंने राम रतन धन पायो,\nवस्तु अमोलक दी मेरे सतगुरु, किरपा कर अपनायो।", hindi:"पायो जी मैंने राम रतन धन पायो,\nवस्तु अमोलक दी मेरे सतगुरु, किरपा कर अपनायो।", poet:"Mirabai", poetId:4, color:"#6A0572", initials:"मी", form:"Bhajan", mood:"faith", likes:38000 },
+  { id:'m3', text:"जोगी मत जा, मत जा, मत जा।\nतुझे मेरी सौं, मत जा।", hindi:"जोगी मत जा, मत जा, मत जा।\nतुझे मेरी सौं, मत जा।", poet:"Mirabai", poetId:4, color:"#6A0572", initials:"मी", form:"Pad", mood:"love", likes:22000 },
+
+  // Gulzar
+  { id:'g1', text:"कभी किसी को मुकम्मल जहाँ नहीं मिलता,\nकहीं ज़मीं तो कहीं आसमाँ नहीं मिलता।", hindi:"कभी किसी को मुकम्मल जहाँ नहीं मिलता,\nकहीं ज़मीं तो कहीं आसमाँ नहीं मिलता।", poet:"Gulzar", poetId:9, color:"#37474F", initials:"गु", form:"Ghazal", mood:"pain", likes:67000, featured:true },
+  { id:'g2', text:"हज़ारों ख्वाहिशें ऐसी कि हर ख्वाहिश पे दम निकले,\nबहुत निकले मेरे अरमाँ, लेकिन फिर भी कम निकले।", hindi:"हज़ारों ख्वाहिशें ऐसी कि हर ख्वाहिश पे दम निकले,\nबहुत निकले मेरे अरमाँ, लेकिन फिर भी कम निकले।", poet:"Gulzar", poetId:9, color:"#37474F", initials:"गु", form:"Ghazal", mood:"pain", likes:54000 },
+  { id:'g3', text:"तुम्हें देखकर देखता रह जाऊं, ऐसा लगता है\nआँखें भर आती हैं जब बहुत कुछ कहना हो।", hindi:"तुम्हें देखकर देखता रह जाऊं, ऐसा लगता है\nआँखें भर आती हैं जब बहुत कुछ कहना हो।", poet:"Gulzar", poetId:9, color:"#37474F", initials:"गु", form:"Nazm", mood:"love", likes:41000 },
+  { id:'g4', text:"दिल ढूंढता है फिर वही फुर्सत के रात दिन,\nबेठे रहें तसव्वुर-ए-जाना किए हुए।", hindi:"दिल ढूंढता है फिर वही फुर्सत के रात दिन,\nबेठे रहें तसव्वुर-ए-जाना किए हुए।", poet:"Gulzar", poetId:9, color:"#37474F", initials:"गु", form:"Ghazal", mood:"love", likes:48000 },
+
+  // Ramdhari Singh Dinkar
+  { id:'d1', text:"सिंहासन खाली करो कि जनता आती है।", hindi:"सिंहासन खाली करो कि जनता आती है।", poet:"Ramdhari Singh Dinkar", poetId:5, color:"#1a237e", initials:"दि", form:"Kavita", mood:"patriot", likes:76000, featured:true },
+  { id:'d2', text:"क्षमा शोभती उस भुजंग को, जिसके पास गरल हो।\nउसको क्या जो दंतहीन, विषरहित, विनीत सरल हो।", hindi:"क्षमा शोभती उस भुजंग को, जिसके पास गरल हो।\nउसको क्या जो दंतहीन, विषरहित, विनीत सरल हो।", poet:"Ramdhari Singh Dinkar", poetId:5, color:"#1a237e", initials:"दि", form:"Kavita", mood:"wisdom", likes:44000 },
+  { id:'d3', text:"जो तटस्थ हैं, समय लिखेगा उनका भी अपराध।", hindi:"जो तटस्थ हैं, समय लिखेगा उनका भी अपराध।", poet:"Ramdhari Singh Dinkar", poetId:5, color:"#1a237e", initials:"दि", form:"Kavita", mood:"patriot", likes:52000 },
+
+  // Harivansh Rai Bachchan
+  { id:'h1', text:"जो बीत गई सो बात गई।\nजीवन में एक सितारा था, माना, वह बेहद प्यारा था।", hindi:"जो बीत गई सो बात गई।\nजीवन में एक सितारा था, माना, वह बेहद प्यारा था।", poet:"Harivansh Rai Bachchan", poetId:3, color:"#8B4513", initials:"ह", form:"Kavita", mood:"wisdom", likes:35000, featured:true },
+  { id:'h2', text:"मदिरालय जाने को घर से चलता है पीनेवाला,\nकिस पथ से जाऊं असमंजस में है वह भोलाभाला।", hindi:"मदिरालय जाने को घर से चलता है पीनेवाला,\nकिस पथ से जाऊं असमंजस में है वह भोलाभाला।", poet:"Harivansh Rai Bachchan", poetId:3, color:"#8B4513", initials:"ह", form:"Madhushala", mood:"philosophy", likes:28000 },
+  { id:'h3', text:"जो मिल न सका उसका अफसोस नहीं करना,\nजो खो गया उसका गम भी नहीं करना।", hindi:"जो मिल न सका उसका अफसोस नहीं करना,\nजो खो गया उसका गम भी नहीं करना।", poet:"Harivansh Rai Bachchan", poetId:3, color:"#8B4513", initials:"ह", form:"Kavita", mood:"wisdom", likes:31000 },
+
+  // Rahim Das
+  { id:'rh1', text:"रहिमन धागा प्रेम का, मत तोड़ो चटकाय।\nटूटे से फिर ना जुड़े, जुड़े गाँठ पड़ जाय।", hindi:"रहिमन धागा प्रेम का, मत तोड़ो चटकाय।\nटूटे से फिर ना जुड़े, जुड़े गाँठ पड़ जाय।", poet:"Rahim Das", poetId:10, color:"#4E342E", initials:"र", form:"Doha", mood:"love", likes:48000, featured:true },
+  { id:'rh2', text:"रहिमन पानी राखिए, बिन पानी सब सून।\nपानी गए न ऊबरे, मोती, मानुस, चून।", hindi:"रहिमन पानी राखिए, बिन पानी सब सून।\nपानी गए न ऊबरे, मोती, मानुस, चून।", poet:"Rahim Das", poetId:10, color:"#4E342E", initials:"र", form:"Doha", mood:"wisdom", likes:34000 },
+  { id:'rh3', text:"जो रहीम उत्तम प्रकृति, का करि सकत कुसंग।\nचंदन विष व्यापत नहीं, लिपटे रहत भुजंग।", hindi:"जो रहीम उत्तम प्रकृति, का करि सकत कुसंग।\nचंदन विष व्यापत नहीं, लिपटे रहत भुजंग।", poet:"Rahim Das", poetId:10, color:"#4E342E", initials:"र", form:"Doha", mood:"wisdom", likes:21000 },
+
+  // Mahadevi Verma
+  { id:'mv1', text:"रोती है यह पृथ्वी, रोता है यह आकाश,\nरोती हैं ये नदियाँ, यह समीर, यह पाश।", hindi:"रोती है यह पृथ्वी, रोता है यह आकाश,\nरोती हैं ये नदियाँ, यह समीर, यह पाश।", poet:"Mahadevi Verma", poetId:6, color:"#880E4F", initials:"म", form:"Chhayawad", mood:"nature", likes:19000 },
+  { id:'mv2', text:"मैं नीर भरी दुख की बदली\nउमड़ी कल थी मिट आज चली।", hindi:"मैं नीर भरी दुख की बदली\nउमड़ी कल थी मिट आज चली।", poet:"Mahadevi Verma", poetId:6, color:"#880E4F", initials:"म", form:"Kavita", mood:"pain", likes:22000 },
+
+  // Sumitranandan Pant
+  { id:'sp1', text:"वियोगी होगा पहला कवि, आह से उपजा होगा गान।\nउमड़ कर आँखों से चुपचाप, बही होगी कविता अनजान।", hindi:"वियोगी होगा पहला कवि, आह से उपजा होगा गान।\nउमड़ कर आँखों से चुपचाप, बही होगी कविता अनजान।", poet:"Sumitranandan Pant", poetId:7, color:"#1B5E20", initials:"पं", form:"Kavita", mood:"pain", likes:15000 },
+  { id:'sp2', text:"छोटा मेरा खेत, चौकोना,\nकागज़ का एक पन्ना।", hindi:"छोटा मेरा खेत, चौकोना,\nकागज़ का एक पन्ना।", poet:"Sumitranandan Pant", poetId:7, color:"#1B5E20", initials:"पं", form:"Kavita", mood:"nature", likes:17000 },
+
+  // Nirala
+  { id:'n1', text:"वह तोड़ती पत्थर\nदेखा उसे मैंने इलाहाबाद के पथ पर।", hindi:"वह तोड़ती पत्थर\nदेखा उसे मैंने इलाहाबाद के पथ पर।", poet:"Suryakant Tripathi Nirala", poetId:11, color:"#BF360C", initials:"नि", form:"Mukt Chhand", mood:"pain", likes:24000 },
+
+  // Jaishankar Prasad
+  { id:'jp1', text:"अरुण यह मधुमय देश हमारा।\nजहाँ पहुँच अनजान क्षितिज को, मिलता एक सहारा।", hindi:"अरुण यह मधुमय देश हमारा।\nजहाँ पहुँच अनजान क्षितिज को, मिलता एक सहारा।", poet:"Jaishankar Prasad", poetId:8, color:"#0D47A1", initials:"प्र", form:"Kavita", mood:"patriot", likes:18000 },
+];
+
+// ── State ─────────────────────────────────────────────────────────────────
+let currentMood = 'all';
+let displayedCount = 0;
+const PAGE_SIZE = 8;
+let likedIds = new Set(JSON.parse(localStorage.getItem('sher_liked') || '[]'));
+
+// ── Mood meta ─────────────────────────────────────────────────────────────
+const MOOD_META = {
+  all:        { label:'All',        class:'wisdom',     icon:'fa-star' },
+  love:       { label:'Love',       class:'love',       icon:'fa-heart' },
+  pain:       { label:'Dard',       class:'pain',       icon:'fa-moon' },
+  philosophy: { label:'Fikr',       class:'philosophy', icon:'fa-brain' },
+  nature:     { label:'Kudrat',     class:'nature',     icon:'fa-leaf' },
+  faith:      { label:'Iman',       class:'faith',      icon:'fa-praying-hands' },
+  patriot:    { label:'Watan',      class:'patriot',    icon:'fa-flag' },
+  wisdom:     { label:'Hikmat',     class:'wisdom',     icon:'fa-scroll' },
+};
+
+function getMoodClass(mood) { return MOOD_META[mood]?.class || 'wisdom'; }
+function getMoodIcon(mood)  { return MOOD_META[mood]?.icon || 'fa-star'; }
+
+// ── Filter ────────────────────────────────────────────────────────────────
+function getFiltered() {
+  if (currentMood === 'all') return SHER_DATA;
+  return SHER_DATA.filter(s => s.mood === currentMood);
+}
+
+// ── Render Card ───────────────────────────────────────────────────────────
+function renderSherCard(s) {
+  const isEnglish = /^[A-Za-z]/.test(s.text);
+  const hasTranslation = s.hindi && s.hindi !== s.text;
+  const moodClass = getMoodClass(s.mood);
+  const moodIcon = getMoodIcon(s.mood);
+  const isLiked = likedIds.has(s.id);
+  const featuredClass = s.featured ? ' featured' : '';
+
+  return `
+    <article class="sher-card reveal${featuredClass}" id="sher-${s.id}">
+      <div class="sher-mood-tag ${moodClass}">
+        <i class="fas ${moodIcon}"></i> ${(MOOD_META[s.mood]?.label || s.mood).toUpperCase()}
+        ${s.form ? ` &middot; ${s.form}` : ''}
+      </div>
+      <div class="sher-text ${isEnglish ? 'english' : ''}">${s.text.replace(/\n/g,'<br>')}</div>
+      ${hasTranslation ? `
+        <div class="sher-translation" id="trans-${s.id}">
+          ${isEnglish ? s.hindi.replace(/\n/g,'<br>') : ''}
+        </div>
+        ${isEnglish ? `<button class="sher-action-btn" onclick="toggleTrans('${s.id}')" style="margin-bottom:16px;font-size:11px">
+          <i class="fas fa-language"></i> <span id="transLabel-${s.id}">Hindi</span>
+        </button>` : ''}
+      ` : ''}
+      <div class="sher-footer">
+        <div class="sher-poet-info">
+          <div class="sher-poet-avatar" style="background:${s.color}">${s.initials}</div>
+          <div>
+            <a href="poet-profile.html?id=${s.poetId}" class="sher-poet-name">${s.poet}</a>
+            <div class="sher-form">${s.form}</div>
+          </div>
+        </div>
+        <div class="sher-actions">
+          <span class="sher-likes"><i class="fas fa-heart" style="color:#ef4444"></i> ${fmt(s.likes)}</span>
+          <button class="sher-action-btn ${isLiked ? 'liked' : ''}" id="like-${s.id}" onclick="toggleLike('${s.id}', this)">
+            <i class="fas fa-heart"></i> ${isLiked ? 'Liked' : 'Like'}
+          </button>
+          <button class="sher-action-btn" onclick="copySher('${s.id}')">
+            <i class="fas fa-copy"></i>
+          </button>
+          <button class="sher-action-btn" onclick="shareSher('${s.id}')">
+            <i class="fas fa-share-alt"></i>
+          </button>
         </div>
       </div>
-    </div>
-  `).join('');
+    </article>
+  `;
+}
+
+// ── Toggle Translation ─────────────────────────────────────────────────────
+function toggleTrans(id) {
+  const el = document.getElementById(`trans-${id}`);
+  const label = document.getElementById(`transLabel-${id}`);
+  if (!el) return;
+  const open = el.classList.toggle('show');
+  if (label) label.textContent = open ? 'Hide' : 'Hindi';
+}
+
+// ── Like ──────────────────────────────────────────────────────────────────
+function toggleLike(id, btn) {
+  if (likedIds.has(id)) {
+    likedIds.delete(id);
+    btn.classList.remove('liked');
+    btn.innerHTML = '<i class="fas fa-heart"></i> Like';
+    showToast('Removed from liked');
+  } else {
+    likedIds.add(id);
+    btn.classList.add('liked');
+    btn.innerHTML = '<i class="fas fa-heart"></i> Liked';
+    showToast('Added to your liked sher!');
+  }
+  localStorage.setItem('sher_liked', JSON.stringify([...likedIds]));
+}
+
+// ── Copy ──────────────────────────────────────────────────────────────────
+function copySher(id) {
+  const s = SHER_DATA.find(x => x.id === id);
+  if (!s) return;
+  navigator.clipboard.writeText(`${s.text}\n\n- ${s.poet}\n(Niharika - niharika.com)`).then(() => showToast('Copied to clipboard!'));
+}
+
+// ── Share ─────────────────────────────────────────────────────────────────
+function shareSher(id) {
+  const s = SHER_DATA.find(x => x.id === id);
+  if (!s) return;
+  if (navigator.share) {
+    navigator.share({ title: `Sher by ${s.poet}`, text: s.text + '\n\n- ' + s.poet, url: window.location.href });
+  } else {
+    copySher(id);
+    showToast('Link copied! Share it anywhere.');
+  }
+}
+
+// ── Render section ────────────────────────────────────────────────────────
+function renderSection(filtered, reset = false) {
+  const layout = document.getElementById('sherLayout');
+  const loadWrap = document.getElementById('loadMoreWrap');
+
+  if (reset) {
+    displayedCount = 0;
+    layout.innerHTML = '';
+  }
+
+  if (!filtered.length) {
+    layout.innerHTML = '<div class="sher-empty"><i class="fas fa-star-and-crescent fa-3x" style="color:var(--border);margin-bottom:20px;display:block"></i>No sher found in this category.</div>';
+    loadWrap.style.display = 'none';
+    return;
+  }
+
+  // Show Rajan banner on "all" or "philosophy" first load
+  if (reset && (currentMood === 'all' || currentMood === 'philosophy')) {
+    const rajan = filtered.find(s => s.poet === 'Rajan Rai' && s.featured);
+    if (rajan) {
+      layout.innerHTML = `
+        <div class="rajan-quote-banner reveal">
+          <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(201,162,39,0.6);margin-bottom:14px">
+            <i class="fas fa-feather-alt"></i> FEATURED - RAJAN RAI · FOUNDER OF NIHARIKA
+          </div>
+          <div class="rajan-quote-text">"${rajan.text.replace(/\n/g,' ')}"</div>
+          <div class="rajan-quote-hindi">${rajan.hindi.replace(/\n/g,'<br>')}</div>
+          <div class="rajan-quote-author">- Rajan Rai, Philosopher-Poet · Niharika</div>
+        </div>
+        <div class="sher-section-label">All Sher &amp; Couplets</div>
+      `;
+    }
+  }
+
+  const next = filtered.slice(displayedCount, displayedCount + PAGE_SIZE);
+  next.forEach(s => { layout.innerHTML += renderSherCard(s); });
+  displayedCount += next.length;
+
+  loadWrap.style.display = displayedCount < filtered.length ? 'block' : 'none';
+  document.getElementById('sherCount').textContent = filtered.length;
   initReveal && initReveal();
 }
-document.addEventListener('DOMContentLoaded', loadSher);
+
+// ── Init ──────────────────────────────────────────────────────────────────
+function initSher() {
+  renderSection(getFiltered(), true);
+
+  // Mood buttons
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMood = btn.dataset.mood;
+      renderSection(getFiltered(), true);
+    });
+  });
+
+  // Load more
+  document.getElementById('loadMoreBtn').addEventListener('click', () => {
+    renderSection(getFiltered(), false);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initSher);
 </script>
 </body>
 </html>
