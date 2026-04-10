@@ -1,7 +1,7 @@
 // frontend/js/auth.js - Niharika User Authentication Module v3.0
 
 const AUTH = {
-  API: 'http://localhost:5000/api',
+  API: '/api',
   
   getToken: () => localStorage.getItem('niharika_token'),
   getUser:  () => { try { return JSON.parse(localStorage.getItem('niharika_user')); } catch { return null; } },

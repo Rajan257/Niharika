@@ -1,6 +1,6 @@
 // frontend/js/api.js - Niharika API Client
 
-const API = 'http://localhost:5000/api';
+const API = '/api';
 
 async function apiGet(path) {
   try {
