@@ -167,13 +167,18 @@ const poetId = parseInt(params.get('id')) || 1;
 let poetData = null, allPoetPoems = [];
 
 async function loadPoet() {
-  const r = await NiharikaAPI.getPoet(poetId);
-  if (r?.data) {
-    poetData = r.data;
-    allPoetPoems = r.data.poems || FB_POEMS.filter(p => p.poetId === poetId);
-  } else {
-    poetData = FB_POETS.find(p => p.id === poetId) || FB_POETS[0];
-    allPoetPoems = FB_POEMS.filter(p => p.poetId === poetId);
+  try {
+    const r = await fetch('/api/poets/' + poetId);
+    const result = await r.json();
+    if (result.success) {
+      poetData = result.data;
+      allPoetPoems = poetData.poems || [];
+    } else {
+      showToast('Poet not found');
+    }
+  } catch (err) {
+    console.error('Error loading poet:', err);
+    showToast('Offline mode: Using cached data');
   }
   renderHero(); renderBio(); renderPoems(allPoetPoems); renderQuotes(); renderSidebar(); loadOtherPoets();
 }

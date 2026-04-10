@@ -6,45 +6,44 @@ const express = require('express');
 const cors    = require('cors');
 const path    = require('path');
 const fs      = require('fs');
+const mongoose = require('mongoose');
 
 const app    = express();
 const PORT   = process.env.PORT || 5000;
-const DB_PATH = path.join(__dirname, 'db.json');
+const MONGODB_URI = process.env.MONGODB_URI;
+
+// ── Database Connection ────────────────────────────────────────────────
+if (MONGODB_URI) {
+  mongoose.connect(MONGODB_URI)
+    .then(() => console.log('  MongoDB connected successfully'))
+    .catch(err => console.error('  MongoDB connection error:', err));
+} else {
+  console.warn('  WARNING: MONGODB_URI not found in environment. Database features will be limited.');
+}
+
+// Models
+const Poet = require('./models/Poet');
+const Dictionary = require('./models/Dictionary');
+const Book = require('./models/Book');
+const User = require('./models/User');
 
 // ── Middleware ──────────────────────────────────────────────────────────
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-// ── DB Helpers ──────────────────────────────────────────────────────────
-const readDB  = () => JSON.parse(fs.readFileSync(DB_PATH, 'utf-8'));
-const writeDB = (data) => fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-
-// ── Extended Data (loaded once at startup) ──────────────────────────────
-const { EXTENDED_POETS }      = require('./data/poets-extended');
-const { EXTENDED_DICTIONARY } = require('./data/dictionary-extended');
-
-// Build merged poet list (db.json poets + extended poets)
-let ALL_POETS = [];
-let ALL_DICTIONARY = {};
-
-function buildMergedData() {
-  const db = readDB();
-  const existingIds = new Set(db.poets.map(p => p.id));
-  const newPoets = EXTENDED_POETS.filter(p => !existingIds.has(p.id));
-  ALL_POETS = [...db.poets, ...newPoets];
-  ALL_DICTIONARY = { ...db.dictionary, ...EXTENDED_DICTIONARY };
-  console.log(`  Poets loaded   : ${ALL_POETS.length}`);
-  console.log(`  Dict entries   : ${Object.keys(ALL_DICTIONARY).length}`);
-}
-
-buildMergedData();
-
-// ── Health ────────────────────────────────────────────────────────────  
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', platform: 'Niharika', version: '3.0.0',
-    stats: { poets: ALL_POETS.length, dictionary: Object.keys(ALL_DICTIONARY).length },
-    timestamp: new Date().toISOString() });
+// Health check
+app.get('/api/health', async (req, res) => {
+  const poetCount = await Poet.countDocuments();
+  const dictCount = await Dictionary.countDocuments();
+  res.json({ 
+    status: 'ok', 
+    platform: 'Niharika', 
+    version: '4.0.0',
+    stats: { poets: poetCount, dictionary: dictCount },
+    dbStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+    timestamp: new Date().toISOString() 
+  });
 });
 
 // ── Auth Routes ───────────────────────────────────────────────────────
@@ -62,42 +61,53 @@ app.get('/api/user/bookmarks',   verifyToken, getBookmarks);
 app.post('/api/user/history',    verifyToken, addHistory);
 
 // ── Poets ─────────────────────────────────────────────────────────────
-app.get('/api/poets', (req, res) => {
-  let poets = [...ALL_POETS];
-  const { category, search, featured, era, country, limit, page } = req.query;
-  if (category && category !== 'all')
-    poets = poets.filter(p => p.category === category || p.tags?.includes(category));
-  if (era)
-    poets = poets.filter(p => p.era?.toLowerCase() === era.toLowerCase() || p.category?.toLowerCase() === era.toLowerCase());
-  if (country)
-    poets = poets.filter(p => p.country?.toLowerCase().includes(country.toLowerCase()));
-  if (search) {
-    const q = search.toLowerCase();
-    poets = poets.filter(p =>
-      p.name.toLowerCase().includes(q) ||
-      (p.hindi || '').includes(q) ||
-      (p.bio  || '').toLowerCase().includes(q) ||
-      (p.speciality || '').toLowerCase().includes(q)
-    );
+app.get('/api/poets', async (req, res) => {
+  try {
+    const { category, search, featured, era, country, limit, page } = req.query;
+    let query = {};
+
+    if (category && category !== 'all') {
+      query.$or = [{ category: category }, { tags: category }];
+    }
+    if (era) {
+      query.era = { $regex: new RegExp(era, 'i') };
+    }
+    if (country) {
+      query.country = { $regex: new RegExp(country, 'i') };
+    }
+    if (search) {
+      const q = new RegExp(search, 'i');
+      query.$or = [
+        { name: q },
+        { hindi: q },
+        { bio: q },
+        { speciality: q }
+      ];
+    }
+    if (featured === 'true') query.isFeatured = true;
+
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 20;
+    const skip = (pageNum - 1) * limitNum;
+
+    const poets = await Poet.find(query).skip(skip).limit(limitNum).sort({ name: 1 });
+    const total = await Poet.countDocuments(query);
+
+    res.json({ success: true, count: poets.length, total, page: pageNum, data: poets });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  if (featured === 'true') poets = poets.filter(p => p.isFeatured);
-  
-  const total = poets.length;
-  const pageNum  = parseInt(page)  || 1;
-  const limitNum = parseInt(limit) || poets.length;
-  const start = (pageNum - 1) * limitNum;
-  const paged = poets.slice(start, start + limitNum);
-  
-  res.json({ success: true, count: paged.length, total, page: pageNum, data: paged });
 });
 
-app.get('/api/poets/:id', (req, res) => {
-  const db   = readDB();
-  const id   = parseInt(req.params.id);
-  const poet = ALL_POETS.find(p => p.id === id);
-  if (!poet) return res.status(404).json({ success: false, message: 'Poet not found' });
-  
-  // Get poems from db.json or from poet's own poems array
+app.get('/api/poets/:id', async (req, res) => {
+  try {
+    const poet = await Poet.findOne({ id: req.params.id });
+    if (!poet) return res.status(404).json({ success: false, message: 'Poet not found' });
+    res.json({ success: true, data: poet });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
   const dbPoems = db.poems.filter(p => p.poetId === id);
   const inlinePoems = (poet.poems || []).map((p, i) => ({ id: `${id}_${i}`, poetId: id, poet: poet.name, ...p, likes: p.likes || Math.floor(Math.random()*20000)+1000 }));
   const allPoems = [...dbPoems, ...(dbPoems.length ? [] : inlinePoems)];
@@ -193,51 +203,96 @@ app.get('/api/quotes/random', (req, res) => {
 });
 
 // ── Dictionary ─────────────────────────────────────────────────────────
-app.get('/api/dictionary', (req, res) => {
-  const { search, letter, page, limit } = req.query;
-  let entries = Object.entries(ALL_DICTIONARY);
-  if (search) {
-    const q = search.toLowerCase();
-    entries = entries.filter(([k, v]) =>
-      k.includes(q) || v.word?.toLowerCase().includes(q) ||
-      (v.hindi || '').includes(q) || (v.meaning || '').toLowerCase().includes(q)
-    );
+app.get('/api/dictionary', async (req, res) => {
+  try {
+    const { search, letter, page, limit } = req.query;
+    let query = {};
+    
+    if (search) {
+      const q = new RegExp(search, 'i');
+      query.$or = [{ word: q }, { hindi: q }, { meaning: q }];
+    }
+    if (letter) {
+      query.word = { $regex: new RegExp('^' + letter, 'i') };
+    }
+    
+    const pageNum = parseInt(page) || 1;
+    const limitNum = parseInt(limit) || 50;
+    const skip = (pageNum - 1) * limitNum;
+    
+    const entries = await Dictionary.find(query).skip(skip).limit(limitNum).sort({ word: 1 });
+    const total = await Dictionary.countDocuments(query);
+    
+    res.json({ success: true, count: entries.length, total, page: pageNum, data: entries });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  if (letter) entries = entries.filter(([k]) => k.startsWith(letter.toLowerCase()));
-  const total = entries.length;
-  const pageNum  = parseInt(page)  || 1;
-  const limitNum = parseInt(limit) || 50;
-  const start = (pageNum - 1) * limitNum;
-  const paged = entries.slice(start, start + limitNum);
-  res.json({ success: true, count: paged.length, total, page: pageNum,
-    data: paged.map(([k, v]) => ({ key: k, ...v })) });
 });
 
-app.get('/api/dictionary/:word', (req, res) => {
-  const key   = req.params.word.toLowerCase().trim();
-  const entry = ALL_DICTIONARY[key];
-  if (!entry) {
-    // Fuzzy search
-    const fuzzy = Object.entries(ALL_DICTIONARY).find(([k]) => k.includes(key) || key.includes(k));
-    if (fuzzy) return res.json({ success: true, fuzzy: true, data: { key: fuzzy[0], ...fuzzy[1] } });
-    return res.status(404).json({ success: false, message: `"${req.params.word}" not found in dictionary.` });
+app.get('/api/dictionary/:word', async (req, res) => {
+  try {
+    const word = req.params.word.toLowerCase().trim();
+    let entry = await Dictionary.findOne({ word });
+    
+    if (!entry) {
+      // Fuzzy search for partial match
+      entry = await Dictionary.findOne({ word: { $regex: new RegExp(word, 'i') } });
+      if (entry) return res.json({ success: true, fuzzy: true, data: entry });
+      return res.status(404).json({ success: false, message: `"${req.params.word}" not found.` });
+    }
+    res.json({ success: true, data: entry });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-  res.json({ success: true, data: { key, ...entry } });
+});
+
+// ── Library & Books ────────────────────────────────────────────────────
+app.get('/api/library', async (req, res) => {
+  try {
+    const books = await Book.find({ isAvailable: true }).sort({ createdAt: -1 });
+    res.json({ success: true, count: books.length, data: books });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.get('/api/library/:id', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (!book) return res.status(404).json({ success: false, message: 'Book not found' });
+    res.json({ success: true, data: book });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ── Blog ──────────────────────────────────────────────────────────────
-app.get('/api/blog', (req, res) => {
-  const db = readDB();
-  let posts = db.blog;
-  if (req.query.limit) posts = posts.slice(0, parseInt(req.query.limit));
-  res.json({ success: true, count: posts.length, data: posts });
+app.get('/api/blog', async (req, res) => {
+  try {
+    // For now, returning sample static data or we could create a Blog model
+    // Let's assume we'll use a Blog model later, but for now we keep it simple
+    res.json({ success: true, count: 0, data: [] }); 
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
 
 // ── Misc ──────────────────────────────────────────────────────────────
-app.get('/api/categories', (req, res) => res.json({ success: true, data: readDB().categories }));
-app.get('/api/videos',     (req, res) => res.json({ success: true, data: readDB().videos }));
-app.get('/api/quiz',       (req, res) => {
-  const quiz = [...readDB().quiz].sort(() => Math.random() - 0.5);
+app.get('/api/categories', async (req, res) => {
+    // Categories can be derived from Poets tags or kept static
+    const categories = ['classical', 'modern', 'contemporary', 'bhakti', 'urdu', 'progressive', 'romantic', 'patriotic'];
+    res.json({ success: true, data: categories });
+});
+
+app.get('/api/videos', async (req, res) => {
+    // Placeholder for video metadata from DB
+    res.json({ success: true, data: [] });
+});
+
+app.get('/api/quiz', async (req, res) => {
+    // Placeholder for quiz questions from DB
+    res.json({ success: true, data: [] });
+});
   res.json({ success: true, data: quiz });
 });
 

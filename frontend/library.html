@@ -266,120 +266,72 @@
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script>
-// ── DATA ──────────────────────────────────────────────
-const SHAYARI_DATA = {
-  love: [
-    { text: 'Tujhe dekh ke dil ko chain aata hai,\nJaise baarish ke baad mitti ko sukoon aata hai.', author: 'Niharika Collection', cat: 'love' },
-    { text: 'Mohabbat ek ibaadat hai,\nIse dil ki gehraion mein ada karo.', author: 'Niharika Collection', cat: 'love' },
-    { text: 'Teri yaadein aisi hain jaise phoolon ki khushbu -\nDikhti nahi, mehsoosi zaroor hoti hai.', author: 'Rajan Rai', cat: 'love' },
-    { text: 'Tune mere lafzon mein apna naam likh diya,\nAb main kuch aur likhne ke kaabil nahi raha.', author: 'Niharika Collection', cat: 'love' },
-    { text: 'Ishq woh nahi jo sochkar kiya jaye,\nIshq woh hai jo ho jaata hai.', author: 'Niharika Collection', cat: 'love' },
-    { text: 'Dar laga tha mohabbat se -\nAb dar lagta hai mohabbat ke bina.', author: 'Niharika Collection', cat: 'love' },
-  ],
-  life: [
-    { text: 'Zindagi nahi milti baar baar,\nIs pal ko jiyo, poori tarah.', author: 'Rajan Rai', cat: 'life' },
-    { text: 'Raste paidal chalke hi milte hain,\nManzilein kisi ki nahi hoti - wo kamayi jaati hain.', author: 'Niharika Collection', cat: 'life' },
-    { text: 'Jo beet gayi so baat gayi,\nVartmaan mein ji - yahi teri shakti hai.', author: 'After H.R. Bachchan', cat: 'life' },
-    { text: 'Zindagi ek daur hai, use khelo.\nHaarna bhi zaruri hai - jeet ka pata toh tab hi chalta hai.', author: 'Niharika Collection', cat: 'life' },
-    { text: 'Safar khatam hote hain, manzilein nahi.\nHar manzil ek naya safar ka pehla kadam hai.', author: 'Niharika Collection', cat: 'life' },
-    { text: 'Waqt kadhi bhi kisi ke liye ruka nahi,\nPar jo waqt ka saath deta hai - woh aage badhta hai.', author: 'Niharika Collection', cat: 'life' },
-  ],
-  philosophy: [
-    { text: 'Bura jo dekhan main chala, bura nahi milaya.\nJo dil khoja aapna, mujhsa bura na kaya.', author: 'Kabir Das', cat: 'philosophy' },
-    { text: 'Pothi padh padh jag mua, pandit bhaya na koy.\nDhai aakhar prem ke, padhe so pandit hoy.', author: 'Kabir Das', cat: 'philosophy' },
-    { text: 'Khud ko jaano, pehle khud se milo,\nPhir dunia ki baat karo.', author: 'Rajan Rai', cat: 'philosophy' },
-    { text: 'Sach bolne mein thodi der lagti hai,\nJhooth ko ek pal bhi nahi chahiye.', author: 'Rajan Rai', cat: 'philosophy' },
-    { text: 'Mann se bura nahi koi mandir,\nMann se acha nahi koi teerath.', author: 'Kabir Das', cat: 'philosophy' },
-    { text: 'Jo hai so hai, jo nahi so nahi hai.\nIn donon ke beech mein tum ho - jo dono se pare hain.', author: 'Niharika Collection', cat: 'philosophy' },
-  ],
-  motivation: [
-    { text: 'Ek insaan sab kuch kar sakta hai,\nJab woh jaan le ke woh insaan hai.', author: 'Rajan Rai', cat: 'motivation' },
-    { text: 'Tufaan bhi aayenge, andhere bhi chhaayenge,\nPar jo jhukte nahi - woh hi itihaas banaate hain.', author: 'Niharika Collection', cat: 'motivation' },
-    { text: 'Haar maan lena sabse badi haar hai,\nLadna jaari rakhna hi asli jeet hai.', author: 'Rajan Rai', cat: 'motivation' },
-    { text: 'Sapne dekh - par aankh khol ke bhi dekh.\nSapne poore wahi karta hai jo jaagta hai.', author: 'Niharika Collection', cat: 'motivation' },
-    { text: 'Mushkilein aati hain anmol saabit karne,\nSone ko aag se guzarna padta hai.', author: 'Niharika Collection', cat: 'motivation' },
-    { text: 'Uth, chal, badh - ruk mat.\nManzil mil gayi toh cheez hi kya hogi jo nahi mila.', author: 'Niharika Collection', cat: 'motivation' },
-  ],
-  sad: [
-    { text: 'Dard ko bhi ek zubaan de do,\nShayad woh bhi kuch kehna chahta hai.', author: 'Rajan Rai', cat: 'sad' },
-    { text: 'Aansu woh baatein kehte hain\nJo honth kehne se darte hain.', author: 'Niharika Collection', cat: 'sad' },
-    { text: 'Tanhai bhi ek ustaad hai -\nKhud se milati hai.', author: 'Rajan Rai', cat: 'sad' },
-    { text: 'Bikharne ka bhi apna ek andaaz hota hai,\nJaise baarish ke baad zameen par phool bikh jaate hain.', author: 'Niharika Collection', cat: 'sad' },
-    { text: 'Kuch darwaze band ho jaate hain,\nTaaki dusre khul sakein.', author: 'Niharika Collection', cat: 'sad' },
-    { text: 'Hazaaron khwahishain aisi ke har khwahish pe dum nikle.\nBahut nikle mere armaan, lekin phir bhi kam nikle.', author: 'Mirza Ghalib', cat: 'sad' },
-  ],
-  nature: [
-    { text: 'Baarish ki boond ne poochha pathar se:\nKya tum bhi kabhi pighal sakte ho?\nPathar ne kaha: Waqt do.', author: 'Rajan Rai', cat: 'nature' },
-    { text: 'Dariya apni raah khud banata hai,\nPahaad rok sake toh roke.', author: 'Niharika Collection', cat: 'nature' },
-    { text: 'Phool khilta hai bina kisi shor ke -\nSabse badi cheezein khamoshi mein hoti hain.', author: 'Niharika Collection', cat: 'nature' },
-    { text: 'Chand raat bhar jaagta hai -\nUsse nahi pata din ka sukoon kya hota hai.', author: 'Niharika Collection', cat: 'nature' },
-    { text: 'Paani ka koi rang nahi, phir bhi sab rang dikhata hai.\nIssi ko kehte hain - khud ko mitaana.', author: 'Rajan Rai', cat: 'nature' },
-  ]
-};
+// ── STATE ──────────────────────────────────────────────
+let ALL_SHAYARI = [];
+let ALL_SHER = [];
+let ALL_BOOKS = [];
+let ALL_PHILOSOPHERS = [];
+let ALL_DICT = [];
+let currentCat = 'all';
+let dictCat = 'all';
 
-const ALL_SHAYARI = Object.values(SHAYARI_DATA).flat();
+// ── DATA FETCHING ──────────────────────────────────────────
+async function loadLibraryData() {
+  try {
+    // Show loading states
+    const loaders = ['shayariGrid', 'sherList', 'booksGrid', 'philGrid', 'dictLibGrid'];
+    loaders.forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.innerHTML = '<div style="text-align:center;padding:40px;width:100%;color:var(--muted)"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+    });
 
-const SHER_DATA = [
-  { text: 'Rekhte ke tum hi ustaad nahin, Ghalib,\nKaha karte the - saaye mein baithe usne.', author: 'Mirza Ghalib', form: 'Sher' },
-  { text: 'Hazaaron khwahishain aisi ke har khwahish pe dum nikle,\nBahut nikle mere armaan lekin phir bhi kam nikle.', author: 'Mirza Ghalib', form: 'Sher' },
-  { text: 'Out beyond ideas of wrongdoing and rightdoing,\nthere is a field. I will meet you there.', author: 'Rumi', form: 'Verse' },
-  { text: 'The wound is the place where the light enters you.', author: 'Rumi', form: 'Aphorism' },
-  { text: 'Bura jo dekhan main chala, bura nahi milaya.\nJo dil khoja aapna, mujhsa bura na kaya.', author: 'Kabir Das', form: 'Doha' },
-  { text: 'Pothi padh padh jag mua, pandit bhaya na koy.\nDhai aakhar prem ke, padhe so pandit hoy.', author: 'Kabir Das', form: 'Doha' },
-  { text: 'Rrahiman dhaga prem ka, mat todo chatakay.\nTute se phir na jude, jude ganth pad jaay.', author: 'Rahim Das', form: 'Doha' },
-  { text: 'A man can do anything,\nwhen he realises he is a man.', author: 'Rajan Rai', form: 'Aphorism' },
-  { text: 'Silence is the loudest answer the soul ever gives.', author: 'Rajan Rai', form: 'Aphorism' },
-  { text: 'Every storm within you is just a sunrise waiting to break.', author: 'Rajan Rai', form: 'Verse' },
-  { text: 'Singhasan khali karo ke janta aati hai.', author: 'Ramdhari Singh Dinkar', form: 'Sher' },
-  { text: 'Mere toh Giridhar Gopal, doosro na koi.', author: 'Mirabai', form: 'Bhajan Line' },
-  { text: 'Yesterday I was clever so I wanted to change the world.\nToday I am wise so I am changing myself.', author: 'Rumi', form: 'Verse' },
-  { text: 'You have power over your mind, not outside events.\nRealise this and you will find strength.', author: 'Marcus Aurelius', form: 'Aphorism' },
-];
+    // Fetch Books
+    const bookRes = await fetch('/api/library');
+    const bookData = await bookRes.json();
+    if(bookData.success) {
+      ALL_BOOKS = bookData.data;
+      renderBooks(ALL_BOOKS);
+    }
 
-const BOOKS_DATA = [
-  { emoji: '🍶', bg: 'linear-gradient(135deg,#4a2800,#8a5000)', title: 'Madhushala', author: 'Harivansh Rai Bachchan', year: '1935', tag: 'Hindi Poetry', summary: 'A masterpiece of modern Hindi literature consisting of 135 quatrains (Rubai). Uses the extended metaphor of a tavern, wine, and cup-bearer to explore life, death, love, and the divine. One of the bestselling Hindi poetry books of all time.' },
-  { emoji: '🌊', bg: 'linear-gradient(135deg,#1a237e,#0d47a1)', title: 'Masnavi Ma\'navi', author: 'Rumi', year: '1258-1273 CE', tag: 'Persian Mysticism', summary: 'Six books of mystical Persian poetry often called the Persian Quran. Contains 25,000 verses exploring the soul\'s journey toward God, the nature of love, and the meaning of existence. Required reading for anyone serious about Sufi poetry.' },
-  { emoji: '☀️', bg: 'linear-gradient(135deg,#5d4037,#8d6e63)', title: 'Bhagavad Gita', author: 'Attributed to Vyasa', year: 'c. 400 BCE', tag: 'Sanskrit Scripture', summary: 'A 700-verse dialogue between prince Arjuna and Lord Krishna on the battlefield of Kurukshetra. Covers duty (dharma), action (karma), knowledge (jnana), and devotion (bhakti). One of the most influential philosophical texts in history.' },
-  { emoji: '📜', bg: 'linear-gradient(135deg,#7B1D1D,#a02020)', title: 'Ram Charit Manas', author: 'Tulsidas', year: '1574 CE', tag: 'Hindi Epic', summary: 'An epic Hindi poem retelling the story of Ram in Awadhi dialect using the Doha-Chaupai format. The most widely read Hindi religious text in India, containing profound wisdom about duty, love, righteousness, and the ideal human life.' },
-  { emoji: '✍️', bg: 'linear-gradient(135deg,#263238,#37474f)', title: 'Diwan-e-Ghalib', author: 'Mirza Ghalib', year: '1841', tag: 'Urdu Poetry', summary: 'The collected Urdu ghazals of Mirza Ghalib - approximately 235 ghazals of extraordinary philosophical depth, wit, irony, and linguistic artistry. Considered the pinnacle of Urdu poetry. A must-read for anyone who loves language.' },
-  { emoji: '☯️', bg: 'linear-gradient(135deg,#1a3a00,#2d6600)', title: 'Tao Te Ching', author: 'Laozi', year: 'c. 400 BCE', tag: 'Chinese Philosophy', summary: '81 short chapters of profound Chinese wisdom about the Tao (the Way) - the fundamental principle underlying the universe. Covers effortless action (wu-wei), simplicity, and harmony with nature. One of the most translated books in history.' },
-  { emoji: '⚔️', bg: 'linear-gradient(135deg,#1C1917,#3d2b1f)', title: 'Meditations', author: 'Marcus Aurelius', year: '161-180 CE', tag: 'Stoic Philosophy', summary: 'Personal journal of Roman Emperor Marcus Aurelius. A masterpiece of Stoic philosophy covering duty, impermanence, the nature of the mind, and how to live well. Written as private self-reminders, yet profoundly relevant to every human being today.' },
-  { emoji: '🌊', bg: 'linear-gradient(135deg,#0d47a1,#1565c0)', title: 'Rashmirathi', author: 'Ramdhari Singh Dinkar', year: '1952', tag: 'Hindi Epic', summary: 'Dinkar\'s masterpiece retells the Mahabharata from Karna\'s perspective - giving voice to the tragic hero who was born great but denied greatness by destiny and society. A powerful meditation on identity, loyalty, and justice.' },
-  { emoji: '🌙', bg: 'linear-gradient(135deg,#880E4F,#ad1457)', title: 'Kamayani', author: 'Jaishankar Prasad', year: '1936', tag: 'Hindi Mahakavya', summary: 'Considered the greatest poem of modern Hindi literature (mahakavya). Follows Manu after the great flood as he encounters Shraddha (Faith) and Ida (Reason). A profound philosophical poem about the nature of human life and consciousness.' },
-];
+    // Fetch Dictionary
+    const dictRes = await fetch('/api/dictionary?limit=100');
+    const dictData = await dictRes.json();
+    if(dictData.success) {
+      ALL_DICT = dictData.data;
+      renderDict(ALL_DICT);
+    }
 
-const PHILOSOPHERS_DATA = [
-  { name: 'Rumi', hindi: 'रूमी', period: '1207 - 1273', tradition: 'Sufi Poetry, Islamic Mysticism', color: '#1a237e', initial: 'R', bio: 'Jalal ad-Din Muhammad Rumi was a 13th-century Persian poet and Sufi mystic whose work transcends all religious and national boundaries. After his transformative encounter with the wandering mystic Shams of Tabriz, Rumi composed some of the most profound poetry the world has ever seen.', teachings: ['The wound is the place where the light enters you.', 'Silence is the language of God - all else is poor translation.', 'Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.', 'What you seek is seeking you.'], quote: 'Out beyond ideas of wrongdoing and rightdoing, there is a field. I will meet you there.' },
-  { name: 'Kabir Das', hindi: 'कबीर दास', period: '1440 - 1518', tradition: 'Bhakti Movement, Nirguna Bhakti', color: '#7B1D1D', initial: 'क', bio: 'Kabir Das was a 15th-century mystic poet whose Dohe (couplets) are among the most profound verses in all of Hindi literature. He rejected the divides of religion, caste, and ritual, insisting that God lives in every heart and can be found through love and truth alone.', teachings: ['God cannot be found in temples or mosques - He lives in every human heart.', 'Books do not teach love. Love teaches love.', 'The ego is the greatest barrier to truth.', 'Be humble. The tree with the most fruit bends the lowest.'], quote: 'Pothi padh padh jag mua, pandit bhaya na koy. Dhai aakhar prem ke, padhe so pandit hoy.' },
-  { name: 'Mirza Ghalib', hindi: 'मिर्ज़ा ग़ालिब', period: '1797 - 1869', tradition: 'Urdu and Persian Poetry', color: '#263238', initial: 'ग', bio: 'Mirza Asadullah Baig Khan, known by the pen name Ghalib, is the most celebrated Urdu poet in history. Living through the collapse of the Mughal Empire, his ghazals move between philosophical depth, brilliant wordplay, and melancholic irony. He redefined what Urdu poetry could say.', teachings: ['The pain of longing is itself a form of beauty.', 'Reason has its limits. The heart knows what the mind cannot grasp.', 'Life is a riddle. The poet lives comfortably within it.', 'Even failure has its dignity.'], quote: 'Hum ko maloom hai jannat ki haqeeqat lekin, dil ke khush rakhne ko Ghalib yeh khayal acha hai.' },
-  { name: 'Mirabai', hindi: 'मीराबाई', period: '1498 - 1547', tradition: 'Bhakti Movement, Vaishnava Devotion', color: '#6A0572', initial: 'म', bio: 'Mirabai was a 16th-century Rajput princess and mystic poet who abandoned royalty to pursue her complete devotion to Lord Krishna. Her bhajans, written in Rajasthani and Brajbhasha, are among the most celebrated devotional poems in India and remain sung in households and temples today.', teachings: ['Divine love transcends all social boundaries.', 'Surrender fully to God and all fear vanishes.', 'The devotee and the beloved are ultimately one.', 'Social rules cannot contain the soul\'s longing for God.'], quote: 'Mere toh Giridhar Gopal, doosro na koi. Jake sir moar mukut, mero pati soi.' },
-  { name: 'Ramdhari Singh Dinkar', hindi: 'रामधारी सिंह दिनकर', period: '1908 - 1974', tradition: 'Veer Ras, Rashtriya Kavita', color: '#1a237e', initial: 'द', bio: 'Ramdhari Singh Dinkar is considered the national poet (Rashtra Kavi) of modern India. His fiery patriotic verse gave voice to the spirit of independence and justice. He received the Sahitya Akademi Award for his philosophical poem Urvashi, and Padma Bhushan and Padma Vibhushan from the Government of India.', teachings: ['A nation that forgets its culture loses its soul.', 'Courage and justice are the foundation of civilisation.', 'Poetry must speak for those whose voices are silenced.'], quote: 'Ksama shobhti us bhujang ko, jiske paas garal ho.' },
-  { name: 'Rajan Rai', hindi: 'राजन राय', period: '16 August 2005 - Present', tradition: 'Contemporary Philosophical Poetry', color: '#8B1A1A', initial: 'र', bio: 'Rajan Rai is the founder of Niharika and a contemporary philosopher-poet. Born on 16 August 2005, his work explores human potential, self-realisation, and the transformative power of thought. He built Niharika so that great poetry remains free and accessible to every soul that loves words.', teachings: ['A man can do anything, when he realises he is a man.', 'The mind that questions itself is already wiser than most.', 'Silence is not emptiness - it is the fullest form of presence.', 'Pain is the ink with which the greatest poems are written.', 'Your greatest power is the decision to begin.'], quote: 'Every storm within you is just a sunrise waiting to break.' },
-];
+    // Fetch Poets for Philosophers section
+    const poetRes = await fetch('/api/poets?featured=true');
+    const poetData = await poetRes.json();
+    if(poetData.success) {
+      ALL_PHILOSOPHERS = poetData.data;
+      renderPhilosophers(ALL_PHILOSOPHERS);
+    }
 
-const DICT_DATA = [
-  { word: 'Shayari', hindi: 'शायरी', pos: 'Noun', meaning: 'The art of poetry in Urdu and Hindi - verses expressing emotion, love, life philosophy, and human experience through carefully chosen words and imagery.', tags: ['form', 'urdu'] },
-  { word: 'Ghazal', hindi: 'ग़ज़ल', pos: 'Noun', meaning: 'A poetic form of couplets (sher) sharing a rhyme and refrain. Each couplet is self-contained. The last couplet traditionally contains the poet\'s name. Ghazals deal with love and longing.', tags: ['form', 'urdu'] },
-  { word: 'Sher', hindi: 'शेर', pos: 'Noun', meaning: 'A single couplet in Urdu/Hindi poetry - two lines forming a complete thought. The basic unit of a ghazal.', tags: ['form', 'urdu'] },
-  { word: 'Doha', hindi: 'दोहा', pos: 'Noun', meaning: 'A traditional Hindi verse form of two rhyming lines, each with 24 syllables (11+13). Kabir Das and Rahim Das are the greatest doha writers. Profound wisdom in very few words.', tags: ['form', 'hindi'] },
-  { word: 'Nazm', hindi: 'नज़्म', pos: 'Noun', meaning: 'A poem, often free verse, with a unified theme running through all stanzas. Unlike a ghazal, a nazm has narrative continuity from start to finish.', tags: ['form', 'urdu'] },
-  { word: 'Kavita', hindi: 'कविता', pos: 'Noun', meaning: 'Hindi word for poetry. A literary composition expressing emotions, ideas, or narratives through rhythm, imagery, and language. Includes all forms - doha, nazm, free verse.', tags: ['form', 'hindi'] },
-  { word: 'Bhajan', hindi: 'भजन', pos: 'Noun', meaning: 'A devotional song or hymn in praise of God in the Hindu tradition. Mirabai\'s bhajans are among the most celebrated devotional compositions.', tags: ['form', 'devotional'] },
-  { word: 'Rasa', hindi: 'रस', pos: 'Noun', meaning: 'The aesthetic flavour or emotional essence of a poem. Nine rasas (Navarasa): Shringar (love), Hasya (laughter), Karuna (compassion), Raudra (fury), Veer (heroism), Bhayanaka (terror), Bibhatsa (disgust), Adbhuta (wonder), Shanta (peace).', tags: ['poetics'] },
-  { word: 'Alankar', hindi: 'अलंकार', pos: 'Noun', meaning: 'Figure of speech in Hindi poetry - literary devices enhancing the beauty of verse. Major types: Upama (simile), Rupak (metaphor), Utpreksha (fancy), Anupras (alliteration).', tags: ['poetics'] },
-  { word: 'Virah', hindi: 'विरह', pos: 'Noun', meaning: 'The pain of separation from a loved one - one of the most central themes in Indian poetry. Mirabai\'s bhajans are the supreme example of the poetry of virah.', tags: ['emotion'] },
-  { word: 'Prem', hindi: 'प्रेम', pos: 'Noun', meaning: 'Love - a deep, unconditional affection. In spiritual literature, prem refers specifically to divine love - the love between the devotee and God.', tags: ['emotion'] },
-  { word: 'Karma', hindi: 'कर्म', pos: 'Noun', meaning: 'Action. The universal law that every action - in thought, word, and deed - creates a corresponding consequence. What you send into the universe returns to you.', tags: ['philosophy'] },
-  { word: 'Dharma', hindi: 'धर्म', pos: 'Noun', meaning: 'Sacred duty; the path aligned with your true nature, your purpose, and the cosmic order. Different for each person. When you live in alignment with it, life flows.', tags: ['philosophy'] },
-  { word: 'Moksha', hindi: 'मोक्ष', pos: 'Noun', meaning: 'Liberation - freedom from the cycle of birth, death, and rebirth. The highest spiritual goal in Hindu and Jain philosophy. Achievable in this very life through self-realisation.', tags: ['philosophy'] },
-  { word: 'Maya', hindi: 'माया', pos: 'Noun', meaning: 'Illusion - the cosmic veil that makes us perceive the world as separate objects. Under maya we forget our infinite nature and identify with the body and ego.', tags: ['philosophy'] },
-  { word: 'Guru', hindi: 'गुरु', pos: 'Noun', meaning: 'Teacher or spiritual guide. Literally "one who dispels darkness and brings light." In Indian tradition, the guru-disciple relationship is considered one of the most sacred bonds.', tags: ['philosophy'] },
-  { word: 'Anand', hindi: 'आनंद', pos: 'Noun', meaning: 'Bliss or supreme joy - especially the spiritual bliss arising from self-realisation or divine connection. One of the three qualities of ultimate reality (Sat-Chit-Anand).', tags: ['emotion', 'philosophy'] },
-  { word: 'Ahimsa', hindi: 'अहिंसा', pos: 'Noun', meaning: 'Non-violence, non-harm. One of the highest ethical principles in Jainism, Hinduism, and Buddhism. Gandhi made it the foundation of India\'s independence movement.', tags: ['philosophy'] },
-];
+    // Load sample shayari and sher from consolidated poems
+    const poemRes = await fetch('/api/poets?limit=50');
+    const poemData = await poemRes.json();
+    if(poemData.success) {
+      const allPoems = poemData.data.reduce((acc, poet) => {
+        const pms = (poet.poems || []).map(p => ({ ...p, author: poet.name, cat: p.form?.toLowerCase() || 'general' }));
+        return [...acc, ...pms];
+      }, []);
+      
+      ALL_SHAYARI = allPoems.slice(0, 30);
+      ALL_SHER = allPoems.filter(p => (p.form||'').toLowerCase().includes('sher') || (p.form||'').toLowerCase().includes('doha')).slice(0, 20);
+      
+      renderShayari(ALL_SHAYARI);
+      renderSher(ALL_SHER);
+    }
+
+  } catch (err) {
+    console.error('Error loading library data:', err);
+    showToast('Error loading library content');
+  }
+}
 
 // ── SHAYARI PANEL ──────────────────────────────────────────
-let currentCat = 'all';
 function renderShayari(data) {
   const catColors = { love:'#c0392b', life:'#2980b9', philosophy:'#8e44ad', motivation:'#27ae60', sad:'#2c3e50', nature:'#16a085' };
   document.getElementById('shayariGrid').innerHTML = data.map(s => `
@@ -435,13 +387,15 @@ function filterSher() {
 function renderBooks(data) {
   document.getElementById('booksGrid').innerHTML = data.map(b => `
     <article class="book-card reveal">
-      <div class="book-cover" style="background:${b.bg}">${b.emoji}</div>
+      <div class="book-cover" style="background:linear-gradient(135deg,#1C1917,#3d2b1f)">
+        <img src="${b.coverImage || 'https://via.placeholder.com/150x200?text=Book'}" alt="${b.title}" style="height:100px;border-radius:4px" />
+      </div>
       <div class="book-body">
-        <div class="book-tag">${b.tag}</div>
+        <div class="book-tag">${b.genre?.[0] || 'Library'}</div>
         <div class="book-title">${b.title}</div>
         <div class="book-author">${b.author}</div>
-        <div class="book-year">${b.year}</div>
-        <div class="book-summary">${b.summary}</div>
+        <div class="book-summary">${b.description}</div>
+        ${b.externalLink ? `<a href="${b.externalLink}" target="_blank" class="btn btn-gold btn-sm" style="margin-top:12px;width:100%">Buy / Read</a>` : ''}
       </div>
     </article>
   `).join('');
@@ -449,26 +403,26 @@ function renderBooks(data) {
 }
 function filterBooks() {
   const q = document.getElementById('booksSearch').value.toLowerCase().trim();
-  renderBooks(q ? BOOKS_DATA.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)) : BOOKS_DATA);
+  renderBooks(q ? ALL_BOOKS.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q)) : ALL_BOOKS);
 }
 
 // ── PHILOSOPHERS PANEL ──────────────────────────────────────
-function renderPhilosophers() {
-  document.getElementById('philGrid').innerHTML = PHILOSOPHERS_DATA.map(p => `
+function renderPhilosophers(data) {
+  document.getElementById('philGrid').innerHTML = data.map(p => `
     <article class="phil-card reveal">
       <div class="phil-card-header">
-        <div class="phil-orb" style="background:linear-gradient(135deg,${p.color},${p.color}88)">${p.initial}</div>
+        <div class="phil-orb" style="background:linear-gradient(135deg,${p.color||'#8B1A1A'},${p.color||'#8B1A1A'}88)">${p.initials||p.name[0]}</div>
         <div>
           <div class="phil-name">${p.name}</div>
           <div class="phil-period"><i class="fas fa-calendar-alt"></i> ${p.period}</div>
-          <div class="phil-tradition">${p.tradition}</div>
+          <div class="phil-tradition">${p.speciality}</div>
         </div>
       </div>
       <div class="phil-card-body">
-        <div class="phil-bio">${p.bio}</div>
-        <div class="phil-teachings-title">Core Teachings</div>
-        ${p.teachings.map(t => `<div class="phil-teaching">${t}</div>`).join('')}
-        <div class="phil-quote">"${p.quote}"</div>
+        <div class="phil-bio">${p.bio?.substring(0, 200)}...</div>
+        <div class="phil-teachings-title">Core Wisdom</div>
+        ${(p.quotes||[]).slice(0,3).map(t => `<div class="phil-teaching">${t}</div>`).join('')}
+        <div class="phil-quote">"${p.quotes?.[0] || 'A man can do anything, when he realises he is a man.'}"</div>
       </div>
     </article>
   `).join('');
@@ -476,7 +430,6 @@ function renderPhilosophers() {
 }
 
 // ── DICTIONARY PANEL ──────────────────────────────────────────
-let dictCat = 'all';
 function renderDict(data) {
   document.getElementById('dictLibGrid').innerHTML = data.map(d => `
     <div class="dict-lib-card reveal" onclick="showToast('${d.word}: ${d.meaning.substring(0,60)}...')">
@@ -492,11 +445,12 @@ function setDictCat(cat, btn) {
   dictCat = cat;
   document.querySelectorAll('#panel-dictionary .tab-pill').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderDict(cat === 'all' ? DICT_DATA : DICT_DATA.filter(d => d.tags.includes(cat)));
+  // For now, filtering local results if cat set
+  renderDict(cat === 'all' ? ALL_DICT : ALL_DICT.filter(d => (d.tags||[]).includes(cat)));
 }
 function filterDict() {
   const q = document.getElementById('dictLibSearch').value.toLowerCase().trim();
-  renderDict(q ? DICT_DATA.filter(d => d.word.toLowerCase().includes(q) || d.meaning.toLowerCase().includes(q)) : DICT_DATA);
+  renderDict(q ? ALL_DICT.filter(d => d.word.toLowerCase().includes(q) || d.meaning.toLowerCase().includes(q)) : ALL_DICT);
 }
 
 // ── TAB SWITCHING ──────────────────────────────────────────────
@@ -510,13 +464,7 @@ document.querySelectorAll('.lib-tab').forEach(tab => {
 });
 
 // ── INIT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  renderShayari(ALL_SHAYARI);
-  renderSher(SHER_DATA);
-  renderBooks(BOOKS_DATA);
-  renderPhilosophers();
-  renderDict(DICT_DATA);
-});
+document.addEventListener('DOMContentLoaded', loadLibraryData);
 </script>
 </body>
 </html>

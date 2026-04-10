@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#8b1a1a" />
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3261/3261310.png" />
   <style>
     .home-content-grid { display: grid; grid-template-columns: 1fr 370px; gap: 28px; }
     .poets-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
@@ -21,6 +24,14 @@
     @media(max-width:1100px){.poets-grid{grid-template-columns:repeat(4,1fr)}.categories-grid{grid-template-columns:repeat(3,1fr)}.videos-grid{grid-template-columns:repeat(3,1fr)}.kavita-grid{grid-template-columns:repeat(2,1fr)}.blog-grid{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:900px){.home-content-grid{grid-template-columns:1fr}.poets-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:600px){.poets-grid{grid-template-columns:repeat(2,1fr)}.videos-grid{grid-template-columns:repeat(2,1fr)}.kavita-grid{grid-template-columns:1fr}.blog-grid{grid-template-columns:1fr}.categories-grid{grid-template-columns:repeat(2,1fr)}}
+    
+    /* Bottom Nav for Mobile */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: none; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--border-2); z-index: 1000; padding: 8px 0; }
+    .bottom-nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--muted); gap: 4px; }
+    .bottom-nav-item i { font-size: 20px; }
+    .bottom-nav-item span { font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    .bottom-nav-item.active { color: var(--crimson); }
+    @media(max-width: 600px) { .bottom-nav { display: grid; } body { padding-bottom: 70px; } .site-nav { display: none; } }
   </style>
 </head>
 <body>
@@ -429,8 +440,28 @@
   <span class="fav-count-badge" id="favCountBadge">0</span>
 </button>
 
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item active"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="library.html" class="bottom-nav-item"><i class="fas fa-book-open"></i><span>Library</span></a>
+  <a href="dictionary.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
+
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/main.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        console.log('Niharika Service Worker registered.');
+      }).catch(err => {
+        console.log('Service Worker registration failed: ', err);
+      });
+    });
+  }
+</script>
 </body>
 </html>
