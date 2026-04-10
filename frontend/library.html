@@ -286,7 +286,7 @@ async function loadLibraryData() {
     });
 
     // Fetch Books
-    const bookRes = await fetch('/api/library');
+    const bookRes = await fetch(API + '/library');
     const bookData = await bookRes.json();
     if(bookData.success) {
       ALL_BOOKS = bookData.data;
@@ -294,7 +294,7 @@ async function loadLibraryData() {
     }
 
     // Fetch Dictionary
-    const dictRes = await fetch('/api/dictionary?limit=100');
+    const dictRes = await fetch(API + '/dictionary?limit=100');
     const dictData = await dictRes.json();
     if(dictData.success) {
       ALL_DICT = dictData.data;
@@ -302,7 +302,7 @@ async function loadLibraryData() {
     }
 
     // Fetch Poets for Philosophers section
-    const poetRes = await fetch('/api/poets?featured=true');
+    const poetRes = await fetch(API + '/poets?featured=true');
     const poetData = await poetRes.json();
     if(poetData.success) {
       ALL_PHILOSOPHERS = poetData.data;
@@ -310,7 +310,7 @@ async function loadLibraryData() {
     }
 
     // Load sample shayari and sher from consolidated poems
-    const poemRes = await fetch('/api/poets?limit=50');
+    const poemRes = await fetch(API + '/poets?limit=50');
     const poemData = await poemRes.json();
     if(poemData.success) {
       const allPoems = poemData.data.reduce((acc, poet) => {

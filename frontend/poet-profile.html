@@ -168,7 +168,7 @@ let poetData = null, allPoetPoems = [];
 
 async function loadPoet() {
   try {
-    const r = await fetch('/api/poets/' + poetId);
+    const r = await fetch(API + '/poets/' + poetId);
     const result = await r.json();
     if (result.success) {
       poetData = result.data;
