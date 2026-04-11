@@ -1,4 +1,4 @@
-const CACHE_NAME = 'niharika-cache-v2';
+const CACHE_NAME = 'niharika-cache-v6';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,6 +6,17 @@ const urlsToCache = [
   '/js/main.js',
   '/js/api.js',
   '/assets/rajan-rai.png',
+  '/assets/kabir.png',
+  '/assets/bachchan.png',
+  '/assets/mirabai.png',
+  '/assets/dinkar.png',
+  '/assets/gulzar.png',
+  '/assets/mahadevi.png',
+  '/assets/pant.png',
+  '/assets/rahim.png',
+  '/assets/nirala.png',
+  '/assets/prasad.png',
+  '/assets/panwar.png',
   'https://cdn-icons-png.flaticon.com/512/3261/3261310.png'
 ];
 

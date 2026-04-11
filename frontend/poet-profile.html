@@ -208,40 +208,96 @@
 </nav>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
-<script src="js/api.js?v=2"></script>
-<script src="js/utils.js?v=2"></script>
+<script src="js/api.js?v=8"></script>
+<script src="js/utils.js?v=8"></script>
 <script>
 const params = new URLSearchParams(location.search);
-const poetId = parseInt(params.get('id')) || 1;
+let poetIdParam = params.get('id');
+if (poetIdParam) poetIdParam = decodeURIComponent(poetIdParam);
+const poetId = (poetIdParam && isNaN(poetIdParam)) ? poetIdParam : (poetIdParam ? (parseInt(poetIdParam) || null) : null);
+if (poetId === null && !poetIdParam) {
+  // If truly no ID at all, then and only then we might default to Founder for a clean Home-like Landing
+  // But if there IS a param and it's invalid, we show NOT FOUND later
+}
 let poetData = null, allPoetPoems = [];
 
 async function loadPoet() {
+  const loadingEl = document.getElementById('bioBio');
+  
   // If Rajan Rai (Founder), force local fallback to ensure portrait shows immediately
-  if (poetId === 1) {
+  // Strict Founder Check
+  const isRajan = poetId === 1 || String(poetIdParam).toLowerCase() === 'rajan%20rai' || poetIdParam === 'Rajan Rai';
+  if (isRajan) {
     poetData = FB_POETS.find(p => p.id === 1);
     allPoetPoems = FB_POEMS.filter(p => p.poetId === 1);
   } else {
     try {
-      const r = await fetch(API + '/poets/' + poetId);
+      const r = await fetch(API + '/poets/' + encodeURIComponent(poetId));
       if (r.ok) {
         const result = await r.json();
         if (result.success) {
           poetData = result.data;
           allPoetPoems = poetData.poems || [];
         }
+      } else {
+        console.error('API returned error status:', r.status);
       }
     } catch (err) {
-      console.warn('Backend fetch failed, using fallback.');
+      console.warn('Backend fetch failed, using session/fallback.', err);
     }
   }
 
-  // Final fallback to local data if still null
+  // Fallback chain
   if (!poetData) {
-    poetData = FB_POETS.find(p => p.id === poetId) || FB_POETS[0];
-    allPoetPoems = FB_POEMS.filter(p => p.poetId === poetId);
+    let sessionPoets = [];
+    try { sessionPoets = JSON.parse(sessionStorage.getItem('niharika_cache_poets') || '[]'); } catch(e){}
+    
+    // Try to find in session cache (most reliable for DB poets)
+    poetData = sessionPoets.find(p => p.id == poetId || p.name === poetId || String(p._id) === String(poetIdParam));
+    
+    // If still not found, try static FB_POETS
+    if (!poetData) {
+      poetData = FB_POETS.find(p => p.id == poetId || p.name === poetId || String(p.id) === String(poetIdParam));
+    }
+    
+    // Final fail-safe: If an ID was requested but not found, show error state
+    if (!poetData && poetIdParam) {
+      showPoetNotFound();
+      return;
+    }
+
+    // NO DEFAULT TO FOUNDER HERE.
+    if (!poetData) {
+        showPoetNotFound();
+        return;
+    }
+    
+    allPoetPoems = poetData.poems || FB_POEMS.filter(p => p.poetId === poetData.id);
   }
 
   renderHero(); renderBio(); renderPoems(allPoetPoems); renderQuotes(); renderSidebar(); loadOtherPoets();
+}
+
+function showPoetNotFound() {
+  document.getElementById('pageTitle').textContent = 'Poet Not Found - Niharika';
+  document.getElementById('poetName').textContent = 'Poet Not Found';
+  document.getElementById('poetOrb').textContent = '?';
+  document.getElementById('poetOrb').style.background = 'var(--muted)';
+  document.getElementById('bioBio').innerHTML = `
+    <div style="text-align:center;padding:40px 0">
+      <i class="fas fa-exclamation-triangle" style="font-size:48px;color:var(--gold);margin-bottom:20px"></i>
+      <h3>Poet Library Entry Missing</h3>
+      <p>We couldn't find the poet profile for "<strong>${poetIdParam}</strong>". This might be due to a server connection issue or an incorrect link.</p>
+      <div style="margin-top:24px">
+        <a href="poets.html" class="btn btn-crimson">Back to Poet Directory</a>
+        <a href="index.html" class="btn btn-outline-crimson">Go Home</a>
+      </div>
+    </div>
+  `;
+  // Hide panels
+  document.getElementById('panel-poems').style.display = 'none';
+  document.getElementById('panel-quotes').style.display = 'none';
+  document.getElementById('glanceStats').innerHTML = '<p>No data available.</p>';
 }
 
 function renderHero() {

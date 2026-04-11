@@ -1,6 +1,6 @@
 // frontend/js/api.js - Niharika API Client
 
-const API = 'https://niharika-298h.onrender.com/api';
+const API = 'http://localhost:5000/api';
 
 async function apiGet(path) {
   try {
@@ -19,8 +19,19 @@ async function apiPost(path, body) {
 
 // Named API calls
 const NiharikaAPI = {
-  getPoets:     (cat) => apiGet(`/poets${cat&&cat!=='all'?`?category=${cat}`:''}`),
-  getPoet:      (id)  => apiGet(`/poets/${id}`),
+  getPoets: async (cat) => {
+    const res = await apiGet(`/poets${cat && cat !== 'all' ? `?category=${cat}` : ''}`);
+    if (res && res.data) {
+      res.data.forEach(p => { const fb = FB_POETS.find(f => f.id === p.id); if (fb) p.image = fb.image; });
+      try { sessionStorage.setItem('niharika_cache_poets', JSON.stringify(res.data)); } catch (e) {}
+    }
+    return res;
+  },
+  getPoet: async (id) => {
+    const res = await apiGet(`/poets/${id}`);
+    if (res && res.data) { const fb = FB_POETS.find(f => f.id === id); if (fb) res.data.image = fb.image; }
+    return res;
+  },
   getPoems:     (q)   => apiGet(`/poems${q?'?'+q:''}`),
   likePoem:     (id)  => apiPost(`/poems/${id}/like`, {}),
   getQuotes:    (f)   => apiGet(`/quotes${f?'?founder=true':''}`),
@@ -40,18 +51,18 @@ const NiharikaAPI = {
 
 // ── Fallback data ─────────────────────────────────────
 const FB_POETS = [
-  { id:1,  name:"Rajan Rai",                hindi:"राजन राय",            period:"16/08/2005 - Present", color:"#8B1A1A", initials:"रा", category:"contemporary", tags:["founder","contemporary"], isFeatured:true, image: "assets/rajan-rai.png?v=2", speciality:"Philosophical Poetry, Aphorism", bio:"Rajan Rai is the founder of Niharika and a philosopher-poet whose work explores human potential and self-realisation." },
-  { id:2,  name:"Kabir Das",                hindi:"कबीर दास",            period:"1440 - 1518",    color:"#C9982A", initials:"क",  category:"classical",     tags:["classical","bhakti"],     isFeatured:true,  speciality:"Doha, Bhajan",                  bio:"Kabir Das was a 15th-century mystic poet. His Dohe carry timeless wisdom about truth, love, and the divine." },
-  { id:3,  name:"Harivansh Rai Bachchan",   hindi:"हरिवंश राय बच्चन",   period:"1907 - 2003",    color:"#2e7d32", initials:"ह",  category:"modern",        tags:["modern"],                 isFeatured:true,  speciality:"Kavita, Madhushala",            bio:"Harivansh Rai Bachchan authored Madhushala (1935), one of the greatest works of modern Hindi literature." },
-  { id:4,  name:"Mirabai",                  hindi:"मीराबाई",             period:"1498 - 1547",    color:"#6A0572", initials:"मी", category:"classical",     tags:["classical","bhakti"],     isFeatured:true,  speciality:"Bhajan, Devotional Poetry",     bio:"Mirabai was a mystic poet-saint and devotee of Lord Krishna. Her bhajans express passionate divine love." },
-  { id:5,  name:"Ramdhari Singh Dinkar",    hindi:"रामधारी सिंह दिनकर", period:"1908 - 1974",    color:"#1a237e", initials:"दि", category:"modern",        tags:["modern","patriotic"],     isFeatured:true,  speciality:"Rashtriya Kavita, Veer Ras",    bio:"Dinkar's patriotic and revolutionary poetry earned him the Sahitya Akademi Award and Padma Bhushan." },
-  { id:6,  name:"Gulzar",                   hindi:"गुलज़ार",             period:"1934 - Present", color:"#37474F", initials:"गु", category:"contemporary",  tags:["contemporary","nazm"],    isFeatured:true,  speciality:"Nazm, Film Lyrics",             bio:"Gulzar is an Oscar-winning poet and lyricist known for profound and symbolic nazms." },
-  { id:7,  name:"Mahadevi Verma",           hindi:"महादेवी वर्मा",       period:"1907 - 1987",    color:"#880E4F", initials:"म",  category:"modern",        tags:["modern","chhayawad"],     isFeatured:false, speciality:"Chhayawad Kavita",              bio:"Known as the Modern Meera, Mahadevi Verma received the Bharat Ratna for her contribution to Hindi literature." },
-  { id:8,  name:"Sumitranandan Pant",       hindi:"सुमित्रानंदन पंत",    period:"1900 - 1977",    color:"#1B5E20", initials:"पं", category:"modern",        tags:["modern","chhayawad"],     isFeatured:false, speciality:"Prakriti Kavita, Chhayawad",     bio:"The most lyrical Chhayawad poet, Pant won the Jnanpith Award for his nature-inspired verse." },
-  { id:9,  name:"Rahim Das",                hindi:"रहीम दास",            period:"1556 - 1627",    color:"#4E342E", initials:"र",  category:"classical",     tags:["classical","doha"],       isFeatured:false, speciality:"Doha, Satsai",                  bio:"One of Akbar's nine gems, Rahim's dohe blend wisdom, poetry, and deep humanity." },
-  { id:10, name:"Nirala",                   hindi:"निराला",              period:"1896 - 1961",    color:"#BF360C", initials:"नि", category:"modern",        tags:["modern","chhayawad"],     isFeatured:false, speciality:"Mukt Chhand, Kavita",           bio:"Nirala pioneered free verse (mukt chhand) in Hindi poetry with a rebel spirit and lyrical beauty." },
-  { id:11, name:"Jaishankar Prasad",        hindi:"जयशंकर प्रसाद",       period:"1889 - 1937",    color:"#0D47A1", initials:"प्र",category:"classical",     tags:["classical","chhayawad"],  isFeatured:false, speciality:"Mahakavya, Kamayani",           bio:"Jaishankar Prasad wrote Kamayani, considered the greatest poem of modern Hindi literature." },
-  { id:12, name:"Dr. Hariom Panwar",        hindi:"डॉ. हरिओम पंवार",     period:"1956 - Present", color:"#1A237E", initials:"प",  category:"contemporary",  tags:["contemporary"],           isFeatured:false, speciality:"Kavi Sammelan, Patriotic",       bio:"One of the most celebrated Kavi Sammelan performers, known for patriotic and motivational poetry." },
+  { id:1,  name:"Rajan Rai",                hindi:"राजन राय",            period:"16/08/2005 - Present", color:"#8B1A1A", initials:"रा", category:"contemporary", tags:["founder","contemporary"], isFeatured:true, image: "assets/rajan-rai.png", speciality:"Philosophical Poetry, Aphorism", bio:"Rajan Rai is the founder of Niharika and a philosopher-poet whose work explores human potential and self-realisation." },
+  { id:2,  name:"Kabir Das",                hindi:"कबीर दास",            period:"1440 - 1518",    color:"#C9982A", initials:"क",  category:"classical",     tags:["classical","bhakti"],     isFeatured:true, image: "assets/kabir.png", speciality:"Doha, Bhajan",                  bio:"Kabir Das was a 15th-century mystic poet. His Dohe carry timeless wisdom about truth, love, and the divine." },
+  { id:13, name:"Mirza Ghalib",             hindi:"मिर्ज़ा ग़ालिब",         period:"1797 - 1869",    color:"#3E2723", initials:"ग़ा", category:"classical",     tags:["classical","urdu"],       isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/1/1b/Ghalib_portrait.jpg", speciality:"Ghazal, Rubai", bio:"Mirza Ghalib was a pre-eminent Urdu and Persian poet during the last years of the Mughal Empire." },
+  { id:17, name:"Mahadevi Verma",           hindi:"महादेवी वर्मा",       period:"1907 - 1987",    color:"#880E4F", initials:"म",  category:"modern",        tags:["modern","chhayawad"],     isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/d/d6/Mahadevi_Verma.jpg", speciality:"Chhayawad Kavita", bio:"A giant of Hindi literature, known as the 'Modern Meera'." },
+  { id:15, name:"Jaun Elia",                hindi:"जौन एलिया",             period:"1931 - 2002",    color:"#212121", initials:"जौ", category:"contemporary",  tags:["contemporary","urdu"],    isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Jaun_Eliya_Stamp.jpg", speciality:"Nihilistic Poetry, Ghazal", bio:"One of the most influential modern Urdu poets." },
+  { id:19, name:"Khalil Gibran",            hindi:"खलील जिब्रान",          period:"1883 - 1931",    color:"#006064", initials:"ख",  category:"contemporary",  tags:["global","philosophical"], isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Kahlil_Gibran_1913.jpg", speciality:"The Prophet, Prose Poetry", bio:"A Lebanese-American poet, writer, and artist." },
+  { id:3,  name:"Harivansh Rai Bachchan",   hindi:"हरिवंश राय बच्चन",   period:"1907 - 2003",    color:"#2e7d32", initials:"ह",  category:"modern",        tags:["modern"],                 isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Harivansh_Rai_Bachchan_2003_stamp_of_India.jpg", speciality:"Kavita, Madhushala",            bio:"Harivansh Rai Bachchan authored Madhushala (1935), one of the greatest works of modern Hindi literature." },
+  { id:4,  name:"Mirabai",                  hindi:"मीराबाई",             period:"1498 - 1547",    color:"#6A0572", initials:"मी", category:"classical",     tags:["classical","bhakti"],     isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Meerabai.jpg", speciality:"Bhajan, Devotional Poetry",     bio:"Mirabai was a mystic poet-saint and devotee of Lord Krishna." },
+  { id:5,  name:"Ramdhari Singh Dinkar",    hindi:"रामधारी सिंह दिनकर", period:"1908 - 1974",    color:"#1a237e", initials:"दि", category:"modern",        tags:["modern","patriotic"],     isFeatured:true, image: "assets/dinkar.png", speciality:"Rashtriya Kavita, Veer Ras",    bio:"Dinkar's patriotic and revolutionary poetry earned him titles like Rashtrakavi." },
+  { id:6,  name:"Gulzar",                   hindi:"गुलज़ार",             period:"1934 - Present", color:"#37474F", initials:"गु", category:"contemporary",  tags:["contemporary","nazm"],    isFeatured:true, image: "https://upload.wikimedia.org/wikipedia/commons/6/60/Gulzar_at_an_event_in_Delhi_%28cropped%29.jpg", speciality:"Nazm, Film Lyrics",             bio:"Gulzar is an Oscar-winning poet and lyricist." },
+  { id:11, name:"Jaishankar Prasad",        hindi:"जयशंकर प्रसाद",       period:"1889 - 1937",    color:"#0D47A1", initials:"प्र",category:"classical",     tags:["classical","chhayawad"],  isFeatured:false, image: "assets/prasad.png", speciality:"Mahakavya, Kamayani",           bio:"Considered one of the four pillars of Chhayawad in Hindi literature." },
+  { id:12, name:"Dr. Hariom Panwar",        hindi:"डॉ. हरिओम पंवार",     period:"1956 - Present", color:"#1A237E", initials:"प",  category:"contemporary",  tags:["contemporary"],           isFeatured:false, image: "assets/panwar.png", speciality:"Kavi Sammelan, Patriotic",       bio:"Celebrated for his high-energy patriotic and revolutionary poetry." },
 ];
 
 const FB_POEMS = [

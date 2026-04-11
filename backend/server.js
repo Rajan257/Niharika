@@ -168,7 +168,7 @@ app.get('/api/poets', async (req, res) => {
     if (featured === 'true') query.isFeatured = true;
 
     const pageNum = parseInt(page) || 1;
-    const limitNum = parseInt(limit) || 20;
+    const limitNum = parseInt(limit) || 500;
     const skip = (pageNum - 1) * limitNum;
 
     const poets = await Poet.find(query).skip(skip).limit(limitNum).sort({ name: 1 });
@@ -183,7 +183,17 @@ app.get('/api/poets', async (req, res) => {
 app.get('/api/poets/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const poet = await Poet.findOne({ id: id }).lean();
+    
+    let query = {};
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      query = { $or: [{ _id: id }, { id: parseInt(id) || null }] };
+    } else if (isNaN(id)) {
+      query = { $or: [{ name: decodeURIComponent(id) }, { name: { $regex: new RegExp(decodeURIComponent(id), 'i') } }] };
+    } else {
+      query = { id: parseInt(id) };
+    }
+    
+    const poet = await Poet.findOne(query).lean();
     if (!poet) return res.status(404).json({ success: false, message: 'Poet not found' });
     
     // Fetch poems separately for this poet
@@ -484,6 +494,6 @@ app.listen(PORT, () => {
   console.log(`\n  Frontend : http://localhost:${PORT}`);
   console.log(`  API      : http://localhost:${PORT}/api/`);
   console.log(`  Auth     : http://localhost:${PORT}/api/auth/`);
-  buildMergedData();
+  // buildMergedData();
   console.log('\n  Ready!\n');
 });

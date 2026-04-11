@@ -183,7 +183,7 @@ async function renderPoets(cat = 'all') {
   const poets = data?.data || FB_POETS;
 
   grid.innerHTML = poets.map(p => `
-    <a href="poet-profile.html?id=${p.id}" class="poet-card reveal">
+    <a href="poet-profile.html?id=${p.id || encodeURIComponent(p.name)}" class="poet-card reveal">
       <div class="poet-avatar-wrap">
       <div class="poet-avatar" style="${p.image ? `background-image:url('${p.image}');background-size:cover;background-position:center;` : `background:linear-gradient(135deg,${p.color},${p.color}99);`}">${p.image ? '' : p.initials}</div>
         ${p.tags?.includes('founder') ? '<div class="poet-founder-crown"><i class="fas fa-crown"></i></div>' : ''}
