@@ -208,27 +208,39 @@
 </nav>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
-<script src="js/api.js"></script>
-<script src="js/utils.js"></script>
+<script src="js/api.js?v=2"></script>
+<script src="js/utils.js?v=2"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const poetId = parseInt(params.get('id')) || 1;
 let poetData = null, allPoetPoems = [];
 
 async function loadPoet() {
-  try {
-    const r = await fetch(API + '/poets/' + poetId);
-    const result = await r.json();
-    if (result.success) {
-      poetData = result.data;
-      allPoetPoems = poetData.poems || [];
-    } else {
-      showToast('Poet not found');
+  // If Rajan Rai (Founder), force local fallback to ensure portrait shows immediately
+  if (poetId === 1) {
+    poetData = FB_POETS.find(p => p.id === 1);
+    allPoetPoems = FB_POEMS.filter(p => p.poetId === 1);
+  } else {
+    try {
+      const r = await fetch(API + '/poets/' + poetId);
+      if (r.ok) {
+        const result = await r.json();
+        if (result.success) {
+          poetData = result.data;
+          allPoetPoems = poetData.poems || [];
+        }
+      }
+    } catch (err) {
+      console.warn('Backend fetch failed, using fallback.');
     }
-  } catch (err) {
-    console.error('Error loading poet:', err);
-    showToast('Offline mode: Using cached data');
   }
+
+  // Final fallback to local data if still null
+  if (!poetData) {
+    poetData = FB_POETS.find(p => p.id === poetId) || FB_POETS[0];
+    allPoetPoems = FB_POEMS.filter(p => p.poetId === poetId);
+  }
+
   renderHero(); renderBio(); renderPoems(allPoetPoems); renderQuotes(); renderSidebar(); loadOtherPoets();
 }
 
@@ -239,8 +251,9 @@ function renderHero() {
   document.getElementById('poetHindi').textContent = p.hindi || '';
   document.getElementById('poetOrb').textContent = p.image ? '' : (p.initials || p.name[0]);
   if (p.image) {
-    document.getElementById('poetOrb').style.backgroundImage = `url('${p.image}')`;
+    document.getElementById('poetOrb').style.background = `#8B1A1A url('${p.image}')`;
     document.getElementById('poetOrb').style.backgroundSize = 'cover';
+    document.getElementById('poetOrb').style.backgroundPosition = 'center';
   } else {
     document.getElementById('poetOrb').style.background = `linear-gradient(135deg,${p.color},${p.color}99)`;
   }
@@ -378,7 +391,7 @@ async function loadOtherPoets() {
     a.href = 'poet-profile.html?id=' + p.id;
     a.className = 'other-poet-card';
     a.innerHTML = `
-      <div class="other-poet-mini-orb" style="background:${p.color}">${p.initials}</div>
+      <div class="other-poet-mini-orb" style="${p.image ? `background-image:url(${p.image});background-size:cover;` : `background:${p.color};`}">${p.image ? '' : p.initials}</div>
       <div>
         <div style="font-size:13px;font-weight:600;color:var(--text)">${p.name}</div>
         <div style="font-size:11px;color:var(--muted)">${p.period}</div>
