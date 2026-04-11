@@ -1,5 +1,36 @@
 module.exports = [
   {
+    "wikiSearch": "Premchand",
+    "fallbackName": "Munshi Premchand",
+    "hindi": "मुंशी प्रेमचंद",
+    "category": "modern",
+    "tags": [
+      "hindi",
+      "urdu",
+      "prose",
+      "novelist"
+    ],
+    "color": "#4E342E",
+    "initials": "मु",
+    "speciality": "Katha Samrat, Novels, Short Stories",
+    "poems": [
+      {
+        "title": "Idgah (Selected Fragment)",
+        "text": "The story revolves around a young boy named Hamid and his grandmother...\nIt is a masterpiece of empathy and childhood innocence.",
+        "form": "Story",
+        "category": "social",
+        "isHindi": true
+      },
+      {
+        "title": "Kafan (Selected Fragment)",
+        "text": "A dark, realistic portrayal of poverty and human nature...\nOne of the most powerful stories in Indian literature.",
+        "form": "Story",
+        "category": "social",
+        "isHindi": true
+      }
+    ]
+  },
+  {
     "wikiSearch": "Faiz Ahmad Faiz",
     "fallbackName": "Faiz Ahmed Faiz",
     "hindi": "फ़ैज़ अहमद फ़ैज़",

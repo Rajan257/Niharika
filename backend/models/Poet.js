@@ -12,6 +12,8 @@ const PoetSchema = new mongoose.Schema({
     speciality: String,
     literary_style: String,
     biography: String,
+    philosophy: String,
+    stories: [String],
     era: String,
     image: String,
     tags: [String],

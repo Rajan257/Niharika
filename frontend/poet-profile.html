@@ -118,7 +118,9 @@
   <div class="container">
     <div class="poet-tabs-inner">
       <button class="poet-tab active" data-tab="bio">Biography</button>
-      <button class="poet-tab" data-tab="poems">Poetry Library</button>
+      <button class="poet-tab" data-tab="poems">Writings</button>
+      <button class="poet-tab" data-tab="philosophy">Philosophy</button>
+      <button class="poet-tab" data-tab="stories">Stories</button>
       <button class="poet-tab" data-tab="quotes">Quotes</button>
     </div>
   </div>
@@ -140,10 +142,20 @@
           <div class="bio-text" id="bioBio">Loading biography...</div>
           <div class="bio-awards" id="bioAwards"></div>
         </div>
-        <!-- POEMS -->
+        <!-- WRITINGS (POEMS) -->
         <div class="poet-panel" id="panel-poems">
           <div class="poems-filter" id="poemFilter"></div>
           <div class="poems-list" id="poemsList"></div>
+        </div>
+        <!-- PHILOSOPHY -->
+        <div class="poet-panel" id="panel-philosophy">
+          <h3 style="font-family:var(--font-display);font-size:24px;margin-bottom:20px">Literary Philosophy & Legacy</h3>
+          <div class="bio-text" id="philosophyText" style="white-space: pre-wrap;">Loading philosophical context...</div>
+        </div>
+        <!-- STORIES -->
+        <div class="poet-panel" id="panel-stories">
+          <h3 style="font-family:var(--font-display);font-size:24px;margin-bottom:20px">Prose & Stories</h3>
+          <div class="poems-list" id="storiesList"></div>
         </div>
         <!-- QUOTES -->
         <div class="poet-panel" id="panel-quotes">
@@ -208,8 +220,8 @@
 </nav>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
-<script src="js/api.js?v=8"></script>
-<script src="js/utils.js?v=8"></script>
+<script src="js/api.js?v=9"></script>
+<script src="js/utils.js?v=9"></script>
 <script>
 const params = new URLSearchParams(location.search);
 let poetIdParam = params.get('id');
@@ -275,7 +287,14 @@ async function loadPoet() {
     allPoetPoems = poetData.poems || FB_POEMS.filter(p => p.poetId === poetData.id);
   }
 
-  renderHero(); renderBio(); renderPoems(allPoetPoems); renderQuotes(); renderSidebar(); loadOtherPoets();
+  renderHero(); 
+  renderBio(); 
+  renderPhilosophy();
+  renderPoems(allPoetPoems); 
+  renderStories(allPoetPoems);
+  renderQuotes(); 
+  renderSidebar(); 
+  loadOtherPoets();
 }
 
 function showPoetNotFound() {
@@ -315,6 +334,13 @@ function renderHero() {
   }
   document.getElementById('poetHero').style.background = `linear-gradient(135deg,${p.color || '#8B1A1A'}CC 0%,${p.color || '#8B1A1A'}88 50%,#1C1410 100%)`;
   const isFounder = p.tags?.includes('founder');
+  // Tab Visibility Logic
+  const hasStories = allPoetPoems.some(x => x.form === 'Story');
+  const hasPhilosophy = !!p.philosophy && p.philosophy.length > 50;
+  
+  document.querySelector('[data-tab="stories"]').style.display = hasStories ? 'block' : 'none';
+  document.querySelector('[data-tab="philosophy"]').style.display = hasPhilosophy ? 'block' : 'none';
+
   document.getElementById('poetTags').innerHTML = `
     ${isFounder ? '<span class="poet-hero-tag gold"><i class="fas fa-crown"></i> Founder of Niharika</span>' : ''}
     <span class="poet-hero-tag"><i class="fas fa-calendar"></i> ${p.period}</span>
@@ -342,6 +368,35 @@ function renderBio() {
     <h3 style="font-family:var(--font-display);font-size:22px;margin-bottom:16px">Awards and Honours</h3>
     ${awards.map(a => `<div class="award-item"><i class="fas fa-award award-icon"></i><div><div style="font-size:14px;font-weight:600;color:var(--text)">${a}</div></div></div>`).join('')}
   ` : '';
+}
+
+function renderPhilosophy() {
+  const p = poetData;
+  const el = document.getElementById('philosophyText');
+  el.textContent = p.philosophy || "The philosophical depth and literary legacy of this writer continue to influence the world. Detailed philosophical analysis coming soon.";
+}
+
+function renderStories(allWorks) {
+  const list = document.getElementById('storiesList');
+  const stories = allWorks.filter(w => w.form === 'Story');
+  if (!stories.length) {
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted)">No stories available for this author.</div>';
+    return;
+  }
+  list.innerHTML = stories.map((s, i) => `
+    <article class="poem-card">
+      <span class="poem-number">${i + 1}</span>
+      <div class="poem-form-tag">${s.form}</div>
+      <h4 style="font-family:var(--font-display);font-size:20px;margin-bottom:12px;color:var(--crimson)">${s.title}</h4>
+      <div class="poem-text ${isHindi(s.text) ? 'hindi' : ''}">${s.text.replace(/\n/g, '<br>')}</div>
+      <div class="poem-footer" style="margin-top:20px">
+        <div class="poem-poet-name">Short Story / Prose</div>
+        <div class="poem-actions">
+          <button class="btn-icon" onclick="showToast('Shared!')"><i class="fas fa-share-alt"></i></button>
+        </div>
+      </div>
+    </article>
+  `).join('');
 }
 
 function renderPoems(poems) {
