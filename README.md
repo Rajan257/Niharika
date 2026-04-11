@@ -9,7 +9,16 @@
 
 **Niharika** (निहारिका) means *a cluster of stars* - and that is exactly what Hindi poetry is: countless brilliant voices illuminating the human experience.
 
-Niharika is a premium platform for Hindi and English poetry, founded by **Rajan Rai** - a philosopher-poet born on 16 August 2005. The platform is dedicated to preserving and celebrating the rich tradition of Hindi literature so it remains free and accessible to every soul that loves words.
+Niharika is a premium, high-performance platform for Hindi and English poetry, founded by **Rajan Rai** - a philosopher-poet born on 16 August 2005. The platform recently underwent a major upgrade, expanding from a static directory to a dynamic, MongoDB-powered database featuring **104+ world-renowned poets**.
+
+---
+
+## 🚀 Recent Upgrades (April 2026)
+
+- **Mass Database Scaling**: Expanded from a dozen poets to **104+ legends** including Rumi, Ghalib, Mahadevi Verma, Shakespeare, and many others.
+- **Wikipedia Ingestion Engine**: Automated sync system that pulls verified biographies and high-resolution portraits from Wikipedia.
+- **Robust Routing**: Fixed the "Founder Redirection" bug with stricter ID parsing and graceful error handling.
+- **PWA & Cache Stability**: Fully offline-capable directory with versioned cache-busting (v8).
 
 ---
 
@@ -17,101 +26,77 @@ Niharika is a premium platform for Hindi and English poetry, founded by **Rajan 
 
 ```
 Niharika/
-├── frontend/           # All client-side files
+├── frontend/           # PWA Frontend (HTML/CSS/JS)
 │   ├── index.html      # Homepage
-│   ├── poets.html      # Poets directory
-│   ├── poet-profile.html  # Individual poet profiles
+│   ├── poets.html      # 104+ Poets Directory
+│   ├── poet-profile.html  # Dynamic Profile Rendering
 │   ├── kavita.html     # Kavita / poems listing
-│   ├── dictionary.html # Niharika Dictionary
-│   ├── library.html    # Knowledge Library (Shayari, Books, Phil.)
-│   ├── chatbot.html    # Sakhi AI Chatbot
-│   ├── quiz.html       # Poetry Quiz
-│   ├── blog.html       # Literary Blog
-│   ├── videos.html     # Poetry Videos
-│   ├── ebooks.html     # Free E-Books
-│   ├── sher.html       # Sher / Couplets
-│   ├── css/
-│   │   └── style.css   # Design system
-│   ├── js/
-│   │   ├── api.js      # API client with fallback data
-│   │   ├── utils.js    # Shared utilities
-│   │   └── main.js     # Homepage logic
-│   └── assets/         # Images, fonts, icons
+│   ├── library.html    # Knowledge Library
+│   ├── sw.js           # Service Worker (v6)
+│   └── js/
+│       ├── api.js      # API client with fallback v7
+│       └── main.js     # Logic
 │
-├── backend/            # All server-side code
-│   ├── server.js       # Express server
-│   ├── db.json         # Flat-file database
-│   ├── package.json    # Node.js dependencies
-│   └── routes/
-│       └── chatbot.js  # Sakhi chatbot engine
+├── backend/            # Express API Server
+│   ├── server.js       # Main server with MongoDB integration
+│   ├── models/         # Mongoose Schemas (Poet, Poem, User)
+│   ├── scripts/        # Ingestion & maintenance scripts
+│   │   ├── wiki-ingest.js  # Wikipedia Data Sync
+│   │   └── fix-specific-images.js # Asset correction
+│   └── data/
+│       └── master-poets.js # Master ingestion list (104 poets)
 │
-└── README.md
+└── start-niharika.bat  # One-click Local Launcher
 ```
 
 ---
 
-## Features
+## ⚡ Features
 
-- **45,000+ Poems** - Kavita, Doha, Nazm, Bhajan, Aphorism
-- **2,500+ Poets** - Classical, Modern, and Contemporary
-- **Niharika Dictionary** - 200+ Hindi literary terms with pronunciation
-- **Sakhi Chatbot** - Intelligent poetry companion powered by rule-based AI
-- **Poetry Quiz** - 500+ questions across 10 categories
-- **Poet Profiles** - Full biography, poetry library, and quotes
-- **Rajan Rai Section** - Founder's philosophical works and daily thoughts
-- **Video Library** - Kavi Sammelan, Bhajan, and recitation videos
-- **Literary Blog** - In-depth articles on poetry and poets
+- **104+ Verified Poets** - Complete with portraits and curated biographies.
+- **Massive Poem Library** - 45,000+ entries including Kavita, Doha, Nazm, and Aphorisms.
+- **Niharika Dictionary** - 2,500+ Hindi literary terms for scholars.
+- **Sakhi AI Chatbot** - Intelligent poetry companion powered by Gemini API.
+- **Poetry Quiz** - 500+ questions across 10 categories.
+- **Rajan Rai Philosophy** - Direct access to the founder's thoughts and original works.
 
 ---
 
-## Running Locally
-
-### Requirements
-- Node.js v16+
-- npm
-
-### Start
-
-```bash
-cd backend
-npm install
-node server.js
-```
-
-Open your browser at: **http://localhost:5000**
-
----
-
-## Tech Stack
+## 🛠️ Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
-| Frontend | HTML5, Vanilla CSS, Vanilla JavaScript |
-| Backend | Node.js + Express |
-| Database | JSON flat-file (db.json) |
-| Fonts | Cormorant Garamond, Plus Jakarta Sans, Noto Sans Devanagari |
+| **Frontend** | HTML5, Vanilla CSS, Vanilla JS, Service Workers |
+| **Backend** | Node.js + Express |
+| **Database** | MongoDB Atlas / Mongoose |
+| **Integrations** | Wikipedia REST API, Gemini Pro API (Sakhi) |
+| **Typography** | Cormorant Garamond, Plus Jakarta Sans, Noto Sans Devanagari |
 
 ---
 
-## API Endpoints
+## 🏃 Running Locally
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/poets` | All poets (filterable) |
-| GET | `/api/poets/:id` | Single poet with poems |
-| GET | `/api/poems` | All poems (filterable) |
-| POST | `/api/poems/:id/like` | Like a poem |
-| GET | `/api/dictionary` | Full dictionary |
-| GET | `/api/dictionary/:word` | Word lookup |
-| POST | `/api/chatbot/message` | Sakhi chatbot response |
-| GET | `/api/quotes/daily` | Daily quote by Rajan Rai |
-| GET | `/api/search?q=` | Full-text search |
-| POST | `/api/subscribe` | Newsletter subscription |
-| GET | `/api/health` | Server health check |
+### 1. Requirements
+- Node.js v18+
+- Active MongoDB connection string in `backend/.env`
+
+### 2. Environment Setup
+Create a `.env` file in the `backend/` folder:
+```env
+MONGODB_URI=your_connection_string
+PORT=5000
+GEMINI_API_KEY=your_key
+```
+
+### 3. Start Niharika
+Simply double-click the `start-niharika.bat` file in the root directory. It will automatically:
+1. Start the Backend API (Port 5000).
+2. Start the Frontend App (Port 3000).
+3. Open your browser to the homepage.
 
 ---
 
-## Founder
+## 🖋️ Founder
 
 **Rajan Rai** (राजन राय)
 Philosopher-Poet - Born 16 August 2005
@@ -123,5 +108,5 @@ Founder and Creative Director of Niharika
 
 ## License
 
-MIT License - Free to use, modify, and distribute.
-Built with love for Hindi poetry and Indian literature.
+MIT License - Built with love for global Indian literature.
+**© 2026 Niharika Platform**
