@@ -93,8 +93,27 @@
     .poem-action-btn:hover { border-color: var(--crimson); color: var(--crimson); }
     .poem-action-btn.liked { background: var(--crimson); color: white; border-color: var(--crimson); }
 
-    @media(max-width:900px){.kavita-page-grid{grid-template-columns:1fr}}
-    @media(max-width:600px){.kavita-hero h1{font-size:44px}.poem-card{padding:24px 20px}.poem-text{font-size:18px}}
+    @media (max-width: 900px) {
+      .kavita-page-grid { grid-template-columns: 1fr; gap: 32px; padding: 32px 0; }
+      .kavita-hero h1 { font-size: 48px; }
+      .kavita-hero p { padding: 0 20px; }
+      .form-bar { top: 60px; } /* Adjust for mobile header height */
+    }
+    @media (max-width: 600px) {
+      .kavita-hero { padding: 60px 0 40px; }
+      .kavita-hero h1 { font-size: 36px; }
+      .kavita-stats { gap: 20px; }
+      .kavita-stat-num { font-size: 24px; }
+      .poem-card { padding: 24px 20px; border-radius: 16px; }
+      .poem-text { font-size: 18px; line-height: 1.7; }
+      .poem-number { font-size: 32px; top: 16px; right: 20px; }
+      .poem-footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .poem-actions { width: 100%; justify-content: space-between; }
+      .poem-action-btn { flex: 1; justify-content: center; padding: 10px; }
+    }
+    @media (max-width: 400px) {
+      .form-btn { padding: 12px 14px; font-size: 11px; }
+    }
   </style>
 </head>
 <body>
@@ -198,6 +217,15 @@
 </footer>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="kavita.html" class="bottom-nav-item active"><i class="fas fa-scroll"></i><span>Kavita</span></a>
+  <a href="dictionary.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
+
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script>

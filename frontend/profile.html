@@ -53,6 +53,17 @@
     .empty-state i { font-size:48px; margin-bottom:20px; display:block; }
     .empty-state h3 { font-family:'Cormorant Garamond',serif; font-size:24px; color:rgba(255,255,255,0.6); margin-bottom:8px; }
     .section-count { font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:24px; letter-spacing:1px; text-transform:uppercase; }
+
+    @media (max-width: 768px) {
+      .profile-hero-inner { flex-direction: column; text-align: center; gap: 20px; }
+      .profile-stats { justify-content: center; }
+      .profile-actions { justify-content: center; flex-wrap: wrap; }
+      .profile-tabs { overflow-x: auto; scrollbar-width: none; }
+      .profile-tabs::-webkit-scrollbar { display: none; }
+      .profile-tab { white-space: nowrap; padding: 12px 16px; }
+      .poem-card-sm { flex-direction: column; }
+      .poem-card-sm-remove { width: 100%; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -136,6 +147,15 @@
 </main>
 
 <div class="toast" id="toast"></div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="kavita.html" class="bottom-nav-item"><i class="fas fa-scroll"></i><span>Kavita</span></a>
+  <a href="dictionary.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
 
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>

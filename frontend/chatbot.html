@@ -195,20 +195,36 @@
     @media(max-width:768px) {
       .chat-sidebar { 
         position: fixed; top: 0; left: -280px; bottom: 0; 
-        z-index: 100; box-shadow: 20px 0 60px rgba(0,0,0,0.5);
+        z-index: 1000; box-shadow: 20px 0 60px rgba(0,0,0,0.5);
       }
       .chat-sidebar.open { left: 0; }
       .sidebar-toggle-btn { display: flex; }
-      .chatbot-root { height: calc(100dvh - 64px); }
-      .chat-header { padding: 10px 16px; gap: 12px; }
-      .chat-header-avatar { width: 40px; height: 40px; font-size: 18px; }
+      .chatbot-root { height: calc(100dvh - 60px); }
+      .chat-main { height: 100%; }
+      .chat-header { padding: 12px 16px; gap: 10px; border-bottom: 1px solid var(--border-2); }
+      .chat-header-avatar { width: 36px; height: 36px; font-size: 18px; }
       .chat-header-name { font-size: 14px; }
-      .chat-messages { padding: 14px; gap: 14px; }
-      .msg-row { max-width: 92%; }
-      .msg-bubble { font-size: 14px; padding: 10px 14px; }
-      .chat-input-area { padding: 10px 12px 12px; }
-      .chat-input-wrap { padding: 6px 10px 6px 14px; border-radius: 20px; }
+      .chat-header-status { font-size: 11px; }
+      .ctrl-btn { width: 34px; height: 34px; font-size: 13px; }
+      
+      .chat-messages { padding: 16px 14px; gap: 16px; }
+      .msg-row { max-width: 90%; }
+      .msg-bubble { font-size: 14px; padding: 11px 15px; }
+      .msg-avatar { width: 32px; height: 32px; font-size: 14px; }
+      
+      .chat-input-area { padding: 10px 10px 14px; }
+      .chat-input-wrap { padding: 6px 10px 6px 14px; border-radius: 20px; border-width: 1.5px; }
       .chat-textarea { font-size: 14px; }
+      .input-btn { width: 36px; height: 36px; }
+      .input-hint { font-size: 10px; display: none; }
+      
+      .empty-title { font-size: 24px; }
+      .empty-sub { font-size: 14px; padding: 0 20px; }
+      .starter-grid { grid-template-columns: 1fr; }
+    }
+    @media(max-height: 500px) {
+       .chat-header { padding: 8px 16px; }
+       .chat-input-area { padding: 8px; }
     }
   </style>
 </head>
@@ -387,6 +403,15 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="kavita.html" class="bottom-nav-item"><i class="fas fa-scroll"></i><span>Kavita</span></a>
+  <a href="dictionary.html" class="bottom-nav-item"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item active"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
 
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>

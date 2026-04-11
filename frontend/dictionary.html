@@ -41,8 +41,25 @@
     .dict-card-hindi{font-family:var(--font-hindi);font-size:30px;font-weight:700;color:var(--crimson);margin-bottom:4px}
     .dict-card-word{font-size:13px;font-weight:700;letter-spacing:1px;color:var(--text);margin-bottom:6px}
     .dict-card-meaning{font-size:12.5px;color:var(--muted);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-    @media(max-width:900px){.dict-layout{grid-template-columns:1fr}.dict-sidebar{display:none}.dict-all-words{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:600px){.dict-all-words{grid-template-columns:1fr}}
+    @media(max-width:900px){
+      .dict-layout{grid-template-columns:1fr; padding: 32px 0;}
+      .dict-sidebar{display:none}
+      .dict-all-words{grid-template-columns:repeat(2,1fr)}
+      .dict-hero h1 { font-size: 42px; }
+      .dict-search-big { box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    }
+    @media(max-width:600px){
+      .dict-hero { padding: 50px 0; }
+      .dict-hero h1 { font-size: 32px; }
+      .dict-hero p { font-size: 15px; margin-bottom: 24px; padding: 0 10px; }
+      .dict-search-big { flex-direction: column; border-radius: 12px; }
+      .dict-search-big input { border-radius: 12px 12px 0 0; padding: 14px 20px; font-size: 16px; }
+      .dict-search-big button { border-radius: 0 0 12px 12px; padding: 14px; width: 100%; }
+      .dict-all-words{grid-template-columns:1fr; gap: 12px;}
+      .dict-word-big { font-size: 40px; }
+      .dict-wod-banner { padding: 24px 20px; }
+      .dict-result-card { padding: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -154,6 +171,15 @@
 </footer>
 <div class="toast" id="toast"></div>
 <div class="scroll-top-fab" id="scrollTopFab"><i class="fas fa-chevron-up"></i></div>
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <a href="index.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="poets.html" class="bottom-nav-item"><i class="fas fa-feather-alt"></i><span>Poets</span></a>
+  <a href="kavita.html" class="bottom-nav-item"><i class="fas fa-scroll"></i><span>Kavita</span></a>
+  <a href="dictionary.html" class="bottom-nav-item active"><i class="fas fa-book"></i><span>Dictionary</span></a>
+  <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
+</nav>
+
 <script src="js/api.js"></script>
 <script src="js/utils.js"></script>
 <script>

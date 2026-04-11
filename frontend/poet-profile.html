@@ -50,15 +50,25 @@
     .other-poet-card:hover{padding-left:6px}
     .other-poet-mini-orb{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-hindi);font-size:16px;color:white;font-weight:700;flex-shrink:0}
     @media(max-width:900px){
-      .poet-layout{grid-template-columns:1fr}
-      .poet-hero-name{font-size: var(--fs-h1);}
+      .poet-layout{grid-template-columns:1fr; gap: 30px;}
+      .poet-hero-name{font-size: 42px;}
       .poet-hero-orb{width:120px;height:120px;font-size:48px}
+      .poet-hero{min-height:350px;}
     }
     @media(max-width:600px){
-      .poet-hero { min-height: auto; padding: 40px 0; }
-      .poet-hero-inner { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+      .poet-hero { min-height: auto; padding: 60px 0 40px; }
+      .poet-hero-inner { flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+      .poet-hero-info { display: flex; flex-direction: column; align-items: center; }
+      .poet-hero-tags { justify-content: center; }
+      .poet-hero-name { font-size: 32px; }
+      .poet-hero-hindi { font-size: 20px; }
       .bio-grid{grid-template-columns:1fr}
-      .poet-tabs { top: 0; }
+      .poet-tabs { position: sticky; top: 0; overflow-x: auto; scrollbar-width: none; }
+      .poet-tabs::-webkit-scrollbar { display: none; }
+      .poet-tabs-inner { width: max-content; }
+      .poet-tab { padding: 14px 20px; white-space: nowrap; }
+      .award-item { padding: 12px; }
+      .poet-layout { padding: 24px 0; }
     }
   </style>
 </head>
