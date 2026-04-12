@@ -78,6 +78,19 @@
     .terms-text a { color:var(--gold); text-decoration:none; }
     .spinner { display:inline-block; width:16px; height:16px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-right:8px; }
     @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* OTP DIGIT BLOCKS */
+    .otp-inputs { display:flex; gap:12px; justify-content:center; margin:20px 0; }
+    .otp-box { width:50px; height:60px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.15); border-radius:12px; text-align:center; font-size:24px; font-weight:700; color:var(--gold); outline:none; transition:all 0.25s; }
+    .otp-box:focus { border-color:var(--gold); background:rgba(255,255,255,0.1); box-shadow:0 0 15px rgba(201,162,39,0.25); }
+    .otp-timer { text-align:center; font-size:13px; color:rgba(255,255,255,0.5); margin-bottom:20px; }
+    .btn-resend { color:var(--gold); text-decoration:none; font-weight:600; background:none; border:none; cursor:pointer; padding:0; font-family:inherit; }
+    .btn-resend:disabled { color:rgba(255,255,255,0.2); cursor:not-allowed; }
+
+    /* NESTED SEND OTP BTN */
+    .btn-send-otp { position:absolute; right:10px; top:50%; transform:translateY(-50%); background:var(--gold); color:var(--dark); border:none; padding:6px 14px; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.2s; z-index:10; }
+    .btn-send-otp:hover { background:#fff; box-shadow:0 0 10px rgba(255,255,255,0.3); }
+    .btn-send-otp:disabled { background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.3); cursor:not-allowed; }
   </style>
 </head>
 <body>
@@ -118,18 +131,21 @@
         <div class="auth-success" id="loginSuccess"></div>
         
         <div class="form-group">
-          <label class="form-label">Email Address</label>
+          <label class="form-label">Email Address / Phone Number</label>
           <div class="input-wrap">
-            <i class="fas fa-envelope input-icon"></i>
-            <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" />
+            <i class="fas fa-user-circle input-icon"></i>
+            <input type="text" id="loginIdentifier" class="form-input" placeholder="email@address.com or 98XXXXXXXX" />
           </div>
         </div>
         <div class="form-group">
           <label class="form-label">Password</label>
           <div class="input-wrap">
             <i class="fas fa-lock input-icon"></i>
-            <input type="password" id="loginPassword" class="form-input" placeholder="Your password" />
-            <button class="form-input-eye" onclick="togglePwd('loginPassword', this)"><i class="fas fa-eye"></i></button>
+            <input type="password" id="loginPass" class="form-input" placeholder="Your password" />
+            <button class="form-input-eye" onclick="togglePwd('loginPass', this)"><i class="fas fa-eye"></i></button>
+          </div>
+          <div style="text-align: right; margin-top: 8px;">
+            <a href="javascript:void(0)" onclick="switchTab('forgot')" style="color: var(--gold); font-size: 12px; text-decoration: none; font-weight: 500;">Forgot Password?</a>
           </div>
         </div>
         <button class="auth-submit" id="loginBtn" onclick="handleLogin()">
@@ -139,11 +155,58 @@
           Don't have an account? <a href="javascript:void(0)" onclick="switchTab('signup')">Sign Up Free</a>
         </div>
       </div>
+
+      <!-- FORGOT PASSWORD FORM -->
+      <div class="auth-form" id="forgotForm">
+        <h1 class="auth-title">Reset Password</h1>
+        <p class="auth-subtitle">Verify your email to set a new password</p>
+        
+        <div class="auth-error" id="forgotError"></div>
+        <div class="auth-success" id="forgotSuccess"></div>
+        
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" id="forgotEmail" class="form-input" placeholder="your@email.com" style="padding-right: 100px" />
+            <button class="btn-send-otp" id="sendForgotOtpBtn" onclick="handleForgotRequest()">Send Code</button>
+          </div>
+        </div>
+
+        <div id="resetSection" style="display:none">
+          <div class="form-group">
+            <label class="form-label" style="text-align:center">Activation Code (sent to email)</label>
+            <div class="otp-inputs" id="forgotOtpInputs">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 0, 'reset-otp')" onkeydown="handleOtpKey(event, 0, 'reset-otp')">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 1, 'reset-otp')" onkeydown="handleOtpKey(event, 1, 'reset-otp')">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 2, 'reset-otp')" onkeydown="handleOtpKey(event, 2, 'reset-otp')">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 3, 'reset-otp')" onkeydown="handleOtpKey(event, 3, 'reset-otp')">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 4, 'reset-otp')" onkeydown="handleOtpKey(event, 4, 'reset-otp')">
+              <input type="text" class="otp-box reset-otp" maxlength="1" oninput="handleOtpInput(this, 5, 'reset-otp')" onkeydown="handleOtpKey(event, 5, 'reset-otp')">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <div class="input-wrap">
+              <i class="fas fa-lock input-icon"></i>
+              <input type="password" id="newPassword" class="form-input" placeholder="Minimum 6 characters" />
+              <button class="form-input-eye" onclick="togglePwd('newPassword', this)"><i class="fas fa-eye"></i></button>
+            </div>
+          </div>
+          <button class="auth-submit" id="resetBtn" onclick="handleResetPassword()">
+            <span><i class="fas fa-key"></i> Reset & Login</span>
+          </button>
+        </div>
+
+        <div class="terms-text" style="margin-top:20px">
+          Remembered your password? <a href="javascript:void(0)" onclick="switchTab('login')">Sign In</a>
+        </div>
+      </div>
       
       <!-- SIGNUP FORM -->
       <div class="auth-form" id="signupForm">
         <h1 class="auth-title">Join Niharika</h1>
-        <p class="auth-subtitle">Create your free account and explore the world of poetry</p>
+        <p class="auth-subtitle">Verify your email and create your account</p>
         
         <div class="auth-error" id="signupError"></div>
         <div class="auth-success" id="signupSuccess"></div>
@@ -159,11 +222,39 @@
           <label class="form-label">Email Address</label>
           <div class="input-wrap">
             <i class="fas fa-envelope input-icon"></i>
-            <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" />
+            <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" style="padding-right: 100px" />
+            <button class="btn-send-otp" id="sendOtpBtn" onclick="handleRequestOtp()">Send OTP</button>
+          </div>
+        </div>
+
+        <!-- HIDDEN BY DEFAULT, SHOWN AFTER SEND OTP -->
+        <div id="otpSection" style="display:none; transition: all 0.5s ease;">
+          <div class="form-group">
+            <label class="form-label" style="text-align:center">Activation Code (sent to email)</label>
+            <div class="otp-inputs" id="otpInputsContainer">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 0)" onkeydown="handleOtpKey(event, 0)" autocomplete="one-time-code">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 1)" onkeydown="handleOtpKey(event, 1)">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 2)" onkeydown="handleOtpKey(event, 2)">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 3)" onkeydown="handleOtpKey(event, 3)">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 4)" onkeydown="handleOtpKey(event, 4)">
+              <input type="text" class="otp-box" maxlength="1" oninput="handleOtpInput(this, 5)" onkeydown="handleOtpKey(event, 5)">
+            </div>
+            <div class="otp-timer" style="margin-top:-10px">
+              <span id="timerText">Resend code in <strong id="seconds">60</strong>s</span>
+              <button id="resendBtn" class="btn-resend" style="display:none" onclick="handleRequestOtp()">Resend OTP</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Number</label>
+          <div class="input-wrap">
+            <i class="fas fa-phone input-icon"></i>
+            <input type="tel" id="signupPhone" class="form-input" placeholder="Your phone number" />
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Create Password</label>
+          <label class="form-label">Set Password</label>
           <div class="input-wrap">
             <i class="fas fa-lock input-icon"></i>
             <input type="password" id="signupPassword" class="form-input" placeholder="At least 6 characters" oninput="checkStrength(this.value)" />
@@ -177,11 +268,12 @@
           </div>
           <div class="password-hint" id="strengthHint">Minimum 6 characters</div>
         </div>
+
         <button class="auth-submit" id="signupBtn" onclick="handleSignup()">
-          <span><i class="fas fa-user-plus"></i> Create Free Account</span>
+          <span><i class="fas fa-check-circle"></i> Create Free Account</span>
         </button>
         <div class="terms-text">
-          By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.<br>
+          By signing up, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
           Already have an account? <a href="javascript:void(0)" onclick="switchTab('login')">Sign In</a>
         </div>
       </div>
@@ -195,13 +287,14 @@ const API = '/api';
 function switchTab(tab) {
   document.getElementById('loginForm').classList.toggle('active', tab === 'login');
   document.getElementById('signupForm').classList.toggle('active', tab === 'signup');
+  document.getElementById('forgotForm').classList.toggle('active', tab === 'forgot');
   document.getElementById('loginTab').classList.toggle('active', tab === 'login');
   document.getElementById('signupTab').classList.toggle('active', tab === 'signup');
   clearErrors();
 }
 
 function clearErrors() {
-  ['loginError','loginSuccess','signupError','signupSuccess'].forEach(id => {
+  ['loginError','loginSuccess','signupError','signupSuccess','forgotError','forgotSuccess'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.style.display = 'none'; el.textContent = ''; }
   });
@@ -251,77 +344,238 @@ function checkStrength(pwd) {
 
 async function handleLogin() {
   clearErrors();
-  const email    = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
-  if (!email || !password) { showMsg('loginError', 'Please fill in all fields.'); return; }
+  const identifier = document.getElementById('loginIdentifier').value.trim();
+  const password   = document.getElementById('loginPass').value;
+  if (!identifier || !password) { showMsg('loginError', 'Please fill in all fields.'); return; }
   setLoading('loginBtn', true);
   try {
     const r = await fetch(`${API}/auth/login`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ identifier, password })
     });
     const data = await r.json();
     if (data.success) {
       localStorage.setItem('niharika_token', data.token);
       localStorage.setItem('niharika_user', JSON.stringify(data.user));
-      showMsg('loginSuccess', `Welcome back, ${data.user.name}! Redirecting...`, false);
+      showMsg('loginSuccess', `Welcome back, ${data.user.username}! Redirecting...`, false);
       setTimeout(() => {
-        const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
+        const redirect = sessionStorage.getItem('niharika_redirect') || 'profile.html';
         sessionStorage.removeItem('niharika_redirect');
         window.location.href = redirect;
       }, 800);
+    } else if (data.unverified) {
+      showMsg('loginError', data.message);
+      setTimeout(() => {
+        document.getElementById('signupEmail').value = data.email;
+        switchTab('otp');
+        document.getElementById('otpSubtitle').textContent = `Please verify your account (${data.email}) to login.`;
+      }, 1500);
     } else {
       showMsg('loginError', data.message || 'Login failed. Please try again.');
     }
-  } catch {
+  } catch (err) {
     showMsg('loginError', 'Server not available. Please start the backend server.');
   }
   setLoading('loginBtn', false);
+}
+
+let lastSignupEmail = '';
+
+async function handleRequestOtp() {
+  clearErrors();
+  const email = document.getElementById('signupEmail').value.trim();
+  const name  = document.getElementById('signupName').value.trim();
+  
+  if (!email) return showMsg('signupError', 'Email is required to send OTP.');
+  
+  const btn = document.getElementById('sendOtpBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  
+  try {
+    const r = await fetch(`${API}/auth/request-signup-otp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name })
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('otpSection').style.display = 'block';
+      showMsg('signupSuccess', 'OTP sent to your email!', false);
+      startTimer();
+    } else {
+      showMsg('signupError', data.message);
+      btn.disabled = false;
+      btn.textContent = 'Send OTP';
+    }
+  } catch (err) {
+    showMsg('signupError', 'Server error. Try again.');
+    btn.disabled = false;
+    btn.textContent = 'Send OTP';
+  }
 }
 
 async function handleSignup() {
   clearErrors();
   const name     = document.getElementById('signupName').value.trim();
   const email    = document.getElementById('signupEmail').value.trim();
+  const phone    = document.getElementById('signupPhone').value.trim();
   const password = document.getElementById('signupPassword').value;
-  if (!name || !email || !password) { showMsg('signupError', 'Please fill in all fields.'); return; }
-  if (password.length < 6) { showMsg('signupError', 'Password must be at least 6 characters.'); return; }
+  
+  // Collect 6-digit OTP
+  const boxes = document.querySelectorAll('.otp-box');
+  let otp = "";
+  boxes.forEach(b => otp += b.value);
+  
+  if (!name || !email || !password || !otp) { 
+    showMsg('signupError', 'Full Name, Email, Password, and OTP are all required.'); 
+    return; 
+  }
+  
   setLoading('signupBtn', true);
   try {
     const r = await fetch(`${API}/auth/register`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email, phone, password, otp })
     });
     const data = await r.json();
     if (data.success) {
       localStorage.setItem('niharika_token', data.token);
       localStorage.setItem('niharika_user', JSON.stringify(data.user));
-      showMsg('signupSuccess', `Account created! Welcome, ${data.user.name}! Redirecting...`, false);
+      showMsg('signupSuccess', 'Account verified! Redirecting to your profile...', false);
       setTimeout(() => {
-        const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
-        sessionStorage.removeItem('niharika_redirect');
-        window.location.href = redirect;
-      }, 800);
+        window.location.href = 'profile.html';
+      }, 1500);
     } else {
-      showMsg('signupError', data.message || 'Registration failed. Please try again.');
+      showMsg('signupError', data.message || 'Signup failed.');
     }
-  } catch {
-    showMsg('signupError', 'Server not available. Please start the backend server.');
+  } catch (err) {
+    showMsg('signupError', 'Server error. Please try again.');
   }
   setLoading('signupBtn', false);
+}
+
+// ── OTP INPUT LOGIC ──────────────────────────────────────────────────
+function handleOtpInput(input, index, className = 'otp-box') {
+  if (input.value && index < 5) {
+    document.querySelectorAll('.' + className)[index + 1].focus();
+  }
+}
+
+function handleOtpKey(e, index, className = 'otp-box') {
+  if (e.key === 'Backspace' && !e.target.value && index > 0) {
+    document.querySelectorAll('.' + className)[index - 1].focus();
+  }
+}
+
+// ── TIMER LOGIC ──────────────────────────────────────────────────────
+let timerInterval;
+function startTimer() {
+  clearInterval(timerInterval);
+  let timeLeft = 60;
+  const secondsEl = document.getElementById('seconds');
+  const timerText = document.getElementById('timerText');
+  const resendBtn = document.getElementById('resendBtn');
+  const sendOtpBtn = document.getElementById('sendOtpBtn');
+  
+  sendOtpBtn.disabled = true;
+  resendBtn.style.display = 'none';
+  timerText.style.display = 'inline';
+  secondsEl.textContent = timeLeft;
+  
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    secondsEl.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      timerText.style.display = 'none';
+      resendBtn.style.display = 'inline';
+    }
+  }, 1000);
+}
+
+// ── FORGOT PASSWORD ──────────────────────────────────────────────────
+async function handleForgotRequest() {
+  clearErrors();
+  const email = document.getElementById('forgotEmail').value.trim();
+  if (!email) return showMsg('forgotError', 'Please enter your email address.');
+  
+  const btn = document.getElementById('sendForgotOtpBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  
+  try {
+    const r = await fetch(`${API}/auth/forgot-password`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+    const data = await r.json();
+    if (data.success) {
+      document.getElementById('resetSection').style.display = 'block';
+      showMsg('forgotSuccess', 'Verification code sent to your email!', false);
+    } else {
+      showMsg('forgotError', data.message);
+      btn.disabled = false;
+      btn.textContent = 'Send Code';
+    }
+  } catch (err) {
+    showMsg('forgotError', 'Server error. Try again.');
+    btn.disabled = false;
+    btn.textContent = 'Send Code';
+  }
+}
+
+async function handleResetPassword() {
+  clearErrors();
+  const email = document.getElementById('forgotEmail').value.trim();
+  const newPassword = document.getElementById('newPassword').value;
+  
+  const boxes = document.querySelectorAll('.reset-otp');
+  let otp = "";
+  boxes.forEach(b => otp += b.value);
+  
+  if (!otp || otp.length < 6) return showMsg('forgotError', 'Please enter the 6-digit code.');
+  if (newPassword.length < 6) return showMsg('forgotError', 'New password must be at least 6 characters.');
+  
+  setLoading('resetBtn', true);
+  try {
+    const r = await fetch(`${API}/auth/reset-password`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp, newPassword })
+    });
+    const data = await r.json();
+    if (data.success) {
+      localStorage.setItem('niharika_token', data.token);
+      localStorage.setItem('niharika_user', JSON.stringify(data.user));
+      showMsg('forgotSuccess', 'Password reset successful! Logging you in...', false);
+      setTimeout(() => { window.location.href = 'profile.html'; }, 1500);
+    } else {
+      showMsg('forgotError', data.message);
+    }
+  } catch (err) {
+    showMsg('forgotError', 'Reset failed. Try again.');
+  }
+  setLoading('resetBtn', false);
 }
 
 // Handle Enter key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     const loginActive = document.getElementById('loginForm').classList.contains('active');
-    if (loginActive) handleLogin(); else handleSignup();
+    const signupActive = document.getElementById('signupForm').classList.contains('active');
+    const forgotActive = document.getElementById('forgotForm').classList.contains('active');
+    
+    if (loginActive) handleLogin();
+    else if (signupActive) handleSignup();
+    else if (forgotActive) {
+      if (document.getElementById('resetSection').style.display === 'block') handleResetPassword();
+      else handleForgotRequest();
+    }
   }
 });
 
 // Check if already logged in
 if (localStorage.getItem('niharika_token')) {
-  const redirect = sessionStorage.getItem('niharika_redirect') || 'index.html';
+  const redirect = sessionStorage.getItem('niharika_redirect') || 'profile.html';
   window.location.href = redirect;
 }
 </script>

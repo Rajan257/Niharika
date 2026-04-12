@@ -1,4 +1,4 @@
-const CACHE_NAME = 'niharika-cache-v7';
+const CACHE_NAME = 'niharika-cache-v8';
 const urlsToCache = [
   '/',
   '/index.html',

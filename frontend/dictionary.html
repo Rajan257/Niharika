@@ -72,8 +72,34 @@
       <a href="index.html" class="logo"><span class="logo-wordmark">Niharika</span><span class="logo-tagline">निहारिका · Poetry</span></a>
       <div style="flex:1"></div>
       <div class="header-actions">
-        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        <!-- Swapped positions -->
         <a href="poets.html" class="btn btn-gold btn-sm"><i class="fas fa-feather-alt"></i> Poets</a>
+
+        <!-- Auth / User Section -->
+        <a href="auth.html" id="authBtn" style="display:none">
+          <i class="fas fa-user-circle"></i> Login
+        </a>
+        
+        <div class="user-menu" id="userMenu" style="display:none">
+          <span class="user-name-display" id="userNameDisplay">Reader</span>
+          <div class="user-avatar" id="userAvatar">U</div>
+          
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name" id="dropdownName">User</div>
+              <div class="user-dropdown-email" id="dropdownEmail">user@email.com</div>
+            </div>
+            <a href="profile.html" class="user-dropdown-item">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+            <a href="profile.html#favorites" class="user-dropdown-item">
+              <i class="fas fa-heart"></i> Favorites
+            </a>
+            <div class="user-dropdown-item" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <nav class="site-nav" id="siteNav"><ul class="nav-menu">
@@ -180,8 +206,9 @@
   <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
 </nav>
 
-<script src="js/api.js"></script>
-<script src="js/utils.js"></script>
+<script src="js/api.js?v=9"></script>
+<script src="js/utils.js?v=9"></script>
+<script src="js/auth.js?v=9"></script>
 <script>
 let allWords = [];
 let wodDictIdx = Math.floor(Math.random() * Object.keys(FB_DICT).length);

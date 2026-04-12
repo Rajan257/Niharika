@@ -10,7 +10,11 @@
       "category": "contemporary",
       "bio": "Rajan Rai is the founder of Niharika and a contemporary philosopher-poet. His work explores the intersection of human potential, self-realisation, and the quiet power of introspection. Born with a deep love for literature, Rajan has dedicated his life to building a platform where poetry breathes and philosophy speaks.",
       "speciality": "Philosophical Poetry, Nazm, Aphorism",
-      "tags": ["founder", "philosopher", "contemporary"],
+      "tags": [
+        "founder",
+        "philosopher",
+        "contemporary"
+      ],
       "isFeatured": true
     },
     {
@@ -23,7 +27,11 @@
       "category": "classical",
       "bio": "Kabir Das was a 15th-century Indian mystic poet whose writings influenced Hinduism's Bhakti movement and Sikhism. His verses, known as Dohe, are timeless meditations on truth, love, and the nature of the divine.",
       "speciality": "Doha, Bhajan, Sakhi",
-      "tags": ["classical", "bhakti", "mystic"],
+      "tags": [
+        "classical",
+        "bhakti",
+        "mystic"
+      ],
       "isFeatured": true
     },
     {
@@ -36,7 +44,11 @@
       "category": "modern",
       "bio": "Harivansh Rai Bachchan was one of the most celebrated Hindi poets of the 20th century. His magnum opus Madhushala is considered a masterpiece of Hindi literature.",
       "speciality": "Kavita, Nazm, Madhushala",
-      "tags": ["modern", "halawad", "madhushala"],
+      "tags": [
+        "modern",
+        "halawad",
+        "madhushala"
+      ],
       "isFeatured": true
     },
     {
@@ -49,7 +61,11 @@
       "category": "classical",
       "bio": "Mirabai was a 16th-century Hindu mystic poet and devotee of Lord Krishna. Her bhajans and poems express an intense, passionate devotion that transcends all boundaries.",
       "speciality": "Bhajan, Pad, Devotional Poetry",
-      "tags": ["classical", "bhakti", "devotional"],
+      "tags": [
+        "classical",
+        "bhakti",
+        "devotional"
+      ],
       "isFeatured": true
     },
     {
@@ -62,7 +78,11 @@
       "category": "modern",
       "bio": "Ramdhari Singh Dinkar was one of the most important modern Hindi poets. Known for his patriotic and revolutionary poetry, he received the Sahitya Akademi Award and Padma Bhushan.",
       "speciality": "Rashtriya Kavita, Veer Ras",
-      "tags": ["modern", "patriotic", "veer-ras"],
+      "tags": [
+        "modern",
+        "patriotic",
+        "veer-ras"
+      ],
       "isFeatured": true
     },
     {
@@ -75,7 +95,11 @@
       "category": "modern",
       "bio": "Mahadevi Verma was a Hindi poet, essayist, and the pillar of Chhayawaad era. Known as the 'Modern Meera', she was awarded the Bharat Ratna for her contribution to Hindi literature.",
       "speciality": "Chhayawad Kavita, Virah",
-      "tags": ["modern", "chhayawad", "bharat-ratna"],
+      "tags": [
+        "modern",
+        "chhayawad",
+        "bharat-ratna"
+      ],
       "isFeatured": false
     },
     {
@@ -88,7 +112,11 @@
       "category": "modern",
       "bio": "Sumitranandan Pant is considered the most lyrical of the Chhayawad poets. Deeply influenced by nature and philosophy, he was awarded the Sahitya Akademi Award, Padma Bhushan, and Jnanpith Award.",
       "speciality": "Chhayawad, Prakriti Kavita",
-      "tags": ["modern", "chhayawad", "jnanpith"],
+      "tags": [
+        "modern",
+        "chhayawad",
+        "jnanpith"
+      ],
       "isFeatured": false
     },
     {
@@ -101,7 +129,11 @@
       "category": "classical",
       "bio": "Jaishankar Prasad was a Hindi playwright, novelist, and poet. He is one of the pillars of Chhayavadi poetry. His Kamayani is considered the greatest poem of modern Hindi.",
       "speciality": "Mahakavya, Chhayawad",
-      "tags": ["classical", "chhayawad", "playwright"],
+      "tags": [
+        "classical",
+        "chhayawad",
+        "playwright"
+      ],
       "isFeatured": false
     },
     {
@@ -114,7 +146,11 @@
       "category": "contemporary",
       "bio": "Gulzar is an Indian poet, lyricist, and film director. Known for his profound and often symbolic poetry in Hindi and Urdu, he has won countless national and international awards including an Academy Award.",
       "speciality": "Nazm, Film Lyrics, Prose Poetry",
-      "tags": ["contemporary", "nazm", "oscar"],
+      "tags": [
+        "contemporary",
+        "nazm",
+        "oscar"
+      ],
       "isFeatured": true
     },
     {
@@ -127,7 +163,11 @@
       "category": "classical",
       "bio": "Abdul Rahim Khan-i-Khana, known as Rahim Das, was a medieval Hindi poet and one of the nine gems (Navratnas) in Akbar's court. His dohe are celebrated for their wisdom and humanity.",
       "speciality": "Doha, Satsai",
-      "tags": ["classical", "doha", "navratna"],
+      "tags": [
+        "classical",
+        "doha",
+        "navratna"
+      ],
       "isFeatured": false
     },
     {
@@ -140,7 +180,11 @@
       "category": "modern",
       "bio": "Nirala was a pioneering Hindi poet who introduced free verse (mukt chhand) into Hindi poetry. A rebel by nature, his poetry reflects deep humanity, revolutionary spirit, and lyrical beauty.",
       "speciality": "Mukt Chhand, Chhayawad Kavita",
-      "tags": ["modern", "chhayawad", "mukta-chhand"],
+      "tags": [
+        "modern",
+        "chhayawad",
+        "mukta-chhand"
+      ],
       "isFeatured": false
     },
     {
@@ -153,11 +197,14 @@
       "category": "contemporary",
       "bio": "Dr. Hariom Panwar is one of the most celebrated contemporary Hindi poets and kavi-sammelan performers. Known for his patriotic and motivational poetry, he has performed across the globe.",
       "speciality": "Kavi Sammelan, Patriotic Poetry",
-      "tags": ["contemporary", "patriotic", "kavi-sammelan"],
+      "tags": [
+        "contemporary",
+        "patriotic",
+        "kavi-sammelan"
+      ],
       "isFeatured": false
     }
   ],
-
   "poems": [
     {
       "id": 1,
@@ -280,7 +327,6 @@
       "isRajanQuote": false
     }
   ],
-
   "quotes": [
     {
       "id": 1,
@@ -363,7 +409,6 @@
       "isFounder": false
     }
   ],
-
   "dictionary": {
     "kavita": {
       "word": "Kavita",
@@ -471,7 +516,6 @@
       "pos": "Noun (Masculine)"
     }
   },
-
   "blog": [
     {
       "id": 1,
@@ -540,204 +584,477 @@
       "author": "Rajan Rai"
     }
   ],
-
   "videos": [
-    { "id": 1, "title": "Kabir Ke Dohe - Complete Collection Reading", "poet": "Kabir Das", "views": "3.2M", "duration": "42:18", "letter": "क", "bg": "#7B1D1D" },
-    { "id": 2, "title": "Madhushala - Harivansh Rai Bachchan Live", "poet": "H.R. Bachchan", "views": "4.5M", "duration": "58:44", "letter": "ह", "bg": "#4a2800" },
-    { "id": 3, "title": "Rashmirathi - Dinkar's Epic Recitation", "poet": "Ramdhari Singh Dinkar", "views": "2.1M", "duration": "1:12:30", "letter": "दि", "bg": "#1a237e" },
-    { "id": 4, "title": "Mirabai Bhajans - Devotional Collection", "poet": "Mirabai", "views": "5.8M", "duration": "1:05:10", "letter": "मी", "bg": "#4A0072" },
-    { "id": 5, "title": "Rajan Rai - Philosophical Poetry Session", "poet": "Rajan Rai", "views": "890K", "duration": "34:22", "letter": "रा", "bg": "#1C1917" },
-    { "id": 6, "title": "Gulzar - Nazm Reading Evening", "poet": "Gulzar", "views": "2.7M", "duration": "1:20:00", "letter": "गु", "bg": "#263238" },
-    { "id": 7, "title": "Chhayawad Poetry Night - Pant & Nirala", "poet": "Pant, Nirala", "views": "1.1M", "duration": "55:18", "letter": "पं", "bg": "#1b4000" },
-    { "id": 8, "title": "Kavi Sammelan - Best of Hindi Poetry 2023", "poet": "Multiple Poets", "views": "6.2M", "duration": "2:10:45", "letter": "क", "bg": "#3e0000" }
+    {
+      "id": 1,
+      "title": "Kabir Ke Dohe - Complete Collection Reading",
+      "poet": "Kabir Das",
+      "views": "3.2M",
+      "duration": "42:18",
+      "letter": "क",
+      "bg": "#7B1D1D"
+    },
+    {
+      "id": 2,
+      "title": "Madhushala - Harivansh Rai Bachchan Live",
+      "poet": "H.R. Bachchan",
+      "views": "4.5M",
+      "duration": "58:44",
+      "letter": "ह",
+      "bg": "#4a2800"
+    },
+    {
+      "id": 3,
+      "title": "Rashmirathi - Dinkar's Epic Recitation",
+      "poet": "Ramdhari Singh Dinkar",
+      "views": "2.1M",
+      "duration": "1:12:30",
+      "letter": "दि",
+      "bg": "#1a237e"
+    },
+    {
+      "id": 4,
+      "title": "Mirabai Bhajans - Devotional Collection",
+      "poet": "Mirabai",
+      "views": "5.8M",
+      "duration": "1:05:10",
+      "letter": "मी",
+      "bg": "#4A0072"
+    },
+    {
+      "id": 5,
+      "title": "Rajan Rai - Philosophical Poetry Session",
+      "poet": "Rajan Rai",
+      "views": "890K",
+      "duration": "34:22",
+      "letter": "रा",
+      "bg": "#1C1917"
+    },
+    {
+      "id": 6,
+      "title": "Gulzar - Nazm Reading Evening",
+      "poet": "Gulzar",
+      "views": "2.7M",
+      "duration": "1:20:00",
+      "letter": "गु",
+      "bg": "#263238"
+    },
+    {
+      "id": 7,
+      "title": "Chhayawad Poetry Night - Pant & Nirala",
+      "poet": "Pant, Nirala",
+      "views": "1.1M",
+      "duration": "55:18",
+      "letter": "पं",
+      "bg": "#1b4000"
+    },
+    {
+      "id": 8,
+      "title": "Kavi Sammelan - Best of Hindi Poetry 2023",
+      "poet": "Multiple Poets",
+      "views": "6.2M",
+      "duration": "2:10:45",
+      "letter": "क",
+      "bg": "#3e0000"
+    }
   ],
-
   "categories": [
-    { "icon": "📜", "name": "DOHA", "count": "8,000+" },
-    { "icon": "🌹", "name": "KAVITA", "count": "32,000+" },
-    { "icon": "✍️", "name": "NAZM", "count": "10,500+" },
-    { "icon": "🙏", "name": "BHAJAN", "count": "5,200+" },
-    { "icon": "⚔️", "name": "VIR RAS", "count": "2,800+" },
-    { "icon": "❤️", "name": "PREM KAVITA", "count": "18,000+" },
-    { "icon": "📖", "name": "MAHAKAVYA", "count": "600+" },
-    { "icon": "🌙", "name": "BHAKTI", "count": "9,500+" },
-    { "icon": "🎵", "name": "SONG LYRICS", "count": "22,000+" },
-    { "icon": "🏆", "name": "AWARD WINNING", "count": "1,200+" }
+    {
+      "icon": "📜",
+      "name": "DOHA",
+      "count": "8,000+"
+    },
+    {
+      "icon": "🌹",
+      "name": "KAVITA",
+      "count": "32,000+"
+    },
+    {
+      "icon": "✍️",
+      "name": "NAZM",
+      "count": "10,500+"
+    },
+    {
+      "icon": "🙏",
+      "name": "BHAJAN",
+      "count": "5,200+"
+    },
+    {
+      "icon": "⚔️",
+      "name": "VIR RAS",
+      "count": "2,800+"
+    },
+    {
+      "icon": "❤️",
+      "name": "PREM KAVITA",
+      "count": "18,000+"
+    },
+    {
+      "icon": "📖",
+      "name": "MAHAKAVYA",
+      "count": "600+"
+    },
+    {
+      "icon": "🌙",
+      "name": "BHAKTI",
+      "count": "9,500+"
+    },
+    {
+      "icon": "🎵",
+      "name": "SONG LYRICS",
+      "count": "22,000+"
+    },
+    {
+      "icon": "🏆",
+      "name": "AWARD WINNING",
+      "count": "1,200+"
+    }
   ],
-
   "quiz": [
     {
       "question": "Who wrote Madhushala, one of the greatest works of modern Hindi literature?",
-      "options": ["Ramdhari Singh Dinkar", "Sumitranandan Pant", "Harivansh Rai Bachchan", "Jaishankar Prasad"],
+      "options": [
+        "Ramdhari Singh Dinkar",
+        "Sumitranandan Pant",
+        "Harivansh Rai Bachchan",
+        "Jaishankar Prasad"
+      ],
       "answer": 2
     },
     {
       "question": "What is a 'Doha' in Hindi poetry?",
-      "options": ["A devotional song", "A two-line verse of 24 syllables", "An epic poem", "A free verse poem"],
+      "options": [
+        "A devotional song",
+        "A two-line verse of 24 syllables",
+        "An epic poem",
+        "A free verse poem"
+      ],
       "answer": 1
     },
     {
       "question": "Which poet is known as the 'Modern Meera' and received the Bharat Ratna?",
-      "options": ["Mirabai", "Subhadra Kumari Chauhan", "Mahadevi Verma", "Amrita Pritam"],
+      "options": [
+        "Mirabai",
+        "Subhadra Kumari Chauhan",
+        "Mahadevi Verma",
+        "Amrita Pritam"
+      ],
       "answer": 2
     },
     {
       "question": "Kabir Das belonged to which religious tradition in terms of his poetry?",
-      "options": ["Shaiva tradition", "Nirguna Bhakti - the formless divine", "Vaishnava Bhakti", "Shakta tradition"],
+      "options": [
+        "Shaiva tradition",
+        "Nirguna Bhakti - the formless divine",
+        "Vaishnava Bhakti",
+        "Shakta tradition"
+      ],
       "answer": 1
     },
     {
       "question": "The line 'सिंहासन खाली करो कि जनता आती है' is from which poet?",
-      "options": ["Kabir Das", "Harivansh Rai Bachchan", "Gulzar", "Ramdhari Singh Dinkar"],
+      "options": [
+        "Kabir Das",
+        "Harivansh Rai Bachchan",
+        "Gulzar",
+        "Ramdhari Singh Dinkar"
+      ],
       "answer": 3
     },
     {
       "question": "What is 'Chhayawad' in Hindi literature?",
-      "options": ["A warrior poetry tradition", "A romantic and mystical movement in early 20th century Hindi poetry", "A Bhakti poetry movement", "A satirical literary tradition"],
+      "options": [
+        "A warrior poetry tradition",
+        "A romantic and mystical movement in early 20th century Hindi poetry",
+        "A Bhakti poetry movement",
+        "A satirical literary tradition"
+      ],
       "answer": 1
     },
     {
       "question": "The 'Navarasa' (Nine Rasas) includes all EXCEPT:",
-      "options": ["Shringar (Love)", "Veer (Heroism)", "Karuna (Compassion)", "Dhan (Wealth)"],
+      "options": [
+        "Shringar (Love)",
+        "Veer (Heroism)",
+        "Karuna (Compassion)",
+        "Dhan (Wealth)"
+      ],
       "answer": 3
     },
     {
       "question": "Rajan Rai founded Niharika because:",
-      "options": ["He wanted to build a social network", "He believed great poetry should be free and accessible to all", "He was assigned to do so", "He wanted to learn coding"],
+      "options": [
+        "He wanted to build a social network",
+        "He believed great poetry should be free and accessible to all",
+        "He was assigned to do so",
+        "He wanted to learn coding"
+      ],
       "answer": 1
     },
     {
       "question": "Mirabai was a devotee of which deity?",
-      "options": ["Lord Shiva", "Goddess Durga", "Lord Rama", "Lord Krishna"],
+      "options": [
+        "Lord Shiva",
+        "Goddess Durga",
+        "Lord Rama",
+        "Lord Krishna"
+      ],
       "answer": 3
     },
     {
       "question": "Gulzar received which international award for film lyrics?",
-      "options": ["BAFTA Award", "Academy Award (Oscar)", "Grammy Award", "Golden Globe"],
+      "options": [
+        "BAFTA Award",
+        "Academy Award (Oscar)",
+        "Grammy Award",
+        "Golden Globe"
+      ],
       "answer": 1
     },
     {
       "question": "Which of these poets was one of the 'Navratnas' (Nine Gems) in Emperor Akbar's court?",
-      "options": ["Tulsidas", "Kabir Das", "Rahim Das", "Surdas"],
+      "options": [
+        "Tulsidas",
+        "Kabir Das",
+        "Rahim Das",
+        "Surdas"
+      ],
       "answer": 2
     },
     {
       "question": "Who authored the famous epic poem 'Rashmirathi'?",
-      "options": ["Jaishankar Prasad", "Ramdhari Singh Dinkar", "Suryakant Tripathi Nirala", "Sumitranandan Pant"],
+      "options": [
+        "Jaishankar Prasad",
+        "Ramdhari Singh Dinkar",
+        "Suryakant Tripathi Nirala",
+        "Sumitranandan Pant"
+      ],
       "answer": 1
     },
     {
       "question": "'Kamayani' is considered a masterpiece of which literary era?",
-      "options": ["Bhakti Era", "Pragativad Era", "Chhayawad Era", "Prayogvad Era"],
+      "options": [
+        "Bhakti Era",
+        "Pragativad Era",
+        "Chhayawad Era",
+        "Prayogvad Era"
+      ],
       "answer": 2
     },
     {
       "question": "Which emotion does 'Shringar Ras' primarily deal with?",
-      "options": ["Anger", "Heroism", "Love and Beauty", "Sorrow"],
+      "options": [
+        "Anger",
+        "Heroism",
+        "Love and Beauty",
+        "Sorrow"
+      ],
       "answer": 2
     },
     {
       "question": "What is the pen name (takhallus) of Suryakant Tripathi?",
-      "options": ["Nirala", "Dinkar", "Agyeya", "Bachan"],
+      "options": [
+        "Nirala",
+        "Dinkar",
+        "Agyeya",
+        "Bachan"
+      ],
       "answer": 0
     },
     {
       "question": "Which of these is NOT a figure of speech (Alankar) in Hindi?",
-      "options": ["Upama", "Rupak", "Anupras", "Doha"],
+      "options": [
+        "Upama",
+        "Rupak",
+        "Anupras",
+        "Doha"
+      ],
       "answer": 3
     },
     {
       "question": "The famous line 'मन चंगा तो कठौती में गंगा' is attributed to:",
-      "options": ["Sushruta", "Kabir Das", "Tulsidas", "Guru Nanak"],
+      "options": [
+        "Sushruta",
+        "Kabir Das",
+        "Tulsidas",
+        "Guru Nanak"
+      ],
       "answer": 1
     },
     {
       "question": "Which poet is particularly famous for introducing 'Mukt Chhand' (Free Verse) into Hindi poetry?",
-      "options": ["Sumitranandan Pant", "Harivansh Rai Bachchan", "Suryakant Tripathi Nirala", "Mahadevi Verma"],
+      "options": [
+        "Sumitranandan Pant",
+        "Harivansh Rai Bachchan",
+        "Suryakant Tripathi Nirala",
+        "Mahadevi Verma"
+      ],
       "answer": 2
     },
     {
       "question": "What is the primary theme of Harivansh Rai Bachchan's 'Madhushala'?",
-      "options": ["A tavern, representing life and its transient nature", "The beauty of nature in spring", "A historical war", "Devotion to Lord Krishna"],
+      "options": [
+        "A tavern, representing life and its transient nature",
+        "The beauty of nature in spring",
+        "A historical war",
+        "Devotion to Lord Krishna"
+      ],
       "answer": 0
     },
     {
       "question": "Which poem retells the Mahabharata from Karna's perspective?",
-      "options": ["Kamayani", "Rashmirathi", "Urvashi", "Kurukshetra"],
+      "options": [
+        "Kamayani",
+        "Rashmirathi",
+        "Urvashi",
+        "Kurukshetra"
+      ],
       "answer": 1
     },
     {
       "question": "Which of these is considered a 'Mahakavya' (Epic Poem)?",
-      "options": ["Madhushala", "Kamayani", "Gitanjali", "Yama"],
+      "options": [
+        "Madhushala",
+        "Kamayani",
+        "Gitanjali",
+        "Yama"
+      ],
       "answer": 1
     },
     {
       "question": "Who won the Jnanpith Award for his collection 'Kitni Navon Mein Kitni Baar', and is known as the pioneer of Prayogvad?",
-      "options": ["Agyeya", "Nirala", "Dinkar", "Pant"],
+      "options": [
+        "Agyeya",
+        "Nirala",
+        "Dinkar",
+        "Pant"
+      ],
       "answer": 0
     },
     {
       "question": "In a traditional Doha, how many syllables (matras) are there in each of the two lines?",
-      "options": ["16", "24 (11+13)", "32", "20"],
+      "options": [
+        "16",
+        "24 (11+13)",
+        "32",
+        "20"
+      ],
       "answer": 1
     },
     {
       "question": "Which poet's real name was Abdul Rahim Khan-i-Khana?",
-      "options": ["Rahim Das", "Kabir Das", "Amir Khusrau", "Mirza Ghalib"],
+      "options": [
+        "Rahim Das",
+        "Kabir Das",
+        "Amir Khusrau",
+        "Mirza Ghalib"
+      ],
       "answer": 0
     },
     {
       "question": "Sumitranandan Pant's poetry is deeply inspired by:",
-      "options": ["Political revolutions", "The Himalayas and Nature", "Taverns and Wine", "Urban struggles"],
+      "options": [
+        "Political revolutions",
+        "The Himalayas and Nature",
+        "Taverns and Wine",
+        "Urban struggles"
+      ],
       "answer": 1
     },
     {
       "question": "Which of these describes a 'Nazm'?",
-      "options": ["A two-line verse", "A poem with a single, continuous theme", "A devotional hymn", "A collection of unrelated couplets"],
+      "options": [
+        "A two-line verse",
+        "A poem with a single, continuous theme",
+        "A devotional hymn",
+        "A collection of unrelated couplets"
+      ],
       "answer": 1
     },
     {
       "question": "Who is the central female figure in Prasad's 'Kamayani' representing Reason?",
-      "options": ["Shraddha", "Ida", "Urvashi", "Sita"],
+      "options": [
+        "Shraddha",
+        "Ida",
+        "Urvashi",
+        "Sita"
+      ],
       "answer": 1
     },
     {
       "question": "'Veer Ras' in Hindi poetry evokes which emotion?",
-      "options": ["Fear", "Disgust", "Heroism and Courage", "Peace"],
+      "options": [
+        "Fear",
+        "Disgust",
+        "Heroism and Courage",
+        "Peace"
+      ],
       "answer": 2
     },
     {
       "question": "The famous ghazal poet Mirza Ghalib wrote primarily in which two languages?",
-      "options": ["Hindi and Sanskrit", "Urdu and Persian", "Punjabi and Urdu", "Awadhi and Brajbhasha"],
+      "options": [
+        "Hindi and Sanskrit",
+        "Urdu and Persian",
+        "Punjabi and Urdu",
+        "Awadhi and Brajbhasha"
+      ],
       "answer": 1
     },
     {
       "question": "Rajan Rai describes philosophy and truth through:",
-      "options": ["Epic poetry", "Free verse and Aphorisms", "Devotional songs", "Gazals"],
+      "options": [
+        "Epic poetry",
+        "Free verse and Aphorisms",
+        "Devotional songs",
+        "Gazals"
+      ],
       "answer": 1
     },
     {
       "question": "According to Rajan Rai, 'Silence is the loudest answer the _______ ever gives.'",
-      "options": ["mind", "world", "soul", "heart"],
+      "options": [
+        "mind",
+        "world",
+        "soul",
+        "heart"
+      ],
       "answer": 2
     },
     {
       "question": "Which of these movements focused heavily on individualism, mysticism, and romanticism in nature?",
-      "options": ["Pragativad", "Chhayawad", "Nai Kavita", "Dwivedi Yug"],
+      "options": [
+        "Pragativad",
+        "Chhayawad",
+        "Nai Kavita",
+        "Dwivedi Yug"
+      ],
       "answer": 1
     },
     {
       "question": "Mirabai composed her poems and songs primarily in which language/dialect?",
-      "options": ["Pure Sanskrit", "Bhojpuri", "Rajasthani and Brajbhasha", "Maithili"],
+      "options": [
+        "Pure Sanskrit",
+        "Bhojpuri",
+        "Rajasthani and Brajbhasha",
+        "Maithili"
+      ],
       "answer": 2
     },
     {
       "question": "Which word translates to 'separation' or the pain of being apart from a loved one?",
-      "options": ["Prem", "Virah", "Shraddha", "Jigyasa"],
+      "options": [
+        "Prem",
+        "Virah",
+        "Shraddha",
+        "Jigyasa"
+      ],
       "answer": 1
     }
   ],
-
-  "subscribers": [],
+  "subscribers": [
+    "kartik343rai@gmail.com",
+    "priyanshiyadav2505@gmail.com"
+  ],
   "favorites": []
 }

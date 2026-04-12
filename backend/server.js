@@ -47,6 +47,7 @@ const { EXTENDED_DICTIONARY } = require('./data/dictionary-extended');
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ── Backend UI / Dashboard ──────────────────────────────────────────────
 app.get('/', (req, res) => {
@@ -128,11 +129,19 @@ app.get('/api/health', async (req, res) => {
 });
 
 // ── Auth Routes ───────────────────────────────────────────────────────
-const { register, login, getMe, verifyToken, addFavorite, getFavorites, addBookmark, getBookmarks, addHistory } = require('./routes/auth');
+const { 
+  register, login, getMe, verifyToken, requestSignupOTP,
+  updateProfile, upload, forgotPassword, resetPassword,
+  addFavorite, getFavorites, addBookmark, getBookmarks, addHistory 
+} = require('./routes/auth');
 
 app.post('/api/auth/register', register);
+app.post('/api/auth/request-signup-otp', requestSignupOTP);
 app.post('/api/auth/login',    login);
+app.post('/api/auth/forgot-password', forgotPassword);
+app.post('/api/auth/reset-password', resetPassword);
 app.get('/api/auth/me',        verifyToken, getMe);
+app.post('/api/auth/update-profile', verifyToken, upload.single('profilePicture'), updateProfile);
 
 // User data routes
 app.post('/api/user/favorites',  verifyToken, addFavorite);

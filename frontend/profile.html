@@ -10,17 +10,63 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    .profile-hero { background:linear-gradient(135deg,#1C1410,#2C1810,#4A0E0E); padding:60px 0 40px; }
-    .profile-hero-inner { display:flex; align-items:center; gap:32px; }
-    .profile-avatar { width:100px; height:100px; border-radius:50%; background:linear-gradient(135deg,#8B1A1A,#4A0E0E); display:flex; align-items:center; justify-content:center; font-size:42px; font-weight:700; color:#C9A227; border:3px solid rgba(201,162,39,0.4); flex-shrink:0; }
-    .profile-name { font-family:'Cormorant Garamond',serif; font-size:36px; font-weight:700; color:#fff; }
-    .profile-email { color:rgba(255,255,255,0.5); font-size:14px; margin-top:4px; }
-    .profile-joined { color:rgba(201,162,39,0.8); font-size:13px; margin-top:8px; }
-    .profile-stats { display:flex; gap:24px; margin-top:20px; }
-    .profile-stat { text-align:center; }
-    .profile-stat-n { font-size:26px; font-weight:800; color:#C9A227; }
-    .profile-stat-l { font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:1px; text-transform:uppercase; }
-    .profile-actions { display:flex; gap:12px; margin-top:24px; }
+    .profile-hero { 
+      background: linear-gradient(135deg, #2C1810 0%, #1a0a0a 100%); 
+      padding: 60px 0; border-bottom: 1px solid rgba(201, 152, 42, 0.1); 
+      position: relative; overflow: hidden;
+    }
+    .profile-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(139, 26, 26, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .profile-hero-inner { display: flex; align-items: center; gap: 40px; position: relative; z-index: 2; }
+    
+    .profile-avatar-container { flex-shrink: 0; position: relative; }
+    .profile-avatar { 
+      width: 140px; height: 140px; border-radius: 50%; 
+      background: linear-gradient(135deg, var(--crimson), #4a0e0e); 
+      display: flex; align-items: center; justify-content: center; 
+      font-size: 54px; font-weight: 800; color: white; border: 4px solid white;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4); overflow: hidden;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-edit-btn { 
+      position: absolute; bottom: 5px; right: 5px; width: 38px; height: 38px; 
+      border-radius: 50%; background: var(--gold); border: none; color: #000; 
+      cursor: pointer; display: flex; align-items: center; justify-content: center; 
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.2s; 
+    }
+    .avatar-edit-btn:hover { background: var(--gold-bright); transform: scale(1.1); }
+    
+    .profile-meta-wrap { flex: 1; }
+    .profile-name-row { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+    .profile-name { font-family: var(--font-display); font-size: 38px; font-weight: 700; color: white; margin: 0; }
+    .user-role-badge { 
+      padding: 4px 12px; border-radius: 8px; background: rgba(201, 152, 42, 0.15); 
+      color: var(--gold); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .profile-bio-text { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 650px; line-height: 1.6; margin-bottom: 20px; font-style: italic; }
+    
+    .profile-stats-mini { display: flex; gap: 24px; margin-bottom: 24px; }
+    .stat-mini { font-size: 13px; color: rgba(255,255,255,0.4); }
+    .stat-mini strong { color: rgba(255,255,255,0.8); margin-right: 4px; }
+    
+    .profile-page-actions { display: flex; gap: 12px; }
+    
+    /* Edit Profile Modal */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); display:none; align-items:center; justify-content:center; z-index:2000; padding:20px; }
+    .modal-overlay.active { display:flex; }
+    .edit-modal { background:#1C1410; border:1px solid rgba(201,162,39,0.2); border-radius:24px; padding:40px; width:100%; max-width:500px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.5); position:relative; }
+    .modal-close { position:absolute; top:20px; right:24px; background:none; border:none; color:rgba(255,255,255,0.4); font-size:20px; cursor:pointer; }
+    .modal-title { font-family:'Cormorant Garamond',serif; font-size:28px; color:#fff; margin-bottom:24px; text-align:center; }
+    .form-group { margin-bottom:20px; }
+    .form-label { display:block; font-size:12px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .form-input { width:100%; padding:14px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; color:#fff; font-family:inherit; outline:none; transition:all 0.3s; }
+    .form-input:focus { border-color:#C9A227; background:rgba(255,255,255,0.08); }
+    textarea.form-input { min-height:100px; resize:vertical; }
+    .modal-submit { width:100%; padding:16px; background:#8B1A1A; color:#fff; border:none; border-radius:12px; font-weight:700; cursor:pointer; transition:all 0.3s; margin-top:10px; }
+    .modal-submit:hover { background:#a02020; transform:translateY(-2px); box-shadow:0 10px 20px rgba(139,26,26,0.3); }
     
     .profile-tabs { display:flex; gap:0; border-bottom:2px solid var(--border-2,rgba(255,255,255,0.08)); margin-bottom:40px; }
     .profile-tab { padding:16px 24px; background:none; border:none; border-bottom:2px solid transparent; margin-bottom:-2px; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.5px; color:rgba(255,255,255,0.4); cursor:pointer; transition:all 0.25s; }
@@ -54,6 +100,73 @@
     .empty-state h3 { font-family:'Cormorant Garamond',serif; font-size:24px; color:rgba(255,255,255,0.6); margin-bottom:8px; }
     .section-count { font-size:12px; color:rgba(255,255,255,0.4); margin-bottom:24px; letter-spacing:1px; text-transform:uppercase; }
 
+    .profile-dashboard { padding: 40px 0 80px; background: #0f0b08; }
+    .dashboard-grid { display: grid; grid-template-columns: 320px 1fr; gap: 32px; }
+    
+    .glass-card { 
+      background: rgba(255, 255, 255, 0.03); 
+      border: 1px solid rgba(255, 255, 255, 0.08); 
+      border-radius: 20px; 
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    
+    .info-card { padding: 24px; position: sticky; top: 100px; }
+    .card-header { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 16px; margin-bottom: 20px; }
+    .card-header h3 { font-size: 14px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1.5px; }
+    
+    .info-item { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .info-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(201, 152, 42, 0.1); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .info-content small { display: block; font-size: 11px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.5px; }
+    .info-content span { display: block; font-size: 14px; color: rgba(255,255,255,0.85); font-weight: 500; }
+    
+    .dashboard-main { display: flex; flex-direction: column; gap: 24px; }
+    .profile-tabs { display: flex; padding: 6px; gap: 6px; }
+    .profile-tab { 
+      flex: 1; padding: 12px; border-radius: 14px; border: none; background: transparent; 
+      color: rgba(255,255,255,0.5); font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .profile-tab:hover { background: rgba(255,255,255,0.05); color: white; }
+    .profile-tab.active { background: var(--gold); color: #000; box-shadow: 0 4px 15px rgba(201, 152, 42, 0.3); }
+    
+    .activity-container { padding: 32px; min-height: 400px; }
+    .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .section-title-sm { font-family: var(--font-display); font-size: 24px; color: white; font-weight: 700; }
+    .badge { padding: 4px 12px; border-radius: 20px; background: rgba(139, 26, 26, 0.2); color: #ff6b6b; font-size: 12px; font-weight: 700; }
+    
+    .activity-list { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    
+    /* Edit Modal Refinements */
+    .edit-modal { padding: 44px; max-width: 500px; width: 90%; }
+    .modal-header { margin-bottom: 32px; }
+    .modal-subtitle { font-size: 14px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .input-with-icon { position: relative; }
+    .input-with-icon i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gold); opacity: 0.5; }
+    .input-with-icon .form-input { padding-left: 44px; }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; }
+    .btn-ghost { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+    .settings-list { display: flex; flex-direction: column; gap: 16px; margin-top: 10px; }
+    .settings-item { 
+      padding: 18px 24px; display: flex; align-items: center; gap: 20px; 
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .settings-item:hover { background: rgba(255,255,255,0.06); border-color: rgba(201,152,42,0.3); transform: translateY(-3px); }
+    .settings-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.05); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.3s; }
+    .settings-item:hover .settings-icon { background: var(--gold); color: #000; box-shadow: 0 4px 15px rgba(201, 152, 42, 0.3); }
+    .settings-info { flex: 1; }
+    .settings-info strong { display: block; font-size: 15px; color: white; margin-bottom: 2px; }
+    .settings-info span { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .settings-arrow { color: rgba(255,255,255,0.2); font-size: 14px; transition: all 0.3s; }
+    .settings-item:hover .settings-arrow { color: var(--gold); transform: translateX(5px); }
+
+    @media (max-width: 1000px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .dashboard-sidebar { display: none; }
+    }
     @media (max-width: 768px) {
       .profile-hero-inner { flex-direction: column; text-align: center; gap: 20px; }
       .profile-stats { justify-content: center; }
@@ -90,17 +203,43 @@
       </a>
       <div class="header-actions">
         <a href="index.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-home"></i> Home</a>
-        <div class="user-menu" id="userMenu" style="display:none;align-items:center;gap:12px;position:relative">
-          <button class="user-avatar-btn" id="userAvatar" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#8B1A1A,#4A0E0E);border:2px solid rgba(201,162,39,0.4);color:#C9A227;font-weight:700;cursor:pointer;font-size:14px;"></button>
-          <span id="userNameDisplay" style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:600;"></span>
-          <div id="userDropdown" style="position:absolute;top:calc(100% + 12px);right:0;background:#1a1410;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px;min-width:160px;display:none;z-index:999;">
-            <a href="profile.html" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,255,255,0.8);text-decoration:none;border-radius:8px;font-size:13px;transition:background 0.2s;"><i class="fas fa-user" style="color:#C9A227;width:16px;"></i> My Profile</a>
-            <a href="poet-profile.html?id=1" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,255,255,0.8);text-decoration:none;border-radius:8px;font-size:13px;"><i class="fas fa-crown" style="color:#C9A227;width:16px;"></i> Rajan Rai</a>
-            <hr style="border:none;border-top:1px solid rgba(255,255,255,0.08);margin:6px 0;" />
-            <button id="logoutBtn" style="display:flex;align-items:center;gap:10px;padding:10px 14px;color:rgba(255,100,100,0.8);background:none;border:none;width:100%;font-size:13px;cursor:pointer;border-radius:8px;font-family:inherit;"><i class="fas fa-sign-out-alt" style="width:16px;"></i> Logout</button>
+        
+        <!-- Swapped: Dictionary first, then User Profile -->
+        <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+
+        <!-- Auth / User Section -->
+        <a href="auth.html" id="authBtn" style="display:none">
+          <i class="fas fa-user-circle"></i> Login
+        </a>
+        
+        <div class="user-menu" id="userMenu" style="display:none">
+          <span class="user-name-display" id="userNameDisplay">Reader</span>
+          <div class="user-avatar" id="userAvatar">U</div>
+          
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name" id="dropdownName">User</div>
+              <div class="user-dropdown-email" id="dropdownEmail">user@email.com</div>
+            </div>
+            <a href="profile.html" class="user-dropdown-item">
+              <i class="fas fa-user-circle"></i> My Profile
+            </a>
+            <a href="profile.html#favorites" class="user-dropdown-item">
+              <i class="fas fa-heart"></i> My Favorites
+            </a>
+            <a href="profile.html#posts" class="user-dropdown-item">
+              <i class="fas fa-feather"></i> My Posts
+            </a>
+            <div class="user-dropdown-divider"></div>
+            <a href="profile.html#settings" class="user-dropdown-item">
+              <i class="fas fa-cog"></i> Account Settings
+            </a>
+            <div class="user-dropdown-divider"></div>
+            <div class="user-dropdown-item" id="logoutBtn" style="color: #ef4444">
+              <i class="fas fa-sign-out-alt" style="color: #ef4444"></i> Logout
+            </div>
           </div>
         </div>
-        <a href="auth.html" class="btn btn-gold btn-sm" id="authBtn"><i class="fas fa-user"></i> Sign In</a>
       </div>
     </div>
   </div>
@@ -110,41 +249,156 @@
 <section class="profile-hero">
   <div class="container">
     <div class="profile-hero-inner" id="profileHeroInner">
-      <div style="text-align:center;padding:40px;color:rgba(255,255,255,0.4);width:100%"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
+      <!-- Content injected by loadProfile() -->
+      <div style="text-align:center;padding:100px;width:100%">
+        <i class="fas fa-spinner fa-spin fa-3x" style="color:var(--gold)"></i>
+      </div>
     </div>
+    <input type="file" id="profilePicInput" style="display:none" accept="image/*" onchange="handlePicUpload(this)" />
   </div>
 </section>
 
-<!-- PROFILE CONTENT -->
-<main>
-  <section class="section">
-    <div class="container">
-      <div class="profile-tabs">
-        <button class="profile-tab active" onclick="switchPanel('favorites')"><i class="fas fa-heart"></i> Saved Poems</button>
-        <button class="profile-tab" onclick="switchPanel('bookmarks')"><i class="fas fa-bookmark"></i> Bookmarked Poets</button>
-        <button class="profile-tab" onclick="switchPanel('history')"><i class="fas fa-history"></i> Reading History</button>
-      </div>
-      
-      <!-- Favorites Panel -->
-      <div class="profile-panel active" id="panel-favorites">
-        <div class="section-count" id="fav-count">Loading...</div>
-        <div id="favorites-list"></div>
-      </div>
-      
-      <!-- Bookmarks Panel -->
-      <div class="profile-panel" id="panel-bookmarks">
-        <div class="section-count" id="bm-count">Loading...</div>
-        <div id="bookmarks-list"></div>
-      </div>
-      
-      <!-- History Panel -->
-      <div class="profile-panel" id="panel-history">
-        <div class="section-count" id="hist-count">Loading...</div>
-        <div id="history-list"></div>
+<!-- PROFILE DASHBOARD -->
+<main class="profile-dashboard">
+  <div class="container">
+    <div class="dashboard-grid">
+      <!-- Sidebar / User Info Card -->
+      <aside class="dashboard-sidebar">
+        <div class="info-card glass-card">
+          <div class="card-header">
+            <h3><i class="fas fa-info-circle"></i> Info</h3>
+          </div>
+          <div class="info-list" id="sidebarInfo">
+             <!-- Injected -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content / Activity -->
+      <div class="dashboard-main">
+        <div class="profile-tabs glass-card">
+          <button class="profile-tab active" id="tab-btn-favorites" onclick="switchPanel('favorites')"><i class="fas fa-heart"></i> Saved Poetry</button>
+          <button class="profile-tab" id="tab-btn-bookmarks" onclick="switchPanel('bookmarks')"><i class="fas fa-feather"></i> Following Poets</button>
+          <button class="profile-tab" id="tab-btn-history" onclick="switchPanel('history')"><i class="fas fa-clock"></i> History</button>
+        </div>
+        
+        <div class="activity-container glass-card">
+          <!-- Favorites Panel -->
+          <div class="profile-panel active" id="panel-favorites">
+            <div class="section-header-row">
+              <h2 class="section-title-sm">Your Liked Poetry</h2>
+              <span class="badge" id="fav-count">...</span>
+            </div>
+            <div id="favorites-list" class="activity-list"></div>
+          </div>
+          
+          <!-- Bookmarks Panel -->
+          <div class="profile-panel" id="panel-bookmarks">
+            <div class="section-header-row">
+              <h2 class="section-title-sm">Bookmarked Poets</h2>
+              <span class="badge" id="bm-count">...</span>
+            </div>
+            <div id="bookmarks-list" class="activity-list"></div>
+          </div>
+          
+          <!-- History Panel -->
+          <div class="profile-panel" id="panel-history">
+            <div class="section-header-row">
+              <h2 class="section-title-sm">Recently Viewed</h2>
+              <span class="badge" id="hist-count">...</span>
+            </div>
+            <div id="history-list" class="activity-list"></div>
+          </div>
+
+          <!-- Posts Panel (Placeholder) -->
+          <div class="profile-panel" id="panel-posts">
+            <div class="section-header-row">
+              <h2 class="section-title-sm">Your Contributions</h2>
+              <span class="badge">0</span>
+            </div>
+            <div class="empty-state">
+              <i class="fas fa-feather" style="color:rgba(255,255,255,0.1)"></i>
+              <h3>No posts yet</h3>
+              <p>Your shared poems and stories will appear here.</p>
+              <button class="btn btn-gold" style="margin-top:20px" onclick="window.showToast('Posting feature coming soon!', 'info')">Create Post</button>
+            </div>
+          </div>
+
+          <!-- Settings Panel -->
+          <div class="profile-panel" id="panel-settings">
+            <div class="section-header-row">
+              <h2 class="section-title-sm">Account Settings</h2>
+            </div>
+            <div class="settings-list">
+              <div class="settings-item glass-card" onclick="openEditModal()">
+                <div class="settings-icon"><i class="fas fa-user-circle"></i></div>
+                <div class="settings-info">
+                  <strong>Personal Information</strong>
+                  <span>Change your name, bio, and phone number</span>
+                </div>
+                <i class="fas fa-chevron-right settings-arrow"></i>
+              </div>
+              <div class="settings-item glass-card">
+                <div class="settings-icon"><i class="fas fa-lock"></i></div>
+                <div class="settings-info">
+                  <strong>Privacy & Security</strong>
+                  <span>Manage your password and visibility</span>
+                </div>
+                <i class="fas fa-chevron-right settings-arrow"></i>
+              </div>
+              <div class="settings-item glass-card" style="border-color:rgba(239, 68, 68, 0.2)">
+                <div class="settings-icon" style="background:rgba(239, 68, 68, 0.1);color:#ef4444"><i class="fas fa-trash"></i></div>
+                <div class="settings-info">
+                  <strong style="color:#ef4444">Delete Account</strong>
+                  <span>Permanently remove your data from Niharika</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 </main>
+
+<!-- EDIT PROFILE MODAL -->
+<div class="modal-overlay" id="editModal">
+  <div class="edit-modal glass-card">
+    <button class="modal-close" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-header">
+      <h2 class="modal-title"><i class="fas fa-user-edit"></i> Edit Your Profile</h2>
+      <p class="modal-subtitle">Update your public identity on Niharika</p>
+    </div>
+    
+    <div class="edit-form">
+      <div class="form-group">
+        <label class="form-label">Display Name</label>
+        <div class="input-with-icon">
+          <i class="fas fa-user"></i>
+          <input type="text" id="editName" class="form-input" placeholder="Your name" />
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Phone Number</label>
+        <div class="input-with-icon">
+          <i class="fas fa-phone"></i>
+          <input type="tel" id="editPhone" class="form-input" placeholder="Your mobile number" />
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Professional Bio</label>
+        <textarea id="editBio" class="form-input" placeholder="Tell the world about your literary soul..."></textarea>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-ghost" onclick="closeEditModal()">Cancel</button>
+        <button class="btn btn-gold" id="saveProfileBtn" onclick="saveProfileChanges()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
@@ -157,9 +411,9 @@
   <a href="chatbot.html" class="bottom-nav-item"><i class="fas fa-robot"></i><span>Sakhi</span></a>
 </nav>
 
-<script src="js/api.js"></script>
-<script src="js/utils.js"></script>
-<script src="js/auth.js"></script>
+<script src="js/api.js?v=9"></script>
+<script src="js/utils.js?v=9"></script>
+<script src="js/auth.js?v=9"></script>
 <script>
 const API = '/api';
 
@@ -187,19 +441,59 @@ function timeAgo(dateStr) {
 }
 
 async function loadProfile() {
+  if (typeof AUTH !== 'undefined') AUTH.updateHeaderUI();
+  
   const token = localStorage.getItem('niharika_token');
   const user  = JSON.parse(localStorage.getItem('niharika_user') || '{}');
   
+  const avatarImg = user.profilePictureUrl ? `<img src="${user.profilePictureUrl}" style="width:100%;height:100%;object-fit:cover;">` : (user.username||'U').charAt(0).toUpperCase();
+  
+  // Update Hero
   document.getElementById('profileHeroInner').innerHTML = `
-    <div class="profile-avatar">${user.avatar || (user.name||'U').charAt(0).toUpperCase()}</div>
-    <div>
-      <div class="profile-name">${user.name || 'Reader'}</div>
-      <div class="profile-email"><i class="fas fa-envelope" style="margin-right:6px;color:rgba(201,162,39,0.7)"></i>${user.email || ''}</div>
-      <div class="profile-joined"><i class="fas fa-calendar-alt" style="margin-right:6px"></i>Joined ${user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN',{month:'long',year:'numeric'}) : 'Recently'}</div>
-      <div class="profile-actions">
-        <a href="poets.html" class="btn btn-gold btn-sm"><i class="fas fa-feather-alt"></i> Explore Poets</a>
-        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
-        <button class="btn btn-sm" style="background:rgba(183,28,28,0.2);color:rgba(255,100,100,0.8);border:1px solid rgba(183,28,28,0.3)" onclick="AUTH.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <div class="profile-avatar-container" style="position:relative">
+      <div class="profile-avatar shadow-lg" id="avatarDisplay">${avatarImg}</div>
+      <button onclick="document.getElementById('profilePicInput').click()" class="avatar-edit-btn" title="Change Profile Picture"><i class="fas fa-camera"></i></button>
+    </div>
+    <div class="profile-meta-wrap">
+      <div class="profile-name-row">
+        <h1 class="profile-name">${user.username || 'Poetry Reader'}</h1>
+        <span class="user-role-badge">${user.role || 'Member'}</span>
+      </div>
+      <p class="profile-bio-text">
+        ${user.bio || 'Poetry is the rhythmical creation of beauty in words.'}
+      </p>
+      <div class="profile-stats-mini">
+        <div class="stat-mini"><strong>Joined</strong> ${user.createdAt ? new Date(user.createdAt).toLocaleDateString(undefined, {month:'short', year:'numeric'}) : 'recently'}</div>
+        <div class="stat-mini"><strong>Status</strong> Verified <i class="fas fa-check-circle" style="color:#4BB543"></i></div>
+      </div>
+      <div class="profile-page-actions">
+        <button class="btn btn-gold" onclick="openEditModal()"><i class="fas fa-user-edit"></i> Edit Profile</button>
+        <button class="btn btn-ghost" onclick="AUTH.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+    </div>
+  `;
+
+  // Update Sidebar
+  document.getElementById('sidebarInfo').innerHTML = `
+    <div class="info-item">
+      <div class="info-icon"><i class="fas fa-envelope"></i></div>
+      <div class="info-content">
+        <small>Email Address</small>
+        <span>${user.email || 'N/A'}</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon"><i class="fas fa-phone"></i></div>
+      <div class="info-content">
+        <small>Phone Number</small>
+        <span>${user.phone || 'Not added'}</span>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon"><i class="fas fa-id-badge"></i></div>
+      <div class="info-content">
+        <small>User ID</small>
+        <span>#${(user._id || '000').slice(-6).toUpperCase()}</span>
       </div>
     </div>
   `;
@@ -252,6 +546,85 @@ async function removeFav(poemId) {
   await fetch(`${API}/user/favorites`, { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:`Bearer ${token}` }, body:JSON.stringify({ poemId }) });
   loadProfile();
 }
+
+// ... existing code ...
+async function handlePicUpload(input) {
+  if (!input.files || !input.files[0]) return;
+  
+  if (window.showToast) window.showToast('Uploading your new profile picture...', 'info');
+  
+  try {
+    const data = await NiharikaAPI.uploadAvatar(input.files[0]);
+    if (data.success) {
+      localStorage.setItem('niharika_user', JSON.stringify(data.user));
+      
+      // Update local view
+      loadProfile();
+      
+      // Sync navbar across the site
+      if (typeof AUTH !== 'undefined') AUTH.updateHeaderUI();
+      
+      if (window.showToast) window.showToast('Profile picture updated successfully!', 'success');
+    } else {
+      if (window.showToast) window.showToast(data.message || 'Upload failed', 'error');
+    }
+  } catch (err) {
+    if (window.showToast) window.showToast('Server error during upload.', 'error');
+  }
+}
+
+function openEditModal() {
+  const user = JSON.parse(localStorage.getItem('niharika_user') || '{}');
+  document.getElementById('editName').value = user.username || '';
+  document.getElementById('editPhone').value = user.phone || '';
+  document.getElementById('editBio').value = user.bio || '';
+  document.getElementById('editModal').classList.add('active');
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('active');
+}
+
+async function saveProfileChanges() {
+  const name = document.getElementById('editName').value.trim();
+  const phone = document.getElementById('editPhone').value.trim();
+  const bio = document.getElementById('editBio').value.trim();
+  
+  if (!name) return alert('Name is required');
+  
+  const btn = document.getElementById('saveProfileBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+  
+  try {
+    const data = await NiharikaAPI.updateProfile({ name, phone, bio });
+    if (data.success) {
+      localStorage.setItem('niharika_user', JSON.stringify(data.user));
+      
+      // Sync navbar
+      if (typeof AUTH !== 'undefined') AUTH.updateHeaderUI();
+      
+      loadProfile();
+      closeEditModal();
+      if (window.showToast) window.showToast('Profile updated!', 'success');
+    } else {
+      if (window.showToast) window.showToast(data.message || 'Update failed', 'error');
+    }
+  } catch (err) {
+    if (window.showToast) window.showToast('Server error.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Changes';
+  }
+}
+
+// Check hash for tab switching
+window.addEventListener('load', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (['favorites', 'bookmarks', 'history', 'posts', 'settings'].includes(hash)) {
+    switchPanel(hash);
+  }
+});
 
 loadProfile();
 </script>

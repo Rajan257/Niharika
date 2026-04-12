@@ -47,6 +47,29 @@ const NiharikaAPI = {
   getFounder:   ()    => apiGet('/founder'),
   subscribe:    (e)   => apiPost('/subscribe', { email:e }),
   chat:         (msg) => apiPost('/chatbot/message', { message:msg }),
+  
+  // Profile
+  updateProfile: (data) => {
+    const token = localStorage.getItem('niharika_token');
+    return fetch(API + '/auth/update-profile', {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(r => r.json());
+  },
+  uploadAvatar: (file) => {
+    const token = localStorage.getItem('niharika_token');
+    const formData = new FormData();
+    formData.append('profilePicture', file);
+    return fetch(API + '/auth/update-profile', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData
+    }).then(r => r.json());
+  }
 };
 
 // ── Fallback data ─────────────────────────────────────

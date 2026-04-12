@@ -51,11 +51,47 @@
       </div>
       <div class="header-actions">
         <div class="lang-switch">
-          <button class="lang-opt on" data-lang="en">EN</button>
-          <button class="lang-opt" data-lang="hi">हि</button>
+          <button class="lang-btn active" data-lang="en">EN</button>
+          <button class="lang-btn" data-lang="hi">हि</button>
         </div>
-        <a href="chatbot.html" class="btn btn-outline-crimson btn-sm"><i class="fas fa-robot"></i> Ask Sakhi</a>
+        
+        <!-- Swapped positions -->
         <a href="dictionary.html" class="btn btn-gold btn-sm"><i class="fas fa-book"></i> Dictionary</a>
+
+        <!-- Auth / User Section -->
+        <a href="auth.html" id="authBtn" style="display:none">
+          <i class="fas fa-user-circle"></i> Login
+        </a>
+        
+        <div class="user-menu" id="userMenu" style="display:none">
+          <span class="user-name-display" id="userNameDisplay">Reader</span>
+          <div class="user-avatar" id="userAvatar">U</div>
+          
+          <div class="user-dropdown" id="userDropdown">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name" id="dropdownName">User</div>
+              <div class="user-dropdown-email" id="dropdownEmail">user@email.com</div>
+            </div>
+            <a href="profile.html" class="user-dropdown-item">
+              <i class="fas fa-user-circle"></i> My Profile
+            </a>
+            <a href="profile.html#favorites" class="user-dropdown-item">
+              <i class="fas fa-heart"></i> My Favorites
+            </a>
+            <a href="profile.html#posts" class="user-dropdown-item">
+              <i class="fas fa-feather"></i> My Posts
+            </a>
+            <div class="user-dropdown-divider"></div>
+            <a href="profile.html#settings" class="user-dropdown-item">
+              <i class="fas fa-cog"></i> Account Settings
+            </a>
+            <div class="user-dropdown-divider"></div>
+            <div class="user-dropdown-item" id="logoutBtn" style="color: #ef4444">
+              <i class="fas fa-sign-out-alt" style="color: #ef4444"></i> Logout
+            </div>
+          </div>
+        </div>
+
         <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -452,6 +488,7 @@
 
 <script src="js/api.js?v=9"></script>
 <script src="js/utils.js?v=9"></script>
+<script src="js/auth.js?v=9"></script>
 <script src="js/main.js?v=9"></script>
 <script>
   if ('serviceWorker' in navigator) {

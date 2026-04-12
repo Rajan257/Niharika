@@ -16,18 +16,26 @@ const AUTH = {
   },
   isLoggedIn: () => !!localStorage.getItem('niharika_token'),
   
-  async register(name, email, password) {
+  async register(name, email, phone, password) {
     const r = await fetch(`${this.API}/auth/register`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ name, email, phone, password })
+    });
+    return await r.json();
+  },
+
+  async verifyOtp(email, otp) {
+    const r = await fetch(`${this.API}/auth/verify-otp`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp })
     });
     return await r.json();
   },
   
-  async login(email, password) {
+  async login(identifier, password) {
     const r = await fetch(`${this.API}/auth/login`, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ identifier, password })
     });
     return await r.json();
   },
@@ -85,6 +93,16 @@ const AUTH = {
       body: JSON.stringify({ poetId, poetName })
     });
   },
+
+  async updateProfile(formData) {
+    const token = this.getToken();
+    const r = await fetch(`${this.API}/auth/update-profile`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: formData
+    });
+    return await r.json();
+  },
   
   // ── UI methods ──────────────────────────────────────────────────────────
   updateHeaderUI() {
@@ -93,23 +111,57 @@ const AUTH = {
     const userMenu = document.getElementById('userMenu');
     const userAvatar = document.getElementById('userAvatar');
     const userNameDisplay = document.getElementById('userNameDisplay');
+    const dropdownName = document.getElementById('dropdownName');
+    const dropdownEmail = document.getElementById('dropdownEmail');
+    const mobileProfileLink = document.querySelector('.drawer-link[href="profile.html"]');
     
-    if (user && this.isLoggedIn()) {
-      if (authBtn) authBtn.style.display = 'none';
-      if (userMenu) userMenu.style.display = 'flex';
-      if (userAvatar) userAvatar.textContent = user.avatar || user.name.charAt(0).toUpperCase();
-      if (userNameDisplay) userNameDisplay.textContent = user.name.split(' ')[0];
+    const loggedIn = this.isLoggedIn();
+
+    if (loggedIn) {
+      if (authBtn) authBtn.style.setProperty('display', 'none', 'important');
+      if (userMenu) userMenu.style.setProperty('display', 'flex', 'important');
+      
+      const u = user || {};
+      const displayName = u.username || u.name || u.displayName || 'User';
+      const initial = displayName.charAt(0).toUpperCase();
+      
+      if (userAvatar) {
+        if (u.profilePictureUrl || u.avatarUrl || u.photoURL) {
+          userAvatar.innerHTML = `<img src="${u.profilePictureUrl || u.avatarUrl || u.photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+        } else {
+          userAvatar.textContent = initial;
+          userAvatar.style.background = 'linear-gradient(135deg, var(--gold), #C9982A)';
+        }
+      }
+      
+      if (userNameDisplay) userNameDisplay.textContent = displayName.split(' ')[0];
+      if (dropdownName) dropdownName.textContent = displayName;
+      if (dropdownEmail) dropdownEmail.textContent = u.email || '';
+      
+      if (mobileProfileLink) {
+        mobileProfileLink.innerHTML = `<i class="fas fa-user"></i> My Profile (${displayName.split(' ')[0]})`;
+      }
     } else {
-      if (authBtn) authBtn.style.display = 'flex';
-      if (userMenu) userMenu.style.display = 'none';
+      if (authBtn) authBtn.style.setProperty('display', 'flex', 'important');
+      if (userMenu) userMenu.style.setProperty('display', 'none', 'important');
+      if (mobileProfileLink) {
+        mobileProfileLink.innerHTML = `<i class="fas fa-sign-in-alt"></i> Login / Join`;
+        mobileProfileLink.href = 'auth.html';
+      }
     }
   },
   
   logout() {
     this.clearSession();
     this.updateHeaderUI();
-    if (window.showToast) window.showToast('Logged out. See you soon!', 'info');
-    setTimeout(() => { window.location.href = 'index.html'; }, 500);
+    if (window.showToast) window.showToast('Logged out successfully.', 'info');
+    setTimeout(() => { 
+      if (window.location.pathname.includes('profile.html')) {
+        window.location.href = 'index.html'; 
+      } else {
+        window.location.reload();
+      }
+    }, 800);
   },
   
   requireAuth(redirectUrl) {
@@ -126,19 +178,29 @@ const AUTH = {
 const AuthUI = {
   init() {
     AUTH.updateHeaderUI();
-    // Bind logout button
-    const logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) logoutBtn.addEventListener('click', () => AUTH.logout());
+    
+    // Bind all logout buttons (desktop & potentially mobile)
+    document.querySelectorAll('#logoutBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        AUTH.logout();
+      });
+    });
     
     // Bind user dropdown toggle
-    const userAvatar = document.getElementById('userAvatar');
+    const userMenu = document.getElementById('userMenu');
     const userDropdown = document.getElementById('userDropdown');
-    if (userAvatar && userDropdown) {
-      userAvatar.addEventListener('click', () => {
+    
+    if (userMenu && userDropdown) {
+      userMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
         userDropdown.classList.toggle('show');
       });
+      
       document.addEventListener('click', (e) => {
-        if (!e.target.closest('#userMenu')) userDropdown.classList.remove('show');
+        if (!e.target.closest('#userMenu')) {
+          userDropdown.classList.remove('show');
+        }
       });
     }
   }
