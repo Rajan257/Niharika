@@ -1,4 +1,4 @@
-// backend/server.js - Niharika API Server v3.0
+// backend/server.js - Niharika API Server v4.0.0
 // Complete upgrade with auth, extended data, voice chatbot
 
 require('dotenv').config();
@@ -489,7 +489,7 @@ app.use('/api/*', (req, res) => res.status(404).json({ success: false, message: 
 // ── Start ──────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log('\n  ======================================');
-  console.log('    NIHARIKA SERVER v3.0 RUNNING');
+  console.log('    NIHARIKA SERVER v4.0.0 RUNNING');
   console.log('  ======================================');
   console.log(`\n  Frontend : http://localhost:${PORT}`);
   console.log(`  API      : http://localhost:${PORT}/api/`);
